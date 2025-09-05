@@ -1,33 +1,24 @@
 'use client'
 
 import React from 'react'
-import { motion } from 'framer-motion'
-import HeroSection from '@/components/HeroSection'
-import ProductSection from '@/components/ProductSection'
-import HowWeWork from '@/components/HowWeWork'
-import ServicesCarousel from '@/components/ServicesCarousel'
-import GallerySection from '@/components/GallerySection'
-import WallUnitTypes from '@/components/WallUnitTypes'
-import TechnologySection from '@/components/TechnologySection'
-import BenefitsSection from '@/components/BenefitsSection'
-import TestimonialSection from '@/components/TestimonialSection'
-import ContactForm from '@/components/ContactForm'
-import Footer from '@/components/Footer'
+import Hero from '@/components/Hero'
+import Expertise from '@/components/Expertise'
+import ProjectShowcase from '@/components/ProjectShowcase'
+import Services from '@/components/Services'
+import Process from '@/components/Process'
+import SocialProof from '@/components/SocialProof'
+import CallToAction from '@/components/CallToAction'
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-beige-light">
-      <HeroSection />
-      <ProductSection />
-      <HowWeWork />
-      <ServicesCarousel />
-      <GallerySection />
-      <WallUnitTypes />
-      <TechnologySection />
-      <BenefitsSection />
-      <TestimonialSection />
-      <ContactForm />
-      <Footer />
+    <main className="bg-white">
+      <Hero />
+      <Expertise />
+      <ProjectShowcase />
+      <Services />
+      <Process />
+      <SocialProof />
+      <CallToAction />
     </main>
   )
 }

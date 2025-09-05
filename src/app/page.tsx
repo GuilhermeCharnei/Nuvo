@@ -8,6 +8,7 @@ import Services from '@/components/Services'
 import Process from '@/components/Process'
 import SocialProof from '@/components/SocialProof'
 import CallToAction from '@/components/CallToAction'
+import Chatbot from '@/components/Chatbot'
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
       <Process />
       <SocialProof />
       <CallToAction />
+      <Chatbot />
     </main>
   )
 }

@@ -18,7 +18,7 @@ export default function TestimonialSection() {
         >
           <div className="bg-black/20 backdrop-blur-sm border border-brown-indian/30 rounded-lg p-12">
             <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-8">
-              Frase de Impacto
+              Our Philosophy
             </h2>
             
             <motion.p
@@ -27,9 +27,10 @@ export default function TestimonialSection() {
               transition={{ duration: 1, delay: 0.6 }}
               className="text-2xl md:text-3xl text-beige-light font-light leading-relaxed italic"
             >
-              "Cada Wall Unit é pensada como parte da arquitetura — 
-              <span className="text-brown-indian font-medium">não como um móvel</span>, 
-              mas como uma <span className="text-brown-indian font-medium">solução</span>."
+              "Each piece reflects our obsession with detail – where 
+              <span className="text-brown-indian font-medium">CNC technology</span> meets 
+              <span className="text-brown-indian font-medium">old-world craftsmanship</span> to create 
+              functional heirlooms for discerning Florida homes."
             </motion.p>
             
             <motion.div

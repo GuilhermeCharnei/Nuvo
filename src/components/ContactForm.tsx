@@ -38,10 +38,10 @@ export default function ContactForm() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-display font-bold text-graphite mb-6">
-            Vamos projetar sua Wall Unit?
+            Where Italian Craftsmanship Meets Florida Luxury
           </h2>
           <p className="text-xl text-gray-medium max-w-2xl mx-auto">
-            Entre em contato e transforme seu espaço com soluções sob medida
+            Experience Bespoke Woodworking – Free 3D Design Consultation
           </p>
         </motion.div>
 
@@ -67,7 +67,7 @@ export default function ContactForm() {
                   className={`w-full p-4 border-2 rounded-lg transition-all duration-300 bg-gray-50 ${
                     focusedField === 'nome' ? 'border-brown-indian bg-white shadow-lg' : 'border-gray-200'
                   }`}
-                  placeholder="Seu nome"
+                  placeholder="Your Name"
                   required
                 />
               </motion.div>
@@ -86,7 +86,7 @@ export default function ContactForm() {
                   className={`w-full p-4 border-2 rounded-lg transition-all duration-300 bg-gray-50 ${
                     focusedField === 'email' ? 'border-brown-indian bg-white shadow-lg' : 'border-gray-200'
                   }`}
-                  placeholder="Seu e-mail"
+                  placeholder="Your Email"
                   required
                 />
               </motion.div>
@@ -107,14 +107,14 @@ export default function ContactForm() {
                 }`}
                 required
               >
-                <option value="">Selecione o tipo de ambiente</option>
-                <option value="sala">Sala de Estar</option>
-                <option value="gourmet">Ambiente Gourmet</option>
-                <option value="home-office">Home Office</option>
-                <option value="quarto">Quarto Principal</option>
-                <option value="corporativo">Espaço Corporativo</option>
-                <option value="mimetizada">Parede Mimetizada</option>
-                <option value="bar">Wall Unit com Bar</option>
+                <option value="">Select the type of space</option>
+                <option value="kitchen">Kitchen</option>
+                <option value="entertainment">Entertainment Room</option>
+                <option value="office">Home Office</option>
+                <option value="mudroom">Mudroom</option>
+                <option value="laundry">Laundry Room</option>
+                <option value="foyer">Foyer</option>
+                <option value="commercial">Commercial Space</option>
               </select>
             </motion.div>
 
@@ -132,7 +132,7 @@ export default function ContactForm() {
                 className={`w-full p-4 border-2 rounded-lg transition-all duration-300 bg-gray-50 resize-none ${
                   focusedField === 'mensagem' ? 'border-brown-indian bg-white shadow-lg' : 'border-gray-200'
                 }`}
-                placeholder="Conte-nos sobre seu projeto..."
+                placeholder="Tell us about your project..."
                 required
               />
             </motion.div>
@@ -148,7 +148,7 @@ export default function ContactForm() {
                 boxShadow: '0 10px 25px rgba(152, 100, 33, 0.3)'
               }}
             >
-              Solicitar Orçamento
+              Contact Us Now For A Free Quote!
             </motion.button>
           </form>
         </motion.div>

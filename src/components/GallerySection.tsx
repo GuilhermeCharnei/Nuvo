@@ -3,69 +3,76 @@
 import React, { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { FaTimes } from 'react-icons/fa'
+import Image from 'next/image'
 
 const projectsData = [
   {
     id: 1,
-    title: 'Sala de Estar Premium',
+    title: 'Luxury Entertainment Center',
     environment: 'sala',
-    wood: 'Freijó',
-    finish: 'Laca acetinada',
-    lighting: 'LED integrado com dimmer',
-    description: 'Wall Unit integrada com sistema de iluminação inteligente'
+    image: '/images/imgi_15_539139475_18077099540493478_1747837317726997206_n_1757111141442.jpg',
+    wood: 'Premium Walnut',
+    finish: 'Satin Lacquer',
+    lighting: 'Integrated LED with marble accents',
+    description: 'Sophisticated living room centerpiece with integrated lighting and premium finishes'
   },
   {
     id: 2,
-    title: 'Ambiente Gourmet Sofisticado',
+    title: 'Gourmet Kitchen Design',
     environment: 'gourmet',
-    wood: 'Carvalho',
-    finish: 'Verniz natural',
-    lighting: 'Spots direcionais',
-    description: 'Design que harmoniza culinária e entretenimento'
+    image: '/images/imgi_7_540479857_1411482216613022_6855047719546468565_n_1757111152297.jpg',
+    wood: 'Natural Oak',
+    finish: 'Matte Finish',
+    lighting: 'Under-cabinet LED strips',
+    description: 'Modern kitchen design harmonizing functionality with sophisticated aesthetics'
   },
   {
     id: 3,
-    title: 'Home Office Executivo',
+    title: 'Contemporary Staircase Feature',
     environment: 'corporativo',
-    wood: 'Mogno',
-    finish: 'Poliuretano fosco',
-    lighting: 'Iluminação funcional',
-    description: 'Produtividade e elegância em cada detalhe'
+    image: '/images/imgi_6_543839574_797280436173673_2519557351358427065_n_1757111152298.jpg',
+    wood: 'Engineered Wood',
+    finish: 'Natural Grain',
+    lighting: 'Ambient ceiling lights',
+    description: 'Modern architectural feature combining wood and steel elements'
   },
   {
     id: 4,
-    title: 'Quarto Master Minimalista',
+    title: 'Built-in Display Shelving',
     environment: 'sala',
-    wood: 'Cedro',
-    finish: 'Laca mate',
-    lighting: 'Iluminação indireta',
-    description: 'Sutileza e funcionalidade para momentos íntimos'
+    image: '/images/imgi_10_539858318_615257668134300_4100570420848379988_n_1757111152298.jpg',
+    wood: 'Light Oak',
+    finish: 'Textured Finish',
+    lighting: 'Integrated shelf lighting',
+    description: 'Elegant display solution with sophisticated lighting and marble details'
   },
   {
     id: 5,
-    title: 'Corporativo Imponente',
+    title: 'Premium Dining Area',
     environment: 'corporativo',
-    wood: 'Pau-ferro',
-    finish: 'Laca brilhante',
-    lighting: 'Sistema RGB',
-    description: 'Impressione clientes com design marcante'
+    image: '/images/imgi_9_541880794_18077731115493478_1184188163504688235_n_1757111152300.jpg',
+    wood: 'Natural Wood',
+    finish: 'Matte Protection',
+    lighting: 'Designer pendant lighting',
+    description: 'Impressive dining space with floor-to-ceiling wood features'
   },
   {
     id: 6,
-    title: 'Parede Mimetizada',
+    title: 'Executive Entertainment Wall',
     environment: 'gourmet',
-    wood: 'Peroba',
-    finish: 'Textura natural',
-    lighting: 'Oculta com sensor',
-    description: 'A arte de esconder com elegância'
+    image: '/images/imgi_14_539774193_18077198129493478_187446010639494702_n_1757111152300.jpg',
+    wood: 'Engineered Walnut',
+    finish: 'Satin Lacquer',
+    lighting: 'Integrated display lighting',
+    description: 'Sophisticated wall unit combining storage and entertainment features'
   }
 ]
 
 const filters = [
-  { key: 'all', label: 'Todos' },
-  { key: 'sala', label: 'Sala' },
-  { key: 'gourmet', label: 'Gourmet' },
-  { key: 'corporativo', label: 'Corporativo' }
+  { key: 'all', label: 'All Projects' },
+  { key: 'sala', label: 'Living Spaces' },
+  { key: 'gourmet', label: 'Kitchen & Dining' },
+  { key: 'corporativo', label: 'Commercial' }
 ]
 
 export default function GallerySection() {
@@ -126,10 +133,14 @@ export default function GallerySection() {
               whileHover={{ y: -10 }}
               onClick={() => setSelectedProject(project)}
             >
-              <div className="h-64 bg-gradient-to-br from-brown-indian/20 to-graphite/10 flex items-center justify-center group-hover:from-brown-indian/30 transition-all duration-300">
-                <span className="text-brown-indian text-lg font-semibold">
-                  {project.title}
-                </span>
+              <div className="relative h-64 overflow-hidden">
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
               
               <div className="p-6">
@@ -170,10 +181,13 @@ export default function GallerySection() {
                 <FaTimes size={24} />
               </button>
               
-              <div className="h-64 bg-gradient-to-br from-brown-indian/20 to-graphite/10 rounded-lg mb-6 flex items-center justify-center">
-                <span className="text-brown-indian text-xl font-semibold">
-                  {selectedProject.title}
-                </span>
+              <div className="relative h-64 rounded-lg mb-6 overflow-hidden">
+                <Image
+                  src={selectedProject.image}
+                  alt={selectedProject.title}
+                  fill
+                  className="object-cover"
+                />
               </div>
               
               <h3 className="text-2xl font-display font-bold text-graphite mb-4">

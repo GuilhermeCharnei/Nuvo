@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FaComments, FaTimes, FaPaperPlane, FaUser, FaRobot } from 'react-icons/fa'
+import { FaComments, FaTimes, FaPaperPlane, FaUser } from 'react-icons/fa'
 
 interface Message {
   id: string
@@ -22,6 +22,62 @@ interface LeadData {
   location?: string
 }
 
+interface WelcomePopupProps {
+  isVisible: boolean
+  onClose: () => void
+  onStartChat: () => void
+}
+
+function WelcomePopup({ isVisible, onClose, onStartChat }: WelcomePopupProps) {
+  if (!isVisible) return null
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
+        onClick={onClose}
+      >
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.8, opacity: 0 }}
+          className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="text-center">
+            <div className="w-20 h-20 mx-auto mb-4 bg-gradient-luxury rounded-full flex items-center justify-center">
+              <img src="/images/logo.png" alt="NUVO" className="w-12 h-12 object-contain" />
+            </div>
+            <h3 className="text-2xl font-bold text-[var(--color-primary)] mb-2">
+              Ola! Sou a Sofia 👋
+            </h3>
+            <p className="text-[var(--color-gray)] mb-6">
+              Especialista em Wall Units da NUVO. Estou aqui para ajudar voce a criar o wall unit perfeito para seu espaco!
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={onStartChat}
+                className="flex-1 bg-[var(--color-secondary)] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[var(--color-accent)] transition-colors"
+              >
+                Comecar Conversa
+              </button>
+              <button
+                onClick={onClose}
+                className="px-4 py-3 text-[var(--color-gray)] hover:text-[var(--color-primary)] transition-colors"
+              >
+                <FaTimes />
+              </button>
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
+  )
+}
+
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState<Message[]>([])
@@ -29,6 +85,7 @@ export default function Chatbot() {
   const [currentStep, setCurrentStep] = useState('greeting')
   const [leadData, setLeadData] = useState<LeadData>({})
   const [isTyping, setIsTyping] = useState(false)
+  const [showWelcome, setShowWelcome] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   const scrollToBottom = () => {
@@ -40,11 +97,22 @@ export default function Chatbot() {
   }, [messages])
 
   useEffect(() => {
+    // Show welcome popup after 3 seconds
+    const welcomeTimer = setTimeout(() => {
+      if (!isOpen && messages.length === 0) {
+        setShowWelcome(true)
+      }
+    }, 3000)
+
+    return () => clearTimeout(welcomeTimer)
+  }, [])
+
+  useEffect(() => {
     if (isOpen && messages.length === 0) {
       setTimeout(() => {
         addBotMessage(
-          "👋 Hi! I'm NUVO's Wall Unit Specialist. I'm here to help you create the perfect wall unit for your space. What type of wall unit interests you most?",
-          ['Wet Bar Unit', 'Wine Storage', 'Entertainment Center', 'Office Wall Unit', 'Kitchen Wall Unit', 'Display Unit', 'Other']
+          "Ola! Sou a Sofia, especialista em Wall Units da NUVO. Estou aqui para ajudar voce a criar o wall unit perfeito para seu espaco. Que tipo de wall unit mais te interessa?",
+          ['Wet Bar', 'Adega', 'Centro de Entretenimento', 'Escritorio', 'Cozinha', 'Display/Exposicao', 'Outro']
         )
       }, 500)
     }
@@ -95,23 +163,23 @@ export default function Chatbot() {
         setLeadData(prev => ({ ...prev, projectType: response }))
         setCurrentStep('budget')
         addBotMessage(
-          `Great choice! ${response} wall units can really transform a space. What's your budget range for this project?`,
-          ['$5,000 - $15,000', '$15,000 - $30,000', '$30,000 - $50,000', '$50,000+', 'Need guidance']
+          `Excelente escolha! ${response} pode realmente transformar um espaco. Qual e sua faixa de orcamento para este projeto?`,
+          ['R$ 40.000 - R$ 80.000', 'R$ 80.000 - R$ 150.000', 'R$ 150.000 - R$ 250.000', 'R$ 250.000+', 'Preciso de orientacao']
         )
         break
 
       case 'budget':
         setLeadData(prev => ({ ...prev, budget: response }))
         setCurrentStep('timeline')
-        if (response === 'Need guidance') {
+        if (response === 'Preciso de orientacao') {
           addBotMessage(
-            "No problem! Our wall units typically range from $8,000 to $80,000+ depending on complexity:\n\n• Display Units: $8K-$25K\n• Kitchen Wall Units: $15K-$40K\n• Entertainment Centers: $20K-$50K\n• Wet Bars: $25K-$60K\n• Wine Storage: $30K-$80K+\n\nWhen would you like your project completed?",
-            ['Within 2 months', '2-4 months', '4-6 months', 'No rush', 'Just exploring']
+            "Sem problema! Nossos wall units variam conforme a complexidade:\n\n• Display/Exposicao: R$ 40K-120K\n• Cozinha: R$ 80K-200K\n• Entertainment: R$ 100K-250K\n• Wet Bar: R$ 120K-300K\n• Adega: R$ 150K-400K+\n\nQuando gostaria de ter seu projeto finalizado?",
+            ['Ate 2 meses', '2-4 meses', '4-6 meses', 'Sem pressa', 'So explorando']
           )
         } else {
           addBotMessage(
-            "Perfect! That budget range gives us great options to work with. When would you like to have your wall unit completed?",
-            ['Within 2 months', '2-4 months', '4-6 months', 'No rush', 'Just exploring']
+            "Perfeito! Essa faixa de orcamento nos da otimas opcoes. Quando gostaria de ter seu wall unit finalizado?",
+            ['Ate 2 meses', '2-4 meses', '4-6 meses', 'Sem pressa', 'So explorando']
           )
         }
         break
@@ -120,29 +188,29 @@ export default function Chatbot() {
         setLeadData(prev => ({ ...prev, timeline: response }))
         setCurrentStep('features')
         addBotMessage(
-          "Excellent! What features are most important to you in your wall unit?",
-          ['Integrated lighting', 'Temperature control', 'Glass displays', 'Hidden storage', 'Wet bar features', 'TV integration', 'All of the above']
+          "Excelente! Quais caracteristicas sao mais importantes para voce?",
+          ['Iluminacao integrada', 'Controle de temperatura', 'Displays em vidro', 'Armazenamento oculto', 'Features de bar', 'Integracao de TV', 'Todas as opcoes']
         )
         break
 
       case 'features':
         setCurrentStep('contact')
         addBotMessage(
-          `${response} - excellent choice! Based on what you've told me, I can see this being a beautiful project. Our design team would love to create a custom 3D rendering for you. What's the best way to reach you?`,
-          ['Get my email', 'Call me', 'Text me', 'Schedule consultation']
+          `${response} - excelente escolha! Pelo que voce me contou, ja vejo um projeto lindo. Nossa equipe adoraria criar uma renderizacao 3D personalizada. Qual a melhor forma de entrar em contato?`,
+          ['Enviar por email', 'Me ligue', 'WhatsApp', 'Agendar consulta']
         )
         break
 
       case 'contact':
         setCurrentStep('lead_capture')
-        if (response === 'Get my email') {
-          addBotMessage("What's your email address? I'll send you our portfolio and project examples.")
-        } else if (response === 'Call me') {
-          addBotMessage("What's your phone number? Our specialist will call you within 24 hours.")
-        } else if (response === 'Text me') {
-          addBotMessage("What's your phone number? We'll text you to schedule a convenient time.")
+        if (response === 'Enviar por email') {
+          addBotMessage("Qual seu email? Vou enviar nosso portfolio e exemplos de projetos.")
+        } else if (response === 'Me ligue') {
+          addBotMessage("Qual seu telefone? Nosso especialista entrara em contato em ate 24 horas.")
+        } else if (response === 'WhatsApp') {
+          addBotMessage("Qual seu WhatsApp? Vamos agendar um horario conveniente para voce.")
         } else {
-          addBotMessage("What's your email address? I'll send you a link to book your free consultation.")
+          addBotMessage("Qual seu email? Enviarei o link para agendar sua consulta gratuita.")
         }
         break
 
@@ -153,59 +221,58 @@ export default function Chatbot() {
           setLeadData(prev => ({ ...prev, phone: response }))
         }
         setCurrentStep('name')
-        addBotMessage("And what's your name?")
+        addBotMessage("E qual e seu nome?")
         break
 
       case 'name':
         setLeadData(prev => ({ ...prev, name: response }))
         setCurrentStep('location')
-        addBotMessage("Great to meet you! What city are you located in? (We serve South Florida)")
+        addBotMessage("Prazer em conhece-lo! Em que cidade voce esta? (Atendemos todo o Sul da Florida)")
         break
 
       case 'location':
         setLeadData(prev => ({ ...prev, location: response }))
         setCurrentStep('complete')
-        // Save lead data here (would integrate with your CRM/database)
         console.log('Lead captured:', { ...leadData, location: response })
         addBotMessage(
-          `Perfect! I've got all your information. Here's what happens next:\n\n✅ You'll receive our portfolio within 1 hour\n✅ Our design team will create a preliminary concept\n✅ We'll schedule your free in-home consultation\n✅ You'll get your custom 3D design\n\nOur team will contact you within 24 hours. Any other questions about wall units I can answer right now?`,
-          ['Pricing questions', 'Material options', 'Installation process', 'Timeline details', "I'm all set!"]
+          "Perfeito! Tenho todas suas informacoes. Veja o que acontece agora:\n\n✓ Voce recebera nosso portfolio em 1 hora\n✓ Nossa equipe criara um conceito preliminar\n✓ Agendaremos sua consulta gratuita em casa\n✓ Voce recebera seu design 3D personalizado\n\nNossa equipe entrara em contato em ate 24 horas. Alguma pergunta sobre wall units que posso responder agora?",
+          ['Duvidas sobre precos', 'Opcoes de materiais', 'Processo de instalacao', 'Cronograma', 'Esta tudo certo!']
         )
         break
 
       case 'complete':
-        if (response === "I'm all set!") {
-          addBotMessage("Wonderful! Thank you for choosing NUVO. We're excited to create something amazing for you! 🎉")
+        if (response === "Esta tudo certo!") {
+          addBotMessage("Maravilhoso! Obrigada por escolher a NUVO. Estamos ansiosos para criar algo incrivel para voce! 🎉")
         } else {
           handleAdditionalQuestions(response)
         }
         break
 
       default:
-        addBotMessage("I'm not sure I understand. Let me connect you with one of our specialists who can help you better.")
+        addBotMessage("Nao tenho certeza se entendi. Deixe-me conectar voce com um de nossos especialistas que pode ajudar melhor.")
     }
   }
 
   const handleAdditionalQuestions = (question: string) => {
     switch (question) {
-      case 'Pricing questions':
+      case 'Duvidas sobre precos':
         addBotMessage(
-          "Our wall units are priced based on complexity and materials:\n\n💰 Display Units: $8K-$25K\n🍷 Wine Storage: $30K-$80K+\n🍸 Wet Bars: $25K-$60K\n📺 Entertainment Centers: $20K-$50K\n🏢 Office Units: $15K-$45K\n🍳 Kitchen Wall Units: $15K-$40K\n\nFactors affecting price:\n• Materials (exotic woods, stone)\n• Size and complexity\n• Integrated technology\n• Custom features\n\nYour specialist will provide exact pricing during consultation."
+          "Nossos wall units tem precos baseados na complexidade:\n\n💰 Display Units: R$ 40K-120K\n🍷 Wine Storage: R$ 150K-400K+\n🍸 Wet Bars: R$ 120K-300K\n📺 Entertainment Centers: R$ 100K-250K\n🏢 Office Units: R$ 80K-220K\n🍳 Kitchen Wall Units: R$ 80K-200K\n\nFatores que afetam o preco:\n• Materiais (madeiras exoticas, pedra)\n• Tamanho e complexidade\n• Tecnologia integrada\n• Features personalizadas\n\nSeu especialista dara preco exato na consulta."
         )
         break
-      case 'Material options':
+      case 'Opcoes de materiais':
         addBotMessage(
-          "We offer premium materials including:\n\n🌳 Exotic Woods: Walnut, Mahogany, Zebrano\n🏗️ Engineered veneers for stability\n🎨 Custom stains and finishes\n💎 Natural stone: Marble, Granite, Quartz\n🥃 Temperature-controlled wine storage\n⚡ Integrated LED lighting systems\n🪨 Metal accents: Brass, Steel, Bronze\n\nAll materials come with our comprehensive warranty!"
+          "Oferecemos materiais premium:\n\n🌳 Madeiras Exoticas: Nogueira, Mogno, Zebrano\n🏗️ Laminados engenheirados para estabilidade\n🎨 Acabamentos e vernizes personalizados\n💎 Pedras naturais: Marmore, Granito, Quartzo\n🥃 Armazenamento com controle de temperatura\n⚡ Sistemas de LED integrados\n🪨 Detalhes em metal: Bronze, Aco, Latao\n\nTodos materiais com garantia abrangente!"
         )
         break
-      case 'Installation process':
+      case 'Processo de instalacao':
         addBotMessage(
-          "Our installation is seamless:\n\n1️⃣ Pre-installation site prep\n2️⃣ Professional delivery\n3️⃣ Precision installation (1-3 days)\n4️⃣ Final finishing touches\n5️⃣ Quality inspection\n6️⃣ Care instructions\n\nWe handle everything - no mess, no stress!"
+          "Nossa instalacao e perfeita:\n\n1️⃣ Preparacao pre-instalacao\n2️⃣ Entrega profissional\n3️⃣ Instalacao de precisao (1-3 dias)\n4️⃣ Acabamentos finais\n5️⃣ Inspecao de qualidade\n6️⃣ Instrucoes de cuidado\n\nCuidamos de tudo - sem bagunca, sem stress!"
         )
         break
-      case 'Timeline details':
+      case 'Cronograma':
         addBotMessage(
-          "Typical project timeline:\n\n📐 Design phase: 1-2 weeks\n🔨 Manufacturing: 4-8 weeks\n🚚 Installation: 1-3 days\n\nRush orders possible for additional fee. We'll give you exact timeline during consultation."
+          "Cronograma tipico do projeto:\n\n📐 Fase de design: 1-2 semanas\n🔨 Fabricacao: 4-8 semanas\n🚚 Instalacao: 1-3 dias\n\nPedidos urgentes possiveis com taxa adicional. Daremos cronograma exato na consulta."
         )
         break
     }
@@ -215,8 +282,20 @@ export default function Chatbot() {
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
   }
 
+  const handleStartChat = () => {
+    setShowWelcome(false)
+    setIsOpen(true)
+  }
+
   return (
     <>
+      {/* Welcome Popup */}
+      <WelcomePopup 
+        isVisible={showWelcome} 
+        onClose={() => setShowWelcome(false)}
+        onStartChat={handleStartChat}
+      />
+
       {/* Chat Toggle Button */}
       <motion.button
         initial={{ scale: 0 }}
@@ -247,12 +326,12 @@ export default function Chatbot() {
             {/* Header */}
             <div className="bg-gradient-luxury text-white p-4 flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-[var(--color-secondary)] rounded-full flex items-center justify-center">
-                  <FaRobot className="text-lg" />
+                <div className="w-10 h-10 bg-gradient-luxury rounded-full flex items-center justify-center">
+                  <img src="/images/logo.png" alt="Sofia" className="w-6 h-6 object-contain" />
                 </div>
                 <div>
-                  <h3 className="font-semibold">NUVO Assistant</h3>
-                  <p className="text-xs opacity-80">Wall Unit Specialist</p>
+                  <h3 className="font-semibold">Sofia</h3>
+                  <p className="text-xs opacity-80">Especialista NUVO</p>
                 </div>
               </div>
               <button
@@ -275,7 +354,7 @@ export default function Chatbot() {
                   <div className={`max-w-[80%] ${message.isBot ? 'bg-gray-100' : 'bg-[var(--color-secondary)] text-white'} rounded-2xl p-3`}>
                     <div className="flex items-start space-x-2">
                       {message.isBot && (
-                        <FaRobot className="text-[var(--color-secondary)] mt-1 flex-shrink-0" />
+                        <img src="/images/logo.png" alt="Sofia" className="w-4 h-4 mt-1 flex-shrink-0" />
                       )}
                       <div className="flex-1">
                         <p className="text-sm whitespace-pre-line">{message.text}</p>
@@ -317,7 +396,7 @@ export default function Chatbot() {
                   className="flex justify-start"
                 >
                   <div className="bg-gray-100 rounded-2xl p-3 flex items-center space-x-2">
-                    <FaRobot className="text-[var(--color-secondary)]" />
+                    <img src="/images/logo.png" alt="Sofia" className="w-4 h-4" />
                     <div className="flex space-x-1">
                       <div className="w-2 h-2 bg-[var(--color-secondary)] rounded-full animate-pulse"></div>
                       <div className="w-2 h-2 bg-[var(--color-secondary)] rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
@@ -336,7 +415,7 @@ export default function Chatbot() {
                   type="text"
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
-                  placeholder="Type your message..."
+                  placeholder="Digite sua mensagem..."
                   className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-transparent text-sm"
                 />
                 <motion.button

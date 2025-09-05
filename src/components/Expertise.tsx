@@ -82,9 +82,9 @@ export default function Expertise() {
                   initial={{ opacity: 0, y: 30 }}
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                   transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
-                  className="flex items-start space-x-4"
+                  className="flex items-start space-x-4 animate-fade-in-up"
                 >
-                  <div className="flex-shrink-0 w-12 h-12 bg-[var(--color-secondary)] rounded-lg flex items-center justify-center">
+                  <div className="flex-shrink-0 w-12 h-12 bg-[var(--color-secondary)] rounded-lg flex items-center justify-center animate-float">
                     <feature.icon className="text-white text-xl" />
                   </div>
                   <div>

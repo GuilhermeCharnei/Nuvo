@@ -79,10 +79,10 @@ export default function Services() {
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               whileHover={{ y: -10 }}
-              className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 hover:border-[var(--color-secondary)]/50 transition-all duration-300 group"
+              className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 hover:border-[var(--color-secondary)]/50 transition-all duration-300 group animate-scale-in"
             >
               <div className="mb-6">
-                <div className="w-16 h-16 bg-[var(--color-secondary)] rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-16 h-16 bg-[var(--color-secondary)] rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 animate-float">
                   <service.icon className="text-2xl text-white" />
                 </div>
                 <h3 className="text-2xl font-display font-bold text-white mb-3 group-hover:text-[var(--color-secondary)] transition-colors duration-300">

@@ -52,17 +52,17 @@ function WelcomePopup({ isVisible, onClose, onStartChat }: WelcomePopupProps) {
               <img src="/images/logo.png" alt="NUVO" className="w-12 h-12 object-contain" />
             </div>
             <h3 className="text-2xl font-bold text-[var(--color-primary)] mb-2">
-              Ola! Sou a Sofia 👋
+              Hi! I'm Sofia 👋
             </h3>
             <p className="text-[var(--color-gray)] mb-6">
-              Especialista em Wall Units da NUVO. Estou aqui para ajudar voce a criar o wall unit perfeito para seu espaco!
+              NUVO's Wall Unit Specialist. I'm here to help you create the perfect wall unit for your space!
             </p>
             <div className="flex gap-3">
               <button
                 onClick={onStartChat}
                 className="flex-1 bg-[var(--color-secondary)] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[var(--color-accent)] transition-colors"
               >
-                Comecar Conversa
+                Start Chat
               </button>
               <button
                 onClick={onClose}
@@ -111,8 +111,8 @@ export default function Chatbot() {
     if (isOpen && messages.length === 0) {
       setTimeout(() => {
         addBotMessage(
-          "Ola! Sou a Sofia, especialista em Wall Units da NUVO. Estou aqui para ajudar voce a criar o wall unit perfeito para seu espaco. Que tipo de wall unit mais te interessa?",
-          ['Wet Bar', 'Adega', 'Centro de Entretenimento', 'Escritorio', 'Cozinha', 'Display/Exposicao', 'Outro']
+          "Hi! I'm Sofia, NUVO's Wall Unit Specialist. I'm here to help you create the perfect wall unit for your space. What type of wall unit interests you most?",
+          ['Wet Bar Unit', 'Wine Storage', 'Entertainment Center', 'Office Wall Unit', 'Kitchen Wall Unit', 'Display Unit', 'Other']
         )
       }, 500)
     }
@@ -163,23 +163,23 @@ export default function Chatbot() {
         setLeadData(prev => ({ ...prev, projectType: response }))
         setCurrentStep('budget')
         addBotMessage(
-          `Excelente escolha! ${response} pode realmente transformar um espaco. Qual e sua faixa de orcamento para este projeto?`,
-          ['R$ 40.000 - R$ 80.000', 'R$ 80.000 - R$ 150.000', 'R$ 150.000 - R$ 250.000', 'R$ 250.000+', 'Preciso de orientacao']
+          `Excellent choice! ${response} can really transform a space. What's your budget range for this project?`,
+          ['$15,000 - $30,000', '$30,000 - $60,000', '$60,000 - $100,000', '$100,000+', 'Need guidance']
         )
         break
 
       case 'budget':
         setLeadData(prev => ({ ...prev, budget: response }))
         setCurrentStep('timeline')
-        if (response === 'Preciso de orientacao') {
+        if (response === 'Need guidance') {
           addBotMessage(
-            "Sem problema! Nossos wall units variam conforme a complexidade:\n\n• Display/Exposicao: R$ 40K-120K\n• Cozinha: R$ 80K-200K\n• Entertainment: R$ 100K-250K\n• Wet Bar: R$ 120K-300K\n• Adega: R$ 150K-400K+\n\nQuando gostaria de ter seu projeto finalizado?",
-            ['Ate 2 meses', '2-4 meses', '4-6 meses', 'Sem pressa', 'So explorando']
+            "No problem! Our wall units vary by complexity:\n\n• Display Units: $15K-$50K\n• Kitchen Wall Units: $25K-$75K\n• Entertainment Centers: $35K-$85K\n• Wet Bars: $45K-$100K\n• Wine Storage: $60K-$150K+\n\nWhen would you like your project completed?",
+            ['Within 2 months', '2-4 months', '4-6 months', 'No rush', 'Just exploring']
           )
         } else {
           addBotMessage(
-            "Perfeito! Essa faixa de orcamento nos da otimas opcoes. Quando gostaria de ter seu wall unit finalizado?",
-            ['Ate 2 meses', '2-4 meses', '4-6 meses', 'Sem pressa', 'So explorando']
+            "Perfect! That budget range gives us great options to work with. When would you like to have your wall unit completed?",
+            ['Within 2 months', '2-4 months', '4-6 months', 'No rush', 'Just exploring']
           )
         }
         break
@@ -188,29 +188,29 @@ export default function Chatbot() {
         setLeadData(prev => ({ ...prev, timeline: response }))
         setCurrentStep('features')
         addBotMessage(
-          "Excelente! Quais caracteristicas sao mais importantes para voce?",
-          ['Iluminacao integrada', 'Controle de temperatura', 'Displays em vidro', 'Armazenamento oculto', 'Features de bar', 'Integracao de TV', 'Todas as opcoes']
+          "Excellent! What features are most important to you in your wall unit?",
+          ['Integrated lighting', 'Temperature control', 'Glass displays', 'Hidden storage', 'Wet bar features', 'TV integration', 'All of the above']
         )
         break
 
       case 'features':
         setCurrentStep('contact')
         addBotMessage(
-          `${response} - excelente escolha! Pelo que voce me contou, ja vejo um projeto lindo. Nossa equipe adoraria criar uma renderizacao 3D personalizada. Qual a melhor forma de entrar em contato?`,
-          ['Enviar por email', 'Me ligue', 'WhatsApp', 'Agendar consulta']
+          `${response} - excellent choice! Based on what you've told me, I can already envision a beautiful project. Our team would love to create a custom 3D rendering for you. What's the best way to reach you?`,
+          ['Send me email', 'Call me', 'Text me', 'Schedule consultation']
         )
         break
 
       case 'contact':
         setCurrentStep('lead_capture')
-        if (response === 'Enviar por email') {
-          addBotMessage("Qual seu email? Vou enviar nosso portfolio e exemplos de projetos.")
-        } else if (response === 'Me ligue') {
-          addBotMessage("Qual seu telefone? Nosso especialista entrara em contato em ate 24 horas.")
-        } else if (response === 'WhatsApp') {
-          addBotMessage("Qual seu WhatsApp? Vamos agendar um horario conveniente para voce.")
+        if (response === 'Send me email') {
+          addBotMessage("What's your email address? I'll send you our portfolio and project examples.")
+        } else if (response === 'Call me') {
+          addBotMessage("What's your phone number? Our specialist will contact you within 24 hours.")
+        } else if (response === 'Text me') {
+          addBotMessage("What's your phone number? We'll text you to schedule a convenient time.")
         } else {
-          addBotMessage("Qual seu email? Enviarei o link para agendar sua consulta gratuita.")
+          addBotMessage("What's your email address? I'll send you the link to schedule your free consultation.")
         }
         break
 
@@ -221,13 +221,13 @@ export default function Chatbot() {
           setLeadData(prev => ({ ...prev, phone: response }))
         }
         setCurrentStep('name')
-        addBotMessage("E qual e seu nome?")
+        addBotMessage("And what's your name?")
         break
 
       case 'name':
         setLeadData(prev => ({ ...prev, name: response }))
         setCurrentStep('location')
-        addBotMessage("Prazer em conhece-lo! Em que cidade voce esta? (Atendemos todo o Sul da Florida)")
+        addBotMessage("Great to meet you! What city are you located in? (We serve all of South Florida)")
         break
 
       case 'location':
@@ -235,44 +235,44 @@ export default function Chatbot() {
         setCurrentStep('complete')
         console.log('Lead captured:', { ...leadData, location: response })
         addBotMessage(
-          "Perfeito! Tenho todas suas informacoes. Veja o que acontece agora:\n\n✓ Voce recebera nosso portfolio em 1 hora\n✓ Nossa equipe criara um conceito preliminar\n✓ Agendaremos sua consulta gratuita em casa\n✓ Voce recebera seu design 3D personalizado\n\nNossa equipe entrara em contato em ate 24 horas. Alguma pergunta sobre wall units que posso responder agora?",
-          ['Duvidas sobre precos', 'Opcoes de materiais', 'Processo de instalacao', 'Cronograma', 'Esta tudo certo!']
+          "Perfect! I have all your information. Here's what happens next:\n\n✓ You'll receive our portfolio within 1 hour\n✓ Our design team will create a preliminary concept\n✓ We'll schedule your free in-home consultation\n✓ You'll get your custom 3D design\n\nOur team will contact you within 24 hours. Any questions about wall units I can answer right now?",
+          ['Pricing questions', 'Material options', 'Installation process', 'Timeline details', "I'm all set!"]
         )
         break
 
       case 'complete':
-        if (response === "Esta tudo certo!") {
-          addBotMessage("Maravilhoso! Obrigada por escolher a NUVO. Estamos ansiosos para criar algo incrivel para voce! 🎉")
+        if (response === "I'm all set!") {
+          addBotMessage("Wonderful! Thank you for choosing NUVO. We're excited to create something amazing for you! 🎉")
         } else {
           handleAdditionalQuestions(response)
         }
         break
 
       default:
-        addBotMessage("Nao tenho certeza se entendi. Deixe-me conectar voce com um de nossos especialistas que pode ajudar melhor.")
+        addBotMessage("I'm not sure I understand. Let me connect you with one of our specialists who can help you better.")
     }
   }
 
   const handleAdditionalQuestions = (question: string) => {
     switch (question) {
-      case 'Duvidas sobre precos':
+      case 'Pricing questions':
         addBotMessage(
-          "Nossos wall units tem precos baseados na complexidade:\n\n💰 Display Units: R$ 40K-120K\n🍷 Wine Storage: R$ 150K-400K+\n🍸 Wet Bars: R$ 120K-300K\n📺 Entertainment Centers: R$ 100K-250K\n🏢 Office Units: R$ 80K-220K\n🍳 Kitchen Wall Units: R$ 80K-200K\n\nFatores que afetam o preco:\n• Materiais (madeiras exoticas, pedra)\n• Tamanho e complexidade\n• Tecnologia integrada\n• Features personalizadas\n\nSeu especialista dara preco exato na consulta."
+          "Our wall units are priced based on complexity and materials:\n\n💰 Display Units: $15K-$50K\n🍷 Wine Storage: $60K-$150K+\n🍸 Wet Bars: $45K-$100K\n📺 Entertainment Centers: $35K-$85K\n🏢 Office Units: $25K-$75K\n🍳 Kitchen Wall Units: $25K-$75K\n\nFactors affecting price:\n• Materials (exotic woods, stone)\n• Size and complexity\n• Integrated technology\n• Custom features\n\nYour specialist will provide exact pricing during consultation."
         )
         break
-      case 'Opcoes de materiais':
+      case 'Material options':
         addBotMessage(
-          "Oferecemos materiais premium:\n\n🌳 Madeiras Exoticas: Nogueira, Mogno, Zebrano\n🏗️ Laminados engenheirados para estabilidade\n🎨 Acabamentos e vernizes personalizados\n💎 Pedras naturais: Marmore, Granito, Quartzo\n🥃 Armazenamento com controle de temperatura\n⚡ Sistemas de LED integrados\n🪨 Detalhes em metal: Bronze, Aco, Latao\n\nTodos materiais com garantia abrangente!"
+          "We offer premium materials including:\n\n🌳 Exotic Woods: Walnut, Mahogany, Zebrano\n🏗️ Engineered veneers for stability\n🎨 Custom stains and finishes\n💎 Natural stone: Marble, Granite, Quartz\n🥃 Temperature-controlled wine storage\n⚡ Integrated LED lighting systems\n🪨 Metal accents: Brass, Steel, Bronze\n\nAll materials come with our comprehensive warranty!"
         )
         break
-      case 'Processo de instalacao':
+      case 'Installation process':
         addBotMessage(
-          "Nossa instalacao e perfeita:\n\n1️⃣ Preparacao pre-instalacao\n2️⃣ Entrega profissional\n3️⃣ Instalacao de precisao (1-3 dias)\n4️⃣ Acabamentos finais\n5️⃣ Inspecao de qualidade\n6️⃣ Instrucoes de cuidado\n\nCuidamos de tudo - sem bagunca, sem stress!"
+          "Our installation is seamless:\n\n1️⃣ Pre-installation site prep\n2️⃣ Professional delivery\n3️⃣ Precision installation (1-3 days)\n4️⃣ Final finishing touches\n5️⃣ Quality inspection\n6️⃣ Care instructions\n\nWe handle everything - no mess, no stress!"
         )
         break
-      case 'Cronograma':
+      case 'Timeline details':
         addBotMessage(
-          "Cronograma tipico do projeto:\n\n📐 Fase de design: 1-2 semanas\n🔨 Fabricacao: 4-8 semanas\n🚚 Instalacao: 1-3 dias\n\nPedidos urgentes possiveis com taxa adicional. Daremos cronograma exato na consulta."
+          "Typical project timeline:\n\n📐 Design phase: 1-2 weeks\n🔨 Manufacturing: 4-8 weeks\n🚚 Installation: 1-3 days\n\nRush orders possible for additional fee. We'll give you exact timeline during consultation."
         )
         break
     }
@@ -331,7 +331,7 @@ export default function Chatbot() {
                 </div>
                 <div>
                   <h3 className="font-semibold">Sofia</h3>
-                  <p className="text-xs opacity-80">Especialista NUVO</p>
+                  <p className="text-xs opacity-80">NUVO Specialist</p>
                 </div>
               </div>
               <button
@@ -415,7 +415,7 @@ export default function Chatbot() {
                   type="text"
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
-                  placeholder="Digite sua mensagem..."
+                  placeholder="Type your message..."
                   className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-transparent text-sm"
                 />
                 <motion.button

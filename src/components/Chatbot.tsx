@@ -43,8 +43,8 @@ export default function Chatbot() {
     if (isOpen && messages.length === 0) {
       setTimeout(() => {
         addBotMessage(
-          "👋 Hi! I'm NUVO's Wall Unit Specialist. I'm here to help you create the perfect wall unit for your space. What type of room are you looking to transform?",
-          ['Living Room', 'Kitchen', 'Home Office', 'Bedroom', 'Entertainment Room', 'Other']
+          "👋 Hi! I'm NUVO's Wall Unit Specialist. I'm here to help you create the perfect wall unit for your space. What type of wall unit interests you most?",
+          ['Wet Bar Unit', 'Wine Storage', 'Entertainment Center', 'Office Wall Unit', 'Kitchen Wall Unit', 'Display Unit', 'Other']
         )
       }, 500)
     }
@@ -105,7 +105,7 @@ export default function Chatbot() {
         setCurrentStep('timeline')
         if (response === 'Need guidance') {
           addBotMessage(
-            "No problem! Our wall units typically range from $8,000 to $60,000+ depending on size, materials, and complexity. When would you like to have your wall unit completed?",
+            "No problem! Our wall units typically range from $8,000 to $80,000+ depending on complexity:\n\n• Display Units: $8K-$25K\n• Kitchen Wall Units: $15K-$40K\n• Entertainment Centers: $20K-$50K\n• Wet Bars: $25K-$60K\n• Wine Storage: $30K-$80K+\n\nWhen would you like your project completed?",
             ['Within 2 months', '2-4 months', '4-6 months', 'No rush', 'Just exploring']
           )
         } else {
@@ -121,7 +121,7 @@ export default function Chatbot() {
         setCurrentStep('features')
         addBotMessage(
           "Excellent! What features are most important to you in your wall unit?",
-          ['Built-in lighting', 'Hidden storage', 'TV integration', 'Display shelving', 'Wine storage', 'All of the above']
+          ['Integrated lighting', 'Temperature control', 'Glass displays', 'Hidden storage', 'Wet bar features', 'TV integration', 'All of the above']
         )
         break
 
@@ -190,12 +190,12 @@ export default function Chatbot() {
     switch (question) {
       case 'Pricing questions':
         addBotMessage(
-          "Our wall units start at $8,000 for basic designs and can go up to $60,000+ for complex, room-spanning installations. Factors that affect pricing:\n\n• Size and complexity\n• Premium materials (exotic woods, stone)\n• Integrated technology (lighting, outlets)\n• Custom features\n\nYour specialist will provide exact pricing during your consultation."
+          "Our wall units are priced based on complexity and materials:\n\n💰 Display Units: $8K-$25K\n🍷 Wine Storage: $30K-$80K+\n🍸 Wet Bars: $25K-$60K\n📺 Entertainment Centers: $20K-$50K\n🏢 Office Units: $15K-$45K\n🍳 Kitchen Wall Units: $15K-$40K\n\nFactors affecting price:\n• Materials (exotic woods, stone)\n• Size and complexity\n• Integrated technology\n• Custom features\n\nYour specialist will provide exact pricing during consultation."
         )
         break
       case 'Material options':
         addBotMessage(
-          "We offer premium materials including:\n\n🌳 Hardwoods: Walnut, Oak, Cherry, Mahogany\n🏗️ Engineered options for stability\n🎨 Custom finishes and stains\n⚡ LED lighting integration\n🪨 Stone and metal accents\n\nAll materials come with our 30-year warranty!"
+          "We offer premium materials including:\n\n🌳 Exotic Woods: Walnut, Mahogany, Zebrano\n🏗️ Engineered veneers for stability\n🎨 Custom stains and finishes\n💎 Natural stone: Marble, Granite, Quartz\n🥃 Temperature-controlled wine storage\n⚡ Integrated LED lighting systems\n🪨 Metal accents: Brass, Steel, Bronze\n\nAll materials come with our comprehensive warranty!"
         )
         break
       case 'Installation process':

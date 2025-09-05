@@ -12,54 +12,101 @@ export default function ProjectShowcase() {
   const projects = [
     {
       id: 1,
-      title: 'Entertainment Wall Unit',
-      category: 'entertainment',
-      image: '/images/imgi_15_539139475_18077099540493478_1747837317726997206_n_1757111141442.jpg',
-      description: 'Sophisticated entertainment wall unit with integrated lighting and premium finishes'
+      title: 'Wet Bar Wall Unit',
+      category: 'bar',
+      image: '/images/480969695_620547907386649_7438075877562462263_n_1757113219623.jpg',
+      description: 'Sophisticated wet bar with integrated refrigeration, stone countertops, and LED lighting'
     },
     {
       id: 2,
-      title: 'Kitchen Wall Unit',
-      category: 'kitchen',
-      image: '/images/imgi_7_540479857_1411482216613022_6855047719546468565_n_1757111152297.jpg',
-      description: 'Custom kitchen wall unit with premium wood finishes and integrated storage'
+      title: 'Corporate Bar Unit',
+      category: 'bar', 
+      image: '/images/482083207_619297530845020_484943003542860880_n_1757113219623.jpg',
+      description: 'Luxury corporate bar with curved design, premium finishes, and integrated storage'
     },
     {
       id: 3,
-      title: 'Staircase Wall Unit',
-      category: 'living',
-      image: '/images/imgi_6_543839574_797280436173673_2519557351358427065_n_1757111152298.jpg',
-      description: 'Architectural wall unit that transforms staircase area into functional storage'
+      title: 'Display & Storage Unit',
+      category: 'display',
+      image: '/images/480901597_619297520845021_6239928355207253905_n_1757113219624.jpg',
+      description: 'Illuminated display wall unit with gold accents and premium storage solutions'
     },
     {
       id: 4,
-      title: 'Display Wall Unit',
-      category: 'living',
-      image: '/images/imgi_10_539858318_615257668134300_4100570420848379988_n_1757111152298.jpg',
-      description: 'Custom display wall unit with integrated lighting and premium finishes'
+      title: 'Entertainment Wall Unit',
+      category: 'entertainment',
+      image: '/images/481025547_620547904053316_5834691484597900035_n_1757113219626.jpg',
+      description: 'Acoustic wall panels with geometric texture and integrated entertainment features'
     },
     {
       id: 5,
-      title: 'Dining Room Wall Unit',
-      category: 'dining',
-      image: '/images/imgi_9_541880794_18077731115493478_1184188163504688235_n_1757111152300.jpg',
-      description: 'Floor-to-ceiling dining room wall unit with sophisticated wood features'
+      title: 'Foyer Architectural Unit',
+      category: 'architectural',
+      image: '/images/362974437_3630876727235474_164680955745073358_n_1757113219625.jpg',
+      description: 'Dramatic entryway with illuminated wood slats and architectural lighting'
     },
     {
       id: 6,
-      title: 'Living Room Wall Unit',
+      title: 'Fireplace Wall Unit',
       category: 'living',
-      image: '/images/imgi_14_539774193_18077198129493478_187446010639494702_n_1757111152300.jpg',
-      description: 'Comprehensive living room wall unit with entertainment and storage features'
+      image: '/images/imgi_15_539139475_18077099540493478_1747837317726997206_n_1757111141442.jpg',
+      description: 'Complete living room wall unit with built-in fireplace, TV, and storage'
+    },
+    {
+      id: 7,
+      title: 'Wine Storage Wall',
+      category: 'wine',
+      image: '/images/481249236_619830234125083_8298283058325732482_n_1757113219629.jpg',
+      description: 'Temperature-controlled wine display with premium glass and metal details'
+    },
+    {
+      id: 8,
+      title: 'Executive Office Unit',
+      category: 'office',
+      image: '/images/365983685_6721524491232858_6578871452303785944_n_1757113219631.jpg',
+      description: 'Comprehensive office wall unit with built-in desk and display shelving'
+    },
+    {
+      id: 9,
+      title: 'Modern Kitchen Unit',
+      category: 'kitchen',
+      image: '/images/481174538_621185887322851_3067729186485640710_n_1757113219634.jpg',
+      description: 'Clean white kitchen wall unit with integrated appliances and seamless design'
+    },
+    {
+      id: 10,
+      title: 'Wine Cellar Wall',
+      category: 'wine',
+      image: '/images/401001686_1115390219447467_1719936535112898132_n_1757113219634.jpg',
+      description: 'Temperature-controlled wine display behind glass with precision wall mounting'
+    },
+    {
+      id: 11,
+      title: 'Luxury Dining Unit',
+      category: 'dining',
+      image: '/images/361927037_969825864291137_4158234675795338117_n_1757113219633.jpg',
+      description: 'Sophisticated dining room with architectural frames and integrated lighting'
+    },
+    {
+      id: 12,
+      title: 'Entryway Feature Unit',
+      category: 'architectural',
+      image: '/images/363316847_1229783514352191_2158139334373251137_n_1757113219636.jpg',
+      description: 'Modern entryway with architectural elements and statement lighting'
     }
   ]
 
   const categories = [
     { key: 'all', label: 'All Wall Units' },
-    { key: 'living', label: 'Living Room' },
+    { key: 'bar', label: 'Wet Bars' },
+    { key: 'display', label: 'Display Units' },
     { key: 'entertainment', label: 'Entertainment' },
+    { key: 'wine', label: 'Wine Storage' },
+    { key: 'office', label: 'Office Units' },
     { key: 'kitchen', label: 'Kitchen' },
-    { key: 'dining', label: 'Dining Room' }
+    { key: 'living', label: 'Living Room' },
+    { key: 'dining', label: 'Dining Room' },
+    { key: 'architectural', label: 'Architectural' }
   ]
 
   const filteredProjects = activeTab === 'all' 

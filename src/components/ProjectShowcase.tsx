@@ -12,54 +12,54 @@ export default function ProjectShowcase() {
   const projects = [
     {
       id: 1,
-      title: 'Modern Entertainment Center',
-      category: 'living',
+      title: 'Entertainment Wall Unit',
+      category: 'entertainment',
       image: '/images/imgi_15_539139475_18077099540493478_1747837317726997206_n_1757111141442.jpg',
-      description: 'Sophisticated entertainment wall with integrated lighting and marble accents'
+      description: 'Sophisticated entertainment wall unit with integrated lighting and premium finishes'
     },
     {
       id: 2,
-      title: 'Luxury Kitchen Design',
+      title: 'Kitchen Wall Unit',
       category: 'kitchen',
       image: '/images/imgi_7_540479857_1411482216613022_6855047719546468565_n_1757111152297.jpg',
-      description: 'Contemporary kitchen featuring premium wood finishes and custom cabinetry'
+      description: 'Custom kitchen wall unit with premium wood finishes and integrated storage'
     },
     {
       id: 3,
-      title: 'Elegant Staircase Feature',
-      category: 'architectural',
+      title: 'Staircase Wall Unit',
+      category: 'living',
       image: '/images/imgi_6_543839574_797280436173673_2519557351358427065_n_1757111152298.jpg',
-      description: 'Custom staircase design blending modern aesthetics with functional elegance'
+      description: 'Architectural wall unit that transforms staircase area into functional storage'
     },
     {
       id: 4,
-      title: 'Display Shelving System',
+      title: 'Display Wall Unit',
       category: 'living',
       image: '/images/imgi_10_539858318_615257668134300_4100570420848379988_n_1757111152298.jpg',
-      description: 'Built-in display solution with sophisticated lighting and premium materials'
+      description: 'Custom display wall unit with integrated lighting and premium finishes'
     },
     {
       id: 5,
-      title: 'Executive Dining Space',
+      title: 'Dining Room Wall Unit',
       category: 'dining',
       image: '/images/imgi_9_541880794_18077731115493478_1184188163504688235_n_1757111152300.jpg',
-      description: 'Impressive dining area with floor-to-ceiling wood features'
+      description: 'Floor-to-ceiling dining room wall unit with sophisticated wood features'
     },
     {
       id: 6,
-      title: 'Entertainment Wall Unit',
+      title: 'Living Room Wall Unit',
       category: 'living',
       image: '/images/imgi_14_539774193_18077198129493478_187446010639494702_n_1757111152300.jpg',
-      description: 'Comprehensive entertainment solution with integrated storage'
+      description: 'Comprehensive living room wall unit with entertainment and storage features'
     }
   ]
 
   const categories = [
-    { key: 'all', label: 'All Projects' },
-    { key: 'living', label: 'Living Spaces' },
-    { key: 'kitchen', label: 'Kitchens' },
-    { key: 'dining', label: 'Dining Rooms' },
-    { key: 'architectural', label: 'Architectural' }
+    { key: 'all', label: 'All Wall Units' },
+    { key: 'living', label: 'Living Room' },
+    { key: 'entertainment', label: 'Entertainment' },
+    { key: 'kitchen', label: 'Kitchen' },
+    { key: 'dining', label: 'Dining Room' }
   ]
 
   const filteredProjects = activeTab === 'all' 
@@ -80,12 +80,12 @@ export default function ProjectShowcase() {
             OUR PORTFOLIO
           </span>
           <h2 className="text-4xl md:text-5xl font-display font-bold text-[var(--color-primary)] mb-6">
-            Masterpieces in Every
-            <span className="gradient-text"> Detail</span>
+            Wall Units That
+            <span className="gradient-text"> Inspire</span>
           </h2>
           <p className="text-lg text-[var(--color-gray)] max-w-3xl mx-auto">
-            Each project represents our commitment to excellence, where precision meets artistry 
-            to create spaces that inspire and endure.
+            Every wall unit we create is a testament to precision craftsmanship, 
+            transforming ordinary walls into extraordinary architectural features.
           </p>
         </motion.div>
 
@@ -180,7 +180,7 @@ export default function ProjectShowcase() {
             whileTap={{ scale: 0.98 }}
             className="bg-transparent border-2 border-[var(--color-secondary)] text-[var(--color-secondary)] hover:bg-[var(--color-secondary)] hover:text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300"
           >
-            View Complete Portfolio
+            View All Wall Units
           </motion.button>
         </motion.div>
       </div>

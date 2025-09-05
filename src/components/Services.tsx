@@ -10,40 +10,40 @@ export default function Services() {
 
   const services = [
     {
-      icon: FaUtensils,
-      title: 'Kitchens',
-      description: 'Transform your kitchen into a culinary masterpiece with custom cabinetry and premium finishes.',
-      features: ['Custom Cabinetry', 'Premium Countertops', 'Smart Storage Solutions', 'Integrated Appliances']
-    },
-    {
       icon: FaCouch,
-      title: 'Entertainment Centers',
-      description: 'Create stunning entertainment spaces that blend technology with sophisticated design.',
-      features: ['Built-in Media Units', 'Integrated Lighting', 'Hidden Cable Management', 'Custom Displays']
+      title: 'Entertainment Wall Units',
+      description: 'Custom entertainment centers that integrate TV, storage, and display in one cohesive design.',
+      features: ['Built-in Media Storage', 'Integrated Lighting', 'Hidden Cable Management', 'Custom Shelving']
     },
     {
       icon: FaBriefcase,
-      title: 'Home Offices',
-      description: 'Design productive workspaces that inspire creativity and professional excellence.',
-      features: ['Ergonomic Design', 'Built-in Storage', 'Cable Management', 'Custom Shelving']
+      title: 'Office Wall Units',
+      description: 'Productive workspace solutions with built-in storage, shelving, and organizational systems.',
+      features: ['Built-in Desks', 'Storage Solutions', 'Display Shelving', 'Cable Management']
     },
     {
-      icon: FaDoorOpen,
-      title: 'Mudrooms',
-      description: 'Organize your entryway with beautiful and functional mudroom solutions.',
-      features: ['Custom Lockers', 'Bench Seating', 'Shoe Storage', 'Coat Organization']
-    },
-    {
-      icon: FaTshirt,
-      title: 'Laundry Rooms',
-      description: 'Elevate your laundry experience with efficient and elegant design solutions.',
-      features: ['Custom Cabinetry', 'Folding Stations', 'Storage Solutions', 'Utility Organization']
+      icon: FaUtensils,
+      title: 'Kitchen Wall Units',
+      description: 'Custom kitchen wall installations that maximize storage while maintaining elegant design.',
+      features: ['Upper Cabinetry', 'Open Shelving', 'Integrated Lighting', 'Display Areas']
     },
     {
       icon: FaHome,
-      title: 'Foyer Design',
-      description: 'Make a lasting first impression with stunning entryway and foyer designs.',
-      features: ['Statement Pieces', 'Storage Solutions', 'Lighting Integration', 'Architectural Details']
+      title: 'Living Room Wall Units',
+      description: 'Sophisticated living spaces with integrated storage, display, and architectural elements.',
+      features: ['Display Shelving', 'Storage Solutions', 'Accent Lighting', 'Architectural Details']
+    },
+    {
+      icon: FaDoorOpen,
+      title: 'Bedroom Wall Units',
+      description: 'Space-saving bedroom solutions with built-in storage and elegant design elements.',
+      features: ['Built-in Wardrobes', 'Display Areas', 'Storage Solutions', 'Lighting Integration']
+    },
+    {
+      icon: FaTshirt,
+      title: 'Custom Wall Storage',
+      description: 'Tailored storage solutions that transform any wall into functional and beautiful space.',
+      features: ['Custom Shelving', 'Hidden Storage', 'Display Areas', 'Integrated Systems']
     }
   ]
 
@@ -58,15 +58,15 @@ export default function Services() {
           className="text-center mb-16"
         >
           <span className="text-[var(--color-secondary)] text-lg font-semibold tracking-wide mb-4 block">
-            OUR SERVICES
+            WALL UNIT TYPES
           </span>
           <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-6">
-            Complete Home
-            <span className="text-[var(--color-secondary)]"> Transformation</span>
+            Wall Unit Solutions
+            <span className="text-[var(--color-secondary)]"> For Every Space</span>
           </h2>
           <p className="text-lg text-gray-300 max-w-3xl mx-auto">
-            From concept to completion, we transform every space in your home into a 
-            masterpiece of design and functionality.
+            From entertainment centers to storage solutions, we create custom wall units 
+            that organize, connect, and impress in every room of your home.
           </p>
         </motion.div>
 
@@ -127,7 +127,7 @@ export default function Services() {
           className="text-center mt-16"
         >
           <p className="text-gray-300 mb-6 text-lg">
-            Ready to transform your space?
+            Ready for your custom wall unit?
           </p>
           <motion.button
             whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(196, 165, 116, 0.4)' }}

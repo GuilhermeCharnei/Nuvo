@@ -12,23 +12,23 @@ export default function Expertise() {
   const features = [
     {
       icon: FaAward,
-      title: "Master Craftsmanship",
-      description: "30 years of Italian-Brazilian woodworking heritage refined through American precision and innovation."
+      title: "Custom Wall Units",
+      description: "Precision-engineered wall installations that integrate seamlessly with your architecture."
     },
     {
       icon: FaCog,
-      title: "Advanced Technology",
-      description: "CNC precision meets traditional hand-finishing for flawless results that stand the test of time."
+      title: "Integrated Lighting",
+      description: "Built-in LED systems and smart lighting solutions that enhance your wall unit's functionality."
     },
     {
       icon: FaLeaf,
-      title: "Sustainable Materials",
-      description: "Premium woods sourced responsibly, ensuring both beauty and environmental consciousness."
+      title: "Premium Materials",
+      description: "High-grade woods, stone accents, and metal details for lasting beauty and durability."
     },
     {
       icon: FaUsers,
-      title: "Personal Service",
-      description: "From concept to completion, our dedicated team ensures your vision becomes reality."
+      title: "Complete Installation",
+      description: "From design to installation, we handle every aspect of your wall unit project."
     }
   ]
 
@@ -49,7 +49,7 @@ export default function Expertise() {
               className="mb-6"
             >
               <span className="text-[var(--color-accent)] text-lg font-semibold tracking-wide">
-                OUR EXPERTISE
+                WALL UNIT SPECIALISTS
               </span>
             </motion.div>
             
@@ -59,8 +59,8 @@ export default function Expertise() {
               transition={{ duration: 0.8, delay: 0.3 }}
               className="text-4xl md:text-5xl font-display font-bold text-[var(--color-primary)] mb-8 leading-tight"
             >
-              Where Heritage Meets
-              <span className="gradient-text"> Innovation</span>
+              Wall Units as
+              <span className="gradient-text"> Architectural Art</span>
             </motion.h2>
             
             <motion.p
@@ -69,9 +69,9 @@ export default function Expertise() {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="text-lg text-[var(--color-gray)] mb-12 leading-relaxed"
             >
-              Founded by master craftsman Eduardo Ramos, NUVO represents the perfect fusion of 
-              old-world artistry and modern innovation. Every piece we create tells a story 
-              of passion, precision, and uncompromising quality.
+              At NUVO, wall units aren't furniture—they're architectural elements. Founded by Eduardo Ramos, 
+              we specialize in creating custom wall installations that blend seamlessly with your space's 
+              architecture while providing sophisticated storage and display solutions.
             </motion.p>
 
             {/* Features Grid */}

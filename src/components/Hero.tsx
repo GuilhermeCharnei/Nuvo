@@ -61,9 +61,9 @@ export default function Hero() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.5 }}
           >
-            Craftsmanship
+            Wall Units That
             <br />
-            <span className="gradient-text">Beyond Compare</span>
+            <span className="gradient-text">Transform Spaces</span>
           </motion.h1>
           
           <motion.p 
@@ -72,8 +72,8 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
           >
-            Where 30 years of Italian-Brazilian heritage meets Florida luxury. 
-            Transform your space into a masterpiece of functional art.
+            Custom wall units that organize, connect, and impress. 
+            From entertainment centers to storage solutions, we create architectural elements that integrate seamlessly with your space.
           </motion.p>
 
           <motion.div 

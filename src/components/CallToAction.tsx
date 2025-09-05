@@ -96,8 +96,8 @@ export default function CallToAction() {
                 transition={{ duration: 0.8, delay: 0.3 }}
                 className="text-4xl md:text-5xl font-display font-bold text-white mb-6 leading-tight"
               >
-                Transform Your Space Into a
-                <span className="text-[var(--color-secondary)]"> Masterpiece</span>
+                Create Your Perfect
+                <span className="text-[var(--color-secondary)]"> Wall Unit</span>
               </motion.h2>
               
               <motion.p
@@ -106,8 +106,8 @@ export default function CallToAction() {
                 transition={{ duration: 0.6, delay: 0.4 }}
                 className="text-lg text-gray-300 mb-8 leading-relaxed"
               >
-                Ready to experience the NUVO difference? Get your free 3D design consultation 
-                and discover how we can transform your vision into reality.
+                Ready to transform your wall into a functional work of art? Get your free consultation 
+                and discover how we can create the perfect wall unit for your space.
               </motion.p>
             </div>
 
@@ -227,12 +227,12 @@ export default function CallToAction() {
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-transparent transition-all duration-300"
                 >
                   <option value="">Select Project Type</option>
-                  <option value="kitchen">Kitchen Renovation</option>
-                  <option value="entertainment">Entertainment Center</option>
-                  <option value="office">Home Office</option>
-                  <option value="mudroom">Mudroom</option>
-                  <option value="laundry">Laundry Room</option>
-                  <option value="other">Other</option>
+                  <option value="entertainment">Entertainment Wall Unit</option>
+                  <option value="kitchen">Kitchen Wall Unit</option>
+                  <option value="office">Office Wall Unit</option>
+                  <option value="living">Living Room Wall Unit</option>
+                  <option value="bedroom">Bedroom Wall Unit</option>
+                  <option value="custom">Custom Wall Unit</option>
                 </select>
               </motion.div>
 
@@ -243,7 +243,7 @@ export default function CallToAction() {
               >
                 <textarea
                   name="message"
-                  placeholder="Tell us about your project..."
+                  placeholder="Tell us about your wall unit project..."
                   value={formData.message}
                   onChange={handleInputChange}
                   rows={4}
@@ -260,7 +260,7 @@ export default function CallToAction() {
                 type="submit"
                 className="w-full bg-[var(--color-secondary)] hover:bg-[var(--color-accent)] text-white py-4 rounded-lg text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
               >
-                Get My Free 3D Design
+                Get My Wall Unit Quote
               </motion.button>
             </form>
 

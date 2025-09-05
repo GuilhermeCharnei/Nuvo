@@ -38,13 +38,11 @@ export default function Hero() {
             />
           </div>
           
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+          <button
             className="hidden md:block bg-[var(--color-secondary)] hover:bg-[var(--color-accent)] text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300"
           >
             Get Free Quote
-          </motion.button>
+          </button>
         </div>
       </motion.nav>
 
@@ -82,21 +80,17 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.9 }}
           >
-            <motion.button
-              whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(196, 165, 116, 0.4)' }}
-              whileTap={{ scale: 0.98 }}
+            <button
               className="bg-[var(--color-secondary)] hover:bg-[var(--color-accent)] text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 shadow-lg"
             >
               Start Your Project
-            </motion.button>
+            </button>
             
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+            <button
               className="border-2 border-white text-white hover:bg-white hover:text-[var(--color-primary)] px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300"
             >
               View Portfolio
-            </motion.button>
+            </button>
           </motion.div>
         </motion.div>
 

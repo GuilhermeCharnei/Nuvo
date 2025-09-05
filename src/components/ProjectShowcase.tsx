@@ -170,7 +170,6 @@ export default function ProjectShowcase() {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ y: -10 }}
               className="group cursor-pointer"
             >
               <div className="relative h-80 rounded-2xl overflow-hidden shadow-luxury mb-6">
@@ -178,33 +177,24 @@ export default function ProjectShowcase() {
                   src={project.image}
                   alt={project.title}
                   fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-500"
+                  className="object-cover"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 
                 {/* Overlay Content */}
-                <div className="absolute bottom-6 left-6 right-6 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <motion.h3 
-                    className="text-xl font-semibold mb-2"
-                    initial={{ y: 20 }}
-                    whileHover={{ y: 0 }}
-                  >
+                <div className="absolute bottom-6 left-6 right-6 text-white">
+                  <h3 className="text-xl font-semibold mb-2">
                     {project.title}
-                  </motion.h3>
-                  <motion.p 
-                    className="text-sm text-gray-200"
-                    initial={{ y: 20 }}
-                    whileHover={{ y: 0 }}
-                    transition={{ delay: 0.1 }}
-                  >
+                  </h3>
+                  <p className="text-sm text-gray-200">
                     {project.description}
-                  </motion.p>
+                  </p>
                 </div>
               </div>
               
               <div className="px-2">
-                <h3 className="text-xl font-semibold text-[var(--color-primary)] mb-2 group-hover:text-[var(--color-secondary)] transition-colors duration-300">
+                <h3 className="text-xl font-semibold text-[var(--color-primary)] mb-2">
                   {project.title}
                 </h3>
                 <p className="text-[var(--color-gray)] text-sm">
@@ -222,13 +212,11 @@ export default function ProjectShowcase() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="text-center mt-16"
         >
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
+          <button
             className="bg-transparent border-2 border-[var(--color-secondary)] text-[var(--color-secondary)] hover:bg-[var(--color-secondary)] hover:text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300"
           >
             View All Wall Units
-          </motion.button>
+          </button>
         </motion.div>
       </div>
     </section>

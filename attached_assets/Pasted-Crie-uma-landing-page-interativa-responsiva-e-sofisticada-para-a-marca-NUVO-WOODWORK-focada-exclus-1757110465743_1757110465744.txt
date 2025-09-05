@@ -1,0 +1,114 @@
+Crie uma landing page interativa, responsiva e sofisticada para a marca NUVO WOODWORK, focada exclusivamente em Wall Units sob medida. A página deve refletir a identidade visual e os princípios da marca: minimalismo elegante, precisão técnica e acabamento artesanal.
+
+🎯 Objetivo:
+Apresentar Wall Units como soluções arquitetônicas de alto padrão, que unem tecnologia de ponta com acabamento manual, transformando ambientes com funcionalidade, estética e presença.
+
+🔧 Estrutura da Página:
+
+1. **Hero Section**
+   - Fundo em vídeo ou imagem de Wall Unit em ambiente sofisticado
+   - Título: “Wall Units que organizam, conectam e impressionam.”
+   - Subtítulo: “Design sob medida com estrutura, simplicidade e presença.”
+   - Botão com animação pulsante: “Solicite seu projeto”
+   - Logo NUVO posicionada no canto superior esquerdo com espaçamento generoso
+   - Animação da logo: leve fade-in ao carregar ou brilho sutil ao scroll
+
+2. **Sobre o Produto**
+   - Texto: “Nossas Wall Units são criadas sob medida para cada ambiente. Combinam precisão milimétrica, integração com iluminação, nichos funcionais e acabamentos que elevam o espaço.”
+   - Imagem dividida: detalhe técnico + visão geral do ambiente
+   - Animação: fade-in dos textos e imagem com scroll
+
+3. **Galeria de Ambientes**
+   - Grid com imagens dos projetos NUVO
+   - Modal com descrição técnica: tipo de madeira, acabamento, integração com iluminação, ambiente
+   - Filtro por tipo de ambiente: sala, gourmet, corporativo
+   - Animação: zoom leve ao passar o mouse + transição suave ao abrir modal
+
+4. **Tipos de Wall Unit + Slogans**
+   - Cards com imagem, descrição e slogan personalizado para cada aplicação:
+
+   | Tipo de Wall Unit       | Slogan                                               |
+   |-------------------------|------------------------------------------------------|
+   | Sala de Estar           | “Mais que suporte para sua TV — é o centro da sua casa.” |
+   | Ambiente Gourmet        | “Integração entre sabor, estilo e funcionalidade.”       |
+   | Home Office             | “Organização inteligente para ideias que merecem espaço.” |
+   | Quarto Principal        | “Sutileza e presença para o lugar mais íntimo da casa.”   |
+   | Espaço Corporativo      | “Design que comunica profissionalismo e sofisticação.”   |
+   | Parede Mimetizada       | “A arte de esconder com elegância — e revelar com impacto.” |
+   | Wall Unit com Bar       | “Receber bem começa com um espaço que impressiona.”       |
+
+   - Animação: hover com efeito de luz sobre madeira + slogan que aparece com transição suave
+
+5. **Tecnologia + Artesanato**
+   - Infográfico ou animação mostrando:
+     - CNC, corte a laser, modelagem 3D
+     - Acabamento manual, encaixes invisíveis, pintura personalizada
+   - Scroll reveal com efeito de desdobramento ou linhas que se desenham
+
+6. **Benefícios**
+   - Cards com microinterações:
+     - Integração com arquitetura
+     - Organização inteligente
+     - Estética personalizada
+     - Valorização do imóvel
+   - Animação: hover com efeito de luz sobre madeira + ícones que se expandem
+
+7. **Depoimentos ou Frase de Impacto**
+   - Texto: “Cada Wall Unit é pensada como parte da arquitetura — não como um móvel, mas como uma solução.”
+   - Animação: fade-in com leve delay para criar ritmo
+
+8. **Formulário de Contato**
+   - Campos: nome, e-mail, tipo de ambiente, mensagem
+   - Chamada: “Vamos projetar sua Wall Unit?”
+   - Animação: campos que se iluminam ao foco + botão com efeito de preenchimento
+
+9. **Rodapé**
+   - Reaplicação da logo NUVO em menor escala
+   - Slogan institucional abaixo: “Structure in Simplicity”
+   - Links rápidos e redes sociais com ícones discretos
+
+🎨 Identidade Visual:
+
+- Paleta de cores oficial da NUVO WOODWORK:
+  - Grafite: `#2E2A27` — fundo, títulos, elementos estruturais
+  - Cinza médio: `#8B8683` — texto secundário, divisores, ícones
+  - Marrom índio: `#986421` — destaques, botões, detalhes em madeira
+  - Bege claro: `#E7E1DE` — fundo de seções claras, áreas de respiro
+
+- Tipografia:
+  - Títulos: fonte geométrica moderna inspirada no logo NUVO
+  - Textos: sans-serif leve e técnica (ex: Inter ou Poppins)
+
+- Textura:
+  - Fundo com padrão de madeira ou linhas arquitetônicas
+  - Uso de espaço negativo e alinhamento preciso
+
+- Layout:
+  - Espaçamento generoso, grid fluido, responsivo para desktop e mobile
+
+✨ Animações e Interações:
+
+- Scroll reveal com fade-in e slide-up
+- Hover com efeito de luz e sombra nos cards
+- Botões com animação pulsante ou preenchimento
+- Modal com transição suave e blur de fundo
+- Cursor personalizado ao passar sobre imagens (ex: ferramenta estilizada)
+- Transições entre seções com efeito de desdobramento ou conexão visual
+- Logo com animação sutil ao scroll ou carregamento
+
+🧱 Tecnologias sugeridas:
+
+- Frontend: Next.js + Tailwind CSS + Framer Motion
+- Backend: Node.js + NestJS (se necessário)
+- CMS: Strapi (opcional)
+- Deploy: Vercel ou Netlify
+- Animações: GSAP ou Framer Motion
+- Imagens otimizadas com lazy loading e alt text para SEO
+
+📈 SEO e Performance:
+
+- Meta titles e descriptions únicos por seção
+- URLs amigáveis: /wall-units, /contato
+- Sitemap.xml e robots.txt configurados
+- Alt text em todas as imagens
+- Carregamento rápido com pré-renderização

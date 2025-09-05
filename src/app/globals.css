@@ -28,6 +28,26 @@ body {
   line-height: 1.6;
   color: var(--color-primary);
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  body {
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+  
+  /* Improve touch targets */
+  button, a, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Better mobile scrolling */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
 }
 
 .font-display {

@@ -44,7 +44,7 @@ function WelcomePopup({ isVisible, onClose, onStartChat }: WelcomePopupProps) {
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.8, opacity: 0 }}
-          className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl"
+          className="bg-white rounded-2xl p-6 md:p-8 max-w-md w-full mx-4 shadow-2xl"
           onClick={(e) => e.stopPropagation()}
         >
           <div className="text-center">
@@ -303,7 +303,7 @@ export default function Chatbot() {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-[var(--color-secondary)] hover:bg-[var(--color-accent)] text-white rounded-full shadow-luxury flex items-center justify-center transition-all duration-300"
+        className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-[var(--color-secondary)] hover:bg-[var(--color-accent)] text-white rounded-full shadow-luxury flex items-center justify-center transition-all duration-300 touch-manipulation"
       >
         {isOpen ? <FaTimes className="text-xl" /> : <FaComments className="text-xl" />}
         {!isOpen && messages.length === 0 && (
@@ -321,7 +321,7 @@ export default function Chatbot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.3 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="fixed bottom-24 right-6 z-50 w-96 h-[500px] bg-white rounded-2xl shadow-luxury flex flex-col overflow-hidden"
+            className="fixed bottom-24 right-6 z-50 w-96 max-w-[calc(100vw-3rem)] h-[500px] max-h-[calc(100vh-8rem)] bg-white rounded-2xl shadow-luxury flex flex-col overflow-hidden md:w-96"
           >
             {/* Header */}
             <div className="bg-gradient-luxury text-white p-4 flex items-center justify-between">
@@ -351,7 +351,7 @@ export default function Chatbot() {
                   animate={{ opacity: 1, y: 0 }}
                   className={`flex ${message.isBot ? 'justify-start' : 'justify-end'}`}
                 >
-                  <div className={`max-w-[80%] ${message.isBot ? 'bg-gray-100' : 'bg-[var(--color-secondary)] text-white'} rounded-2xl p-3`}>
+                  <div className={`max-w-[85%] md:max-w-[80%] ${message.isBot ? 'bg-gray-100' : 'bg-[var(--color-secondary)] text-white'} rounded-2xl p-3`}>
                     <div className="flex items-start space-x-2">
                       {message.isBot && (
                         <img src="/images/logo.png" alt="Sofia" className="w-4 h-4 mt-1 flex-shrink-0" />
@@ -377,7 +377,7 @@ export default function Chatbot() {
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: index * 0.1 }}
                             onClick={() => handleOptionClick(option)}
-                            className="block w-full text-left p-2 text-xs bg-white border border-[var(--color-secondary)] text-[var(--color-secondary)] rounded-lg hover:bg-[var(--color-secondary)] hover:text-white transition-all duration-200"
+                            className="block w-full text-left p-2 text-xs md:text-sm bg-white border border-[var(--color-secondary)] text-[var(--color-secondary)] rounded-lg hover:bg-[var(--color-secondary)] hover:text-white transition-all duration-200 touch-manipulation"
                           >
                             {option}
                           </motion.button>

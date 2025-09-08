@@ -33,9 +33,9 @@ export default function Expertise() {
   ]
 
   return (
-    <section className="py-24 bg-[var(--color-light)]" ref={ref}>
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+    <section className="py-16 sm:py-20 lg:py-24 bg-[var(--color-light)]" ref={ref}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Left Content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -57,7 +57,7 @@ export default function Expertise() {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="text-4xl md:text-5xl font-display font-bold text-[var(--color-primary)] mb-8 leading-tight"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-[var(--color-primary)] mb-6 lg:mb-8 leading-tight"
             >
               Wall Units as
               <span className="gradient-text"> Architectural Art</span>
@@ -67,7 +67,7 @@ export default function Expertise() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-lg text-[var(--color-gray)] mb-12 leading-relaxed"
+              className="text-base sm:text-lg text-[var(--color-gray)] mb-8 lg:mb-12 leading-relaxed"
             >
               At NUVO, wall units aren't furniture—they're architectural elements. Founded by Eduardo Ramos, 
               we specialize in creating custom wall installations that blend seamlessly with your space's 
@@ -75,7 +75,7 @@ export default function Expertise() {
             </motion.p>
 
             {/* Features Grid */}
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
               {features.map((feature, index) => (
                 <motion.div
                   key={feature.title}

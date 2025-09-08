@@ -25,15 +25,15 @@ export default function Hero() {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className="absolute top-0 left-0 right-0 z-20 p-8"
+        className="absolute top-0 left-0 right-0 z-20 p-4 sm:p-6 lg:p-8"
       >
         <div className="flex justify-between items-center max-w-7xl mx-auto">
           <div className="flex items-center space-x-3">
             <Image
               src="/images/logo.png"
               alt="NUVO WOODWORK"
-              width={150}
-              height={50}
+              width={120}
+              height={40}
               className="brightness-0 invert"
             />
           </div>
@@ -103,23 +103,23 @@ export default function Hero() {
         transition={{ duration: 1, delay: 1.1 }}
         className="absolute bottom-20 left-0 right-0 z-10"
       >
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 text-center text-white">
             <div>
-              <div className="text-3xl font-bold text-[var(--color-secondary)] mb-2">30+</div>
-              <div className="text-sm opacity-80">Years Experience</div>
+              <div className="text-2xl sm:text-3xl font-bold text-[var(--color-secondary)] mb-1 sm:mb-2">30+</div>
+              <div className="text-xs sm:text-sm opacity-80">Years Experience</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-[var(--color-secondary)] mb-2">4K+</div>
-              <div className="text-sm opacity-80">Happy Clients</div>
+              <div className="text-2xl sm:text-3xl font-bold text-[var(--color-secondary)] mb-1 sm:mb-2">4K+</div>
+              <div className="text-xs sm:text-sm opacity-80">Happy Clients</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-[var(--color-secondary)] mb-2">98%</div>
-              <div className="text-sm opacity-80">Success Rate</div>
+              <div className="text-2xl sm:text-3xl font-bold text-[var(--color-secondary)] mb-1 sm:mb-2">98%</div>
+              <div className="text-xs sm:text-sm opacity-80">Success Rate</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-[var(--color-secondary)] mb-2">4.9</div>
-              <div className="text-sm opacity-80">Client Rating</div>
+              <div className="text-2xl sm:text-3xl font-bold text-[var(--color-secondary)] mb-1 sm:mb-2">4.9</div>
+              <div className="text-xs sm:text-sm opacity-80">Client Rating</div>
             </div>
           </div>
         </div>

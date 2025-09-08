@@ -303,9 +303,9 @@ export default function Chatbot() {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-[var(--color-secondary)] hover:bg-[var(--color-accent)] text-white rounded-full shadow-luxury flex items-center justify-center transition-all duration-300 touch-manipulation"
+        className="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 z-50 w-14 h-14 sm:w-16 sm:h-16 bg-[var(--color-secondary)] hover:bg-[var(--color-accent)] text-white rounded-full shadow-luxury flex items-center justify-center transition-all duration-300 touch-manipulation"
       >
-        {isOpen ? <FaTimes className="text-xl" /> : <FaComments className="text-xl" />}
+        {isOpen ? <FaTimes className="text-lg sm:text-xl" /> : <FaComments className="text-lg sm:text-xl" />}
         {!isOpen && messages.length === 0 && (
           <div className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center">
             <span className="text-xs text-white">1</span>
@@ -321,7 +321,7 @@ export default function Chatbot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.3 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="fixed bottom-24 right-6 z-50 w-96 max-w-[calc(100vw-3rem)] h-[500px] max-h-[calc(100vh-8rem)] bg-white rounded-2xl shadow-luxury flex flex-col overflow-hidden md:w-96"
+            className="fixed bottom-20 sm:bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-96 max-w-[calc(100vw-2rem)] h-[60vh] sm:h-[500px] max-h-[calc(100vh-6rem)] bg-white rounded-2xl shadow-luxury flex flex-col overflow-hidden"
           >
             {/* Header */}
             <div className="bg-gradient-luxury text-white p-4 flex items-center justify-between">

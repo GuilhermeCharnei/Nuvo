@@ -54,7 +54,7 @@ export default function Hero() {
           transition={{ duration: 1, delay: 0.3 }}
         >
           <motion.h1 
-            className="text-5xl md:text-7xl lg:text-8xl font-display font-bold mb-8 leading-tight"
+            className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold mb-6 md:mb-8 leading-tight px-4 sm:px-0"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.5 }}
@@ -65,7 +65,7 @@ export default function Hero() {
           </motion.h1>
           
           <motion.p 
-            className="text-xl md:text-2xl mb-12 max-w-3xl mx-auto text-gray-200 font-light"
+            className="text-base sm:text-lg md:text-xl lg:text-2xl mb-8 md:mb-12 max-w-3xl mx-auto text-gray-200 font-light px-4 sm:px-6"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
@@ -75,19 +75,19 @@ export default function Hero() {
           </motion.p>
 
           <motion.div 
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center px-4 sm:px-0"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.9 }}
           >
             <button
-              className="bg-[var(--color-secondary)] hover:bg-[var(--color-accent)] text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 shadow-lg"
+              className="bg-[var(--color-secondary)] hover:bg-[var(--color-accent)] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-base sm:text-lg font-semibold transition-all duration-300 shadow-lg w-full sm:w-auto min-h-[48px]"
             >
               Start Your Project
             </button>
             
             <button
-              className="border-2 border-white text-white hover:bg-white hover:text-[var(--color-primary)] px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300"
+              className="border-2 border-white text-white hover:bg-white hover:text-[var(--color-primary)] px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-base sm:text-lg font-semibold transition-all duration-300 w-full sm:w-auto min-h-[48px]"
             >
               View Portfolio
             </button>

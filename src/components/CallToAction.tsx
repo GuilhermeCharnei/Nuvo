@@ -44,8 +44,8 @@ export default function CallToAction() {
     },
     {
       icon: FaMapMarkerAlt,
-      title: 'Visit Our Showroom',
-      info: 'Miami Design District',
+      title: 'Visit Our Factory',
+      info: '4801 Johnson Rd Suite 4, Coconut Creek, FL 33073',
       subinfo: 'By appointment only'
     },
     {

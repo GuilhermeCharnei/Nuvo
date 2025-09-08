@@ -9,7 +9,7 @@ import { projectsData } from '@/data/projects'
 export default function ProjectShowcase() {
   const ref = useRef(null)
   const router = useRouter()
-  const isInView = useInView(ref, { once: true, threshold: 0.1 })
+  const isInView = useInView(ref, { once: true, amount: 0.1 })
   const [activeTab, setActiveTab] = useState('all')
 
   const projects = projectsData

@@ -71,7 +71,7 @@ export default function Services() {
         </motion.div>
 
         {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {services.map((service, index) => (
             <motion.div
               key={service.title}
@@ -79,16 +79,16 @@ export default function Services() {
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               whileHover={{ y: -10 }}
-              className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 hover:border-[var(--color-secondary)]/50 transition-all duration-300 group animate-scale-in"
+              className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 lg:p-8 border border-white/20 hover:border-[var(--color-secondary)]/50 transition-all duration-300 group animate-scale-in"
             >
               <div className="mb-6">
                 <div className="w-16 h-16 bg-[var(--color-secondary)] rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 animate-float">
                   <service.icon className="text-2xl text-white" />
                 </div>
-                <h3 className="text-2xl font-display font-bold text-white mb-3 group-hover:text-[var(--color-secondary)] transition-colors duration-300">
+                <h3 className="text-lg sm:text-xl lg:text-2xl font-display font-bold text-white mb-3 group-hover:text-[var(--color-secondary)] transition-colors duration-300">
                   {service.title}
                 </h3>
-                <p className="text-gray-300 mb-6 leading-relaxed">
+                <p className="text-sm sm:text-base text-gray-300 mb-4 lg:mb-6 leading-relaxed">
                   {service.description}
                 </p>
               </div>
@@ -100,7 +100,7 @@ export default function Services() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
                     transition={{ duration: 0.4, delay: index * 0.1 + idx * 0.05 }}
-                    className="flex items-center text-gray-300 text-sm"
+                    className="flex items-center text-gray-300 text-xs sm:text-sm"
                   >
                     <div className="w-2 h-2 bg-[var(--color-secondary)] rounded-full mr-3 flex-shrink-0" />
                     {feature}
@@ -111,7 +111,7 @@ export default function Services() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
-                className="mt-6 w-full bg-transparent border border-[var(--color-secondary)] text-[var(--color-secondary)] hover:bg-[var(--color-secondary)] hover:text-white py-3 rounded-lg font-semibold transition-all duration-300"
+                className="mt-4 lg:mt-6 w-full bg-transparent border border-[var(--color-secondary)] text-[var(--color-secondary)] hover:bg-[var(--color-secondary)] hover:text-white py-3 rounded-lg text-sm sm:text-base font-semibold transition-all duration-300 min-h-[44px]"
               >
                 Learn More
               </motion.button>

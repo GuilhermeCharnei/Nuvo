@@ -112,7 +112,7 @@ export default function Chatbot() {
     if (isOpen && messages.length === 0) {
       setTimeout(() => {
         addBotMessage(
-          "Hi there! I'm Sofia from NUVO! 👋\\n\\nI'm so excited to help you create something truly spectacular for your space! Our wall units aren't just furniture - they're architectural art that transforms entire rooms.\\n\\nWhat type of wall unit caught your attention?",
+          "Hi there! I'm Sofia from NUVO! 👋\n\nI'm so excited to help you create something truly spectacular for your space! Our wall units aren't just furniture - they're architectural art that transforms entire rooms.\n\nWhat type of wall unit caught your attention?",
           ['Wet Bar Unit', 'Wine Storage', 'Entertainment Center', 'Office Wall Unit', 'Kitchen Wall Unit', 'Display Unit', 'Other', 'I have a specific question']
         )
       }, 500)
@@ -169,19 +169,19 @@ export default function Chatbot() {
         if (response === 'I have a specific question') {
           setAwaitingCustomQuestion(true)
           addBotMessage(
-            "Of course! I'm here to help with any questions you have. 😊\\n\\nWhat would you like to know about our wall units? Feel free to ask me anything!"
+            "Of course! I'm here to help with any questions you have. 😊\n\nWhat would you like to know about our wall units? Feel free to ask me anything!"
           )
         } else {
           setLeadData(prev => ({ ...prev, projectType: response }))
           setCurrentStep('budget')
           if (response === 'Other') {
             addBotMessage(
-              "That's perfectly fine! Sometimes the best projects start with unique ideas. 😊\\n\\nWhat's your approximate budget range? This helps me understand what options might work best for you.",
+              "That's perfectly fine! Sometimes the best projects start with unique ideas. 😊\n\nWhat's your approximate budget range? This helps me understand what options might work best for you.",
               ['$15,000 - $30,000', '$30,000 - $60,000', '$60,000 - $100,000', '$100,000+', 'Need guidance']
             )
           } else {
             addBotMessage(
-              `${response} - oh, I LOVE those! 😍 They create such stunning focal points and really transform a space.\\n\\nWhat's your approximate budget range? This helps me tailor my suggestions perfectly for you.`,
+              `${response} - oh, I LOVE those! 😍 They create such stunning focal points and really transform a space.\n\nWhat's your approximate budget range? This helps me tailor my suggestions perfectly for you.`,
               ['$15,000 - $30,000', '$30,000 - $60,000', '$60,000 - $100,000', '$100,000+', 'Need guidance']
             )
           }
@@ -193,12 +193,12 @@ export default function Chatbot() {
         setCurrentStep('timeline')
         if (response === 'Need guidance') {
           addBotMessage(
-            "No worries at all! Let me break it down for you. 💰\\n\\nOur wall units typically range:\\n• Display Units: $15K-$50K\\n• Kitchen Wall Units: $25K-$75K\\n• Entertainment Centers: $35K-$85K\\n• Wet Bars: $45K-$100K\\n• Wine Storage: $60K-$150K+\\n\\nEvery project is custom, so there's flexibility! When would you love to have your new wall unit ready?",
+            "No worries at all! Let me break it down for you. 💰\n\nOur wall units typically range:\n• Display Units: $15K-$50K\n• Kitchen Wall Units: $25K-$75K\n• Entertainment Centers: $35K-$85K\n• Wet Bars: $45K-$100K\n• Wine Storage: $60K-$150K+\n\nEvery project is custom, so there's flexibility! When would you love to have your new wall unit ready?",
             ['Within 2 months', '2-4 months', '4-6 months', 'No rush', 'Just exploring ideas']
           )
         } else {
           addBotMessage(
-            "Perfect! That budget range gives us some really exciting options to work with! 🎉\\n\\nWhen would you ideally like to have your beautiful new wall unit completed?",
+            "Perfect! That budget range gives us some really exciting options to work with! 🎉\n\nWhen would you ideally like to have your beautiful new wall unit completed?",
             ['Within 2 months', '2-4 months', '4-6 months', 'No rush', 'Just exploring ideas']
           )
         }
@@ -208,7 +208,7 @@ export default function Chatbot() {
         setLeadData(prev => ({ ...prev, timeline: response }))
         setCurrentStep('features')
         addBotMessage(
-          `That timeline works perfectly! ${response === 'No rush' ? 'Taking your time allows us to create something truly extraordinary! 🎨' : 'We can definitely work with that timeline! ⏰'}\\n\\nWhat features are most exciting to you for your wall unit?`,
+          `That timeline works perfectly! ${response === 'No rush' ? 'Taking your time allows us to create something truly extraordinary! 🎨' : 'We can definitely work with that timeline! ⏰'}\n\nWhat features are most exciting to you for your wall unit?`,
           ['Integrated lighting', 'Temperature control', 'Glass displays', 'Hidden storage', 'Wet bar features', 'TV integration', 'All of the above', 'Ask about features']
         )
         break
@@ -279,37 +279,37 @@ export default function Chatbot() {
     
     if (lowerQuestion.includes('price') || lowerQuestion.includes('cost') || lowerQuestion.includes('expensive') || lowerQuestion.includes('budget')) {
       addBotMessage(
-        "Great question about pricing! 💰\\n\\nOur wall units typically range from $15K to $150K+ depending on complexity and materials. Here's a rough breakdown:\\n\\n• Display Units: $15K-$50K\\n• Kitchen/Office: $25K-$75K\\n• Entertainment Centers: $35K-$85K\\n• Wet Bars: $45K-$100K\\n• Wine Storage: $60K-$150K+\\n\\nEvery project is custom, so the final price depends on your specific needs, materials, and features. Would you like me to connect you with our team for a personalized quote?",
+        "Great question about pricing! 💰\n\nOur wall units typically range from $15K to $150K+ depending on complexity and materials. Here's a rough breakdown:\n\n• Display Units: $15K-$50K\n• Kitchen/Office: $25K-$75K\n• Entertainment Centers: $35K-$85K\n• Wet Bars: $45K-$100K\n• Wine Storage: $60K-$150K+\n\nEvery project is custom, so the final price depends on your specific needs, materials, and features. Would you like me to connect you with our team for a personalized quote?",
         ['Yes, get me a quote', 'Tell me about materials', 'What affects the price?', 'Ask another question']
       )
     } else if (lowerQuestion.includes('time') || lowerQuestion.includes('long') || lowerQuestion.includes('when') || lowerQuestion.includes('timeline')) {
       addBotMessage(
-        "Timeline is so important for planning! ⏰\\n\\nTypical project schedule:\\n• Design & Planning: 1-2 weeks\\n• Manufacturing: 4-8 weeks\\n• Installation: 1-3 days\\n\\nTotal timeline is usually 6-10 weeks from design approval to completion. We can expedite for rush projects too!\\n\\nWhen would you ideally like your project completed?",
+        "Timeline is so important for planning! ⏰\n\nTypical project schedule:\n• Design & Planning: 1-2 weeks\n• Manufacturing: 4-8 weeks\n• Installation: 1-3 days\n\nTotal timeline is usually 6-10 weeks from design approval to completion. We can expedite for rush projects too!\n\nWhen would you ideally like your project completed?",
         ['Within 2 months', '2-4 months', '4-6 months', 'No rush', 'Ask another question']
       )
     } else if (lowerQuestion.includes('material') || lowerQuestion.includes('wood') || lowerQuestion.includes('finish') || lowerQuestion.includes('quality')) {
       addBotMessage(
-        "I love talking about our materials! 🌳\\n\\nWe use premium materials including:\\n• Exotic woods like Walnut, Mahogany, Zebrano\\n• Natural stone: Marble, Granite, Quartz\\n• Metal accents: Brass, Steel, Bronze\\n• Custom stains and finishes\\n• Temperature-controlled storage systems\\n\\nEverything comes with our comprehensive warranty. What style are you envisioning?",
+        "I love talking about our materials! 🌳\n\nWe use premium materials including:\n• Exotic woods like Walnut, Mahogany, Zebrano\n• Natural stone: Marble, Granite, Quartz\n• Metal accents: Brass, Steel, Bronze\n• Custom stains and finishes\n• Temperature-controlled storage systems\n\nEverything comes with our comprehensive warranty. What style are you envisioning?",
         ['Modern & sleek', 'Traditional & warm', 'Rustic & natural', 'Luxury & elegant', 'Ask another question']
       )
     } else if (lowerQuestion.includes('visit') || lowerQuestion.includes('showroom') || lowerQuestion.includes('see') || lowerQuestion.includes('factory')) {
       addBotMessage(
-        "I'd love for you to see our craftsmanship in person! 🏭\\n\\nYou can visit our factory at:\\n4801 Johnson Rd Suite 4, Coconut Creek, FL 33073\\n\\nWe do tours by appointment so our team can give you their full attention. You'll see active projects and meet our skilled craftsmen!\\n\\nWould you like me to arrange a visit?",
+        "I'd love for you to see our craftsmanship in person! 🏭\n\nYou can visit our factory at:\n4801 Johnson Rd Suite 4, Coconut Creek, FL 33073\n\nWe do tours by appointment so our team can give you their full attention. You'll see active projects and meet our skilled craftsmen!\n\nWould you like me to arrange a visit?",
         ['Yes, schedule a visit', 'Tell me more first', 'Send me photos instead', 'Ask another question']
       )
     } else if (lowerQuestion.includes('install') || lowerQuestion.includes('delivery') || lowerQuestion.includes('setup')) {
       addBotMessage(
-        "Installation is one of my favorite parts! 🔨\\n\\nOur process is seamless:\\n1. Pre-installation site prep\\n2. Professional delivery\\n3. Precision installation (1-3 days)\\n4. Final finishing touches\\n5. Quality inspection\\n6. Care instructions\\n\\nWe handle everything - no mess, no stress! Our installers are true artists.\\n\\nAny specific installation concerns?",
+        "Installation is one of my favorite parts! 🔨\n\nOur process is seamless:\n1. Pre-installation site prep\n2. Professional delivery\n3. Precision installation (1-3 days)\n4. Final finishing touches\n5. Quality inspection\n6. Care instructions\n\nWe handle everything - no mess, no stress! Our installers are true artists.\n\nAny specific installation concerns?",
         ['Will it damage my walls?', 'How long does it take?', 'What about cleanup?', 'Sounds perfect!', 'Ask another question']
       )
     } else if (lowerQuestion.includes('wine') || lowerQuestion.includes('bar') || lowerQuestion.includes('entertainment')) {
       addBotMessage(
-        "You have excellent taste! Those are some of our most popular and impressive units! 🍷\\n\\nSpecialty features we can include:\\n• Temperature-controlled wine storage\\n• LED lighting systems\\n• Glass displays\\n• Wet bar with plumbing\\n• Hidden storage\\n• TV integration\\n\\nWhich type interests you most?",
+        "You have excellent taste! Those are some of our most popular and impressive units! 🍷\n\nSpecialty features we can include:\n• Temperature-controlled wine storage\n• LED lighting systems\n• Glass displays\n• Wet bar with plumbing\n• Hidden storage\n• TV integration\n\nWhich type interests you most?",
         ['Wine Storage', 'Wet Bar', 'Entertainment Center', 'Combination unit', 'Ask another question']
       )
     } else {
       addBotMessage(
-        "That's a great question! 🤔\\n\\nI want to make sure I give you the best answer possible. Let me connect you directly with one of our specialists who can address your specific needs in detail.\\n\\nIn the meantime, is there anything else about our wall units I can help with?",
+        "That's a great question! 🤔\n\nI want to make sure I give you the best answer possible. Let me connect you directly with one of our specialists who can address your specific needs in detail.\n\nIn the meantime, is there anything else about our wall units I can help with?",
         ['Pricing information', 'Material options', 'Timeline questions', 'Installation process', 'Schedule a consultation', 'Ask another question']
       )
     }

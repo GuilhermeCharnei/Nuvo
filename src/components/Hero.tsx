@@ -5,6 +5,22 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 
 export default function Hero() {
+  const handleStartProject = () => {
+    // Trigger chatbot to open
+    const chatbotButton = document.querySelector('[data-chatbot-trigger]') as HTMLButtonElement
+    if (chatbotButton) {
+      chatbotButton.click()
+    }
+  }
+
+  const handleViewPortfolio = () => {
+    // Scroll to portfolio section
+    const portfolioSection = document.querySelector('#portfolio')
+    if (portfolioSection) {
+      portfolioSection.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
@@ -81,12 +97,14 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.9 }}
           >
             <button
+              onClick={handleStartProject}
               className="bg-[var(--color-secondary)] hover:bg-[var(--color-accent)] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-base sm:text-lg font-semibold transition-all duration-300 shadow-lg w-full sm:w-auto min-h-[48px]"
             >
               Start Your Project
             </button>
             
             <button
+              onClick={handleViewPortfolio}
               className="border-2 border-white text-white hover:bg-white hover:text-[var(--color-primary)] px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-base sm:text-lg font-semibold transition-all duration-300 w-full sm:w-auto min-h-[48px]"
             >
               View Portfolio

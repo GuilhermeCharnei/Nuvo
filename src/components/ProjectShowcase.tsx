@@ -114,7 +114,7 @@ export default function ProjectShowcase() {
     : projects.filter(project => project.category === activeTab)
 
   return (
-    <section className="py-24 bg-white" ref={ref}>
+    <section id="portfolio" className="py-24 bg-white" ref={ref}>
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <motion.div

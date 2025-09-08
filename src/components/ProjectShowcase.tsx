@@ -3,13 +3,23 @@
 import React, { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { projectsData } from '@/data/projects'
 
 export default function ProjectShowcase() {
   const ref = useRef(null)
+  const router = useRouter()
   const isInView = useInView(ref, { once: true, threshold: 0.1 })
   const [activeTab, setActiveTab] = useState('all')
 
-  const projects = [
+  const projects = projectsData
+
+  const handleProjectClick = (projectId: number) => {
+    router.push(`/project/${projectId}`)
+  }
+
+  // Keep original structure for compatibility
+  const originalProjects = [
     {
       id: 1,
       title: 'Wet Bar Wall Unit',
@@ -170,7 +180,8 @@ export default function ProjectShowcase() {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group cursor-pointer"
+              onClick={() => handleProjectClick(project.id)}
+              className="group cursor-pointer hover:scale-105 transition-transform duration-300"
             >
               <div className="relative h-80 rounded-2xl overflow-hidden shadow-luxury mb-6">
                 <Image

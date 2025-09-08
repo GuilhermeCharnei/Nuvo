@@ -5,59 +5,7 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { FaArrowLeft, FaRuler, FaDollarSign, FaClock, FaTools } from 'react-icons/fa'
 import { useState } from 'react'
-
-// Project data will be moved to a shared file later
-const projectsData = [
-  {
-    id: 1,
-    title: 'Wet Bar Wall Unit',
-    category: 'bar',
-    mainImage: '/images/480969695_620547907386649_7438075877562462263_n_1757113219623.jpg',
-    images: [
-      '/images/480969695_620547907386649_7438075877562462263_n_1757113219623.jpg',
-    ],
-    description: 'Sophisticated wet bar with integrated refrigeration, stone countertops, and LED lighting',
-    fullDescription: 'This stunning wet bar wall unit transforms any space into an elegant entertaining area. Featuring premium granite countertops, integrated refrigeration system, and custom LED lighting that creates the perfect ambiance for hosting guests.',
-    specs: {
-      dimensions: '12\' W x 8\' H x 2\' D',
-      materials: 'Walnut wood, Granite countertop, Stainless steel',
-      features: ['Temperature-controlled storage', 'LED strip lighting', 'Integrated sink', 'Glass storage'],
-      timeline: '8-10 weeks',
-      priceRange: '$45,000 - $65,000'
-    },
-    clientStory: 'Our client wanted to create the perfect entertaining space in their luxury home. The challenge was integrating modern functionality with classic elegance. We designed this custom wet bar that seamlessly blends premium materials with cutting-edge technology.',
-    testimonial: {
-      text: 'NUVO exceeded our expectations. This wet bar has become the centerpiece of our home entertainment.',
-      client: 'Michael & Sarah Johnson',
-      location: 'Boca Raton, FL'
-    }
-  },
-  {
-    id: 2,
-    title: 'Corporate Bar Unit',
-    category: 'bar',
-    mainImage: '/images/482083207_619297530845020_484943003542860880_n_1757113219623.jpg',
-    images: [
-      '/images/482083207_619297530845020_484943003542860880_n_1757113219623.jpg',
-    ],
-    description: 'Luxury corporate bar with curved design, premium finishes, and integrated storage',
-    fullDescription: 'A sophisticated corporate bar designed for executive spaces. The curved design creates an inviting atmosphere while premium finishes reflect the company\'s commitment to excellence.',
-    specs: {
-      dimensions: '16\' W x 9\' H x 3\' D',
-      materials: 'Mahogany wood, Quartz surface, Brass accents',
-      features: ['Curved design', 'Executive storage', 'Wine refrigeration', 'Display lighting'],
-      timeline: '10-12 weeks',
-      priceRange: '$55,000 - $75,000'
-    },
-    clientStory: 'A leading law firm wanted to create an impressive client entertainment area. The curved design solution maximized the space while creating an elegant focal point for their office.',
-    testimonial: {
-      text: 'This bar unit has elevated our client meetings and office culture tremendously.',
-      client: 'David Martinez, Managing Partner',
-      location: 'Fort Lauderdale, FL'
-    }
-  },
-  // Add more projects as needed
-]
+import { projectsData } from '@/data/projects'
 
 export default function ProjectPage() {
   const params = useParams()
@@ -92,6 +40,10 @@ export default function ProjectPage() {
     }, 1000)
   }
 
+  // Use main image and fallback to images array if available
+  const projectImages = project.images || [project.image]
+  const currentImage = projectImages[selectedImage] || project.image
+
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
@@ -118,7 +70,7 @@ export default function ProjectPage() {
               className="relative h-96 lg:h-[500px] rounded-2xl overflow-hidden shadow-luxury mb-6"
             >
               <Image
-                src={project.images[selectedImage] || project.mainImage}
+                src={currentImage}
                 alt={project.title}
                 fill
                 className="object-cover"
@@ -127,9 +79,9 @@ export default function ProjectPage() {
             </motion.div>
             
             {/* Image Thumbnails */}
-            {project.images.length > 1 && (
+            {projectImages.length > 1 && (
               <div className="flex gap-4 overflow-x-auto">
-                {project.images.map((image, index) => (
+                {projectImages.map((image, index) => (
                   <button
                     key={index}
                     onClick={() => setSelectedImage(index)}
@@ -162,56 +114,60 @@ export default function ProjectPage() {
               </h1>
               
               <p className="text-lg text-gray-600 mb-8">
-                {project.fullDescription}
+                {project.fullDescription || project.description}
               </p>
 
-              {/* Specs */}
-              <div className="space-y-6 mb-8">
-                <div className="flex items-start gap-3">
-                  <FaRuler className="text-[var(--color-secondary)] mt-1" />
-                  <div>
-                    <h3 className="font-semibold text-[var(--color-primary)]">Dimensions</h3>
-                    <p className="text-gray-600">{project.specs.dimensions}</p>
+              {/* Specs - Only show if available */}
+              {project.specs && (
+                <div className="space-y-6 mb-8">
+                  <div className="flex items-start gap-3">
+                    <FaRuler className="text-[var(--color-secondary)] mt-1" />
+                    <div>
+                      <h3 className="font-semibold text-[var(--color-primary)]">Dimensions</h3>
+                      <p className="text-gray-600">{project.specs.dimensions}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <FaTools className="text-[var(--color-secondary)] mt-1" />
+                    <div>
+                      <h3 className="font-semibold text-[var(--color-primary)]">Materials</h3>
+                      <p className="text-gray-600">{project.specs.materials}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <FaClock className="text-[var(--color-secondary)] mt-1" />
+                    <div>
+                      <h3 className="font-semibold text-[var(--color-primary)]">Timeline</h3>
+                      <p className="text-gray-600">{project.specs.timeline}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <FaDollarSign className="text-[var(--color-secondary)] mt-1" />
+                    <div>
+                      <h3 className="font-semibold text-[var(--color-primary)]">Investment Range</h3>
+                      <p className="text-gray-600">{project.specs.priceRange}</p>
+                    </div>
                   </div>
                 </div>
+              )}
 
-                <div className="flex items-start gap-3">
-                  <FaTools className="text-[var(--color-secondary)] mt-1" />
-                  <div>
-                    <h3 className="font-semibold text-[var(--color-primary)]">Materials</h3>
-                    <p className="text-gray-600">{project.specs.materials}</p>
-                  </div>
+              {/* Features - Only show if available */}
+              {project.specs?.features && (
+                <div className="mb-8">
+                  <h3 className="font-semibold text-[var(--color-primary)] mb-3">Key Features</h3>
+                  <ul className="space-y-2">
+                    {project.specs.features.map((feature, index) => (
+                      <li key={index} className="flex items-center gap-2 text-gray-600">
+                        <div className="w-2 h-2 bg-[var(--color-secondary)] rounded-full"></div>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-
-                <div className="flex items-start gap-3">
-                  <FaClock className="text-[var(--color-secondary)] mt-1" />
-                  <div>
-                    <h3 className="font-semibold text-[var(--color-primary)]">Timeline</h3>
-                    <p className="text-gray-600">{project.specs.timeline}</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <FaDollarSign className="text-[var(--color-secondary)] mt-1" />
-                  <div>
-                    <h3 className="font-semibold text-[var(--color-primary)]">Investment Range</h3>
-                    <p className="text-gray-600">{project.specs.priceRange}</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Features */}
-              <div className="mb-8">
-                <h3 className="font-semibold text-[var(--color-primary)] mb-3">Key Features</h3>
-                <ul className="space-y-2">
-                  {project.specs.features.map((feature, index) => (
-                    <li key={index} className="flex items-center gap-2 text-gray-600">
-                      <div className="w-2 h-2 bg-[var(--color-secondary)] rounded-full"></div>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              )}
 
               {/* CTA Button */}
               <button
@@ -224,29 +180,37 @@ export default function ProjectPage() {
           </div>
         </div>
 
-        {/* Client Story */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-16 bg-gray-50 rounded-2xl p-8"
-        >
-          <h2 className="text-2xl font-bold text-[var(--color-primary)] mb-6">Project Story</h2>
-          <p className="text-gray-600 mb-8 leading-relaxed">
-            {project.clientStory}
-          </p>
-          
-          {/* Testimonial */}
-          <div className="border-l-4 border-[var(--color-secondary)] pl-6">
-            <p className="text-lg italic text-gray-700 mb-4">
-              "{project.testimonial.text}"
-            </p>
-            <div className="text-sm text-gray-600">
-              <div className="font-semibold">{project.testimonial.client}</div>
-              <div>{project.testimonial.location}</div>
-            </div>
-          </div>
-        </motion.div>
+        {/* Client Story & Testimonial - Only show if available */}
+        {(project.clientStory || project.testimonial) && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mt-16 bg-gray-50 rounded-2xl p-8"
+          >
+            {project.clientStory && (
+              <>
+                <h2 className="text-2xl font-bold text-[var(--color-primary)] mb-6">Project Story</h2>
+                <p className="text-gray-600 mb-8 leading-relaxed">
+                  {project.clientStory}
+                </p>
+              </>
+            )}
+            
+            {/* Testimonial */}
+            {project.testimonial && (
+              <div className="border-l-4 border-[var(--color-secondary)] pl-6">
+                <p className="text-lg italic text-gray-700 mb-4">
+                  "{project.testimonial.text}"
+                </p>
+                <div className="text-sm text-gray-600">
+                  <div className="font-semibold">{project.testimonial.client}</div>
+                  <div>{project.testimonial.location}</div>
+                </div>
+              </div>
+            )}
+          </motion.div>
+        )}
       </div>
     </div>
   )

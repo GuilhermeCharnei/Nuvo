@@ -233,3 +233,16 @@ export interface FormValidationState {
   /** Se o formulário todo é válido */
   isFormValid: boolean
 }
+
+// ==========================================
+// TIPOS ESPECÍFICOS DO PROJETO
+// ==========================================
+
+/** Tipo para as chaves das categorias de projeto */
+export type ProjectCategoryKey = 'all' | 'bar' | 'display' | 'entertainment' | 'wine' | 'office' | 'kitchen' | 'living' | 'dining' | 'architectural'
+
+/** Tipo para as chaves das faixas de preço */
+export type PriceRangeKey = 'display' | 'kitchen' | 'entertainment' | 'bar' | 'wine' | 'office' | 'living' | 'dining' | 'architectural'
+
+/** Tipo para configurações de animação */
+export type AnimationDuration = 'fast' | 'normal' | 'slow'

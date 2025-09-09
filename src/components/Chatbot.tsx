@@ -128,7 +128,7 @@ const useConversationFlow = () => {
     }
 
     setTimeout(() => {
-      addMessage(createBotMessage(botResponse, true, CHATBOT_MESSAGES.budgetOptions))
+      addMessage(createBotMessage(botResponse, true, [...CHATBOT_MESSAGES.budgetOptions]))
     }, 1000)
   }
 
@@ -150,7 +150,7 @@ const useConversationFlow = () => {
     }
 
     setTimeout(() => {
-      addMessage(createBotMessage(botResponse, true, CHATBOT_MESSAGES.timelineOptions))
+      addMessage(createBotMessage(botResponse, true, [...CHATBOT_MESSAGES.timelineOptions]))
     }, 1000)
   }
 
@@ -297,7 +297,7 @@ export default function Chatbot() {
         addMessage(createBotMessage(
           CHATBOT_MESSAGES.welcome,
           true,
-          CHATBOT_MESSAGES.typeOptions
+          [...CHATBOT_MESSAGES.typeOptions]
         ))
       }, 500)
     }

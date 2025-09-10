@@ -70,3 +70,28 @@ Preferred communication style: Simple, everyday language.
 - Gallery system prepared for dynamic content management
 - Project showcase structure suitable for CMS integration
 - Testimonial section ready for dynamic content loading
+
+## Recent Changes
+
+### Latest Updates (September 10, 2025)
+- **Intelligent Sales Chatbot Implementation**: Created Sofia, an AI-powered sales chatbot specialized in Wall Units with comprehensive NUVO product knowledge
+- **Advanced Product Knowledge Base**: Implemented detailed product catalog covering all 7 NUVO categories (Entertainment, Kitchen, Closet, Laundry, Office, Foyer, Millwork)
+- **Consultative Sales Logic**: Developed intelligent conversation flow that discovers customer needs, style preferences, and challenges to make personalized recommendations
+- **Enhanced Lead Qualification**: Upgraded chatbot to capture high-quality leads through strategic questioning about room type, purpose, style, budget ($15K-$150K+), and timeline
+- **Smart Product Recommendations**: Integrated recommendation engine that analyzes customer profile and suggests appropriate Wall Unit solutions with reasoning
+- **Conversational Intelligence**: Added natural language processing to understand customer intent and provide relevant product information
+
+### Technical Implementation Details
+- **New Files Created**:
+  - `src/data/productKnowledge.ts`: Comprehensive NUVO product database with categories, solutions, and specifications
+  - `src/lib/chatbotLogic.ts`: Intelligent sales logic for customer analysis and product recommendations
+- **Enhanced Components**:
+  - `src/components/Chatbot.tsx`: Completely redesigned with consultative sales flow and intelligent responses
+  - `src/lib/constants.ts`: Updated with new conversation options and sales messaging
+  - `src/types/index.ts`: Extended type definitions for customer profiles and conversation stages
+- **Sales Features**:
+  - Multi-stage conversation flow (Room → Purpose → Style → Challenges → Budget → Timeline → Recommendation)
+  - Intelligent product matching based on customer needs and preferences
+  - Personalized investment ranges and timeline recommendations
+  - Lead qualification scoring and consultation scheduling
+  - Natural language understanding for free-text responses

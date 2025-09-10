@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Para export estático (Hostinger compartilhada)
+  // Descomente a linha abaixo para export estático:
+  // output: 'export',
+  
   // Configurações para compatibilidade Windows
   experimental: {
     // Evita problemas de case sensitivity no Windows

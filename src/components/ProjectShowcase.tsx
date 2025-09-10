@@ -20,10 +20,11 @@
 'use client'
 
 import React, { useRef, useCallback, useMemo } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { FaTimes, FaClock, FaTools, FaQuoteLeft } from 'react-icons/fa'
 import { projectsData } from '@/data/projects'
 import { PROJECT_CATEGORIES, APP_CONFIG, STYLE_CLASSES } from '@/lib/constants'
 import type { Project, ProjectCategoryKey } from '@/types'
@@ -97,13 +98,15 @@ interface ProjectCardProps {
   index: number
   isInView: boolean
   onClick: (projectId: number) => void
+  onLearnMore: (project: Project) => void
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = React.memo(({ 
   project, 
   index, 
   isInView, 
-  onClick 
+  onClick,
+  onLearnMore 
 }) => {
   // Configurações de animação para o card (memoizado)
   const cardAnimation = useMemo(() => ({
@@ -177,10 +180,226 @@ const ProjectCard: React.FC<ProjectCardProps> = React.memo(({
             {project.specs.priceRange}
           </div>
         )}
+        
+        {/* Botão Learn More */}
+        <div className="mt-4 flex gap-2">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={(e) => {
+              e.stopPropagation()
+              onLearnMore(project)
+            }}
+            className="flex-1 bg-[var(--color-secondary)] hover:bg-[var(--color-accent)] text-white py-2 px-4 rounded-lg text-sm font-semibold transition-all duration-300"
+          >
+            Learn More
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={handleClick}
+            className="flex-1 bg-transparent border border-[var(--color-secondary)] text-[var(--color-secondary)] hover:bg-[var(--color-secondary)] hover:text-white py-2 px-4 rounded-lg text-sm font-semibold transition-all duration-300"
+          >
+            View Project
+          </motion.button>
+        </div>
       </div>
     </motion.div>
   )
 })
+
+/**
+ * Modal de detalhes do projeto
+ */
+interface ProjectDetailModalProps {
+  project: Project | null
+  isOpen: boolean
+  onClose: () => void
+}
+
+const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, isOpen, onClose }) => {
+  if (!project) return null
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          onClick={onClose}
+        >
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-luxury"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="sticky top-0 bg-white border-b border-gray-200 p-6 rounded-t-2xl z-10">
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-bold text-[var(--color-primary)]">{project.title}</h2>
+                <button
+                  onClick={onClose}
+                  className="w-10 h-10 rounded-full hover:bg-gray-100 flex items-center justify-center transition-colors"
+                >
+                  <FaTimes className="text-gray-500" />
+                </button>
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="p-6">
+              {/* Gallery */}
+              <div className="mb-8">
+                <h3 className="text-lg font-semibold text-[var(--color-primary)] mb-4">Project Gallery</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {project.images?.map((image, index) => (
+                    <div key={index} className="relative h-64 rounded-xl overflow-hidden">
+                      <Image
+                        src={image}
+                        alt={`${project.title} - Image ${index + 1}`}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
+                    </div>
+                  )) || (
+                    <div className="relative h-64 rounded-xl overflow-hidden">
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Description */}
+              <div className="mb-8">
+                <h3 className="text-lg font-semibold text-[var(--color-primary)] mb-4">Project Details</h3>
+                <p className="text-[var(--color-gray)] leading-relaxed">
+                  {project.fullDescription || project.description}
+                </p>
+                {project.clientStory && (
+                  <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+                    <h4 className="font-medium text-[var(--color-primary)] mb-2">The Story</h4>
+                    <p className="text-sm text-[var(--color-gray)]">{project.clientStory}</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Specifications */}
+              {project.specs && (
+                <div className="mb-8">
+                  <h3 className="text-lg font-semibold text-[var(--color-primary)] mb-4">Specifications</h3>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    {/* Timeline */}
+                    <div className="flex items-start space-x-3">
+                      <div className="w-10 h-10 bg-[var(--color-secondary)]/10 rounded-lg flex items-center justify-center">
+                        <FaClock className="text-[var(--color-secondary)]" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-[var(--color-primary)] mb-1">Project Timeline</h4>
+                        <p className="text-[var(--color-gray)]">{project.specs.timeline}</p>
+                      </div>
+                    </div>
+
+                    {/* Materials */}
+                    <div className="flex items-start space-x-3">
+                      <div className="w-10 h-10 bg-[var(--color-secondary)]/10 rounded-lg flex items-center justify-center">
+                        <FaTools className="text-[var(--color-secondary)]" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-[var(--color-primary)] mb-1">Materials Used</h4>
+                        <p className="text-[var(--color-gray)]">{project.specs.materials}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Features */}
+                  <div className="mt-6">
+                    <h4 className="font-semibold text-[var(--color-primary)] mb-3">Key Features</h4>
+                    <div className="grid md:grid-cols-2 gap-2">
+                      {project.specs.features.map((feature, index) => (
+                        <div key={index} className="flex items-center space-x-2">
+                          <div className="w-2 h-2 bg-[var(--color-secondary)] rounded-full"></div>
+                          <span className="text-sm text-[var(--color-gray)]">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Investment Range */}
+                  <div className="mt-6 p-4 bg-[var(--color-secondary)]/5 rounded-lg">
+                    <h4 className="font-semibold text-[var(--color-primary)] mb-2">Investment Range</h4>
+                    <p className="text-xl font-bold text-[var(--color-secondary)]">{project.specs.priceRange}</p>
+                    <p className="text-sm text-[var(--color-gray)] mt-1">Dimensions: {project.specs.dimensions}</p>
+                  </div>
+                </div>
+              )}
+
+              {/* Testimonial */}
+              {project.testimonial && (
+                <div className="mb-8">
+                  <h3 className="text-lg font-semibold text-[var(--color-primary)] mb-4">Client Testimonial</h3>
+                  <div className="bg-[var(--color-secondary)]/5 rounded-xl p-6 relative">
+                    <FaQuoteLeft className="absolute top-4 left-4 text-[var(--color-secondary)]/20 text-2xl" />
+                    <blockquote className="text-[var(--color-gray)] italic text-lg leading-relaxed pl-8">
+                      "{project.testimonial.text}"
+                    </blockquote>
+                    <footer className="mt-4 pl-8">
+                      <cite className="font-semibold text-[var(--color-primary)] not-italic">
+                        {project.testimonial.client}
+                      </cite>
+                      <p className="text-sm text-[var(--color-gray)]">{project.testimonial.location}</p>
+                    </footer>
+                  </div>
+                </div>
+              )}
+
+              {/* CTA */}
+              <div className="text-center pt-6 border-t border-gray-200">
+                <p className="text-[var(--color-gray)] mb-4">
+                  Interested in a similar project for your space?
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  <button
+                    onClick={() => {
+                      const chatbotButton = document.querySelector('[data-chatbot-trigger]') as HTMLButtonElement
+                      if (chatbotButton) chatbotButton.click()
+                      onClose()
+                    }}
+                    className="bg-[var(--color-secondary)] hover:bg-[var(--color-accent)] text-white px-6 py-3 rounded-lg font-semibold transition-colors"
+                  >
+                    Chat with Sofia
+                  </button>
+                  <button
+                    onClick={() => {
+                      const ctaSection = document.querySelector('[data-section="call-to-action"]')
+                      if (ctaSection) {
+                        ctaSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                      }
+                      onClose()
+                    }}
+                    className="bg-transparent border border-[var(--color-secondary)] text-[var(--color-secondary)] hover:bg-[var(--color-secondary)] hover:text-white px-6 py-3 rounded-lg font-semibold transition-colors"
+                  >
+                    Schedule Consultation
+                  </button>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  )
+}
 
 /**
  * Componente para os botões de filtro de categoria
@@ -230,9 +449,24 @@ export default function ProjectShowcase() {
   const galleryRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, amount: 0.1 })
   
+  // Estado do modal
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  
   // Hooks personalizados para lógica de negócio
   const { activeTab, filteredProjects, handleCategoryChange } = useProjectFilters(projectsData, galleryRef)
   const { handleProjectClick } = useProjectNavigation()
+
+  // Handlers do modal
+  const handleLearnMore = useCallback((project: Project) => {
+    setSelectedProject(project)
+    setIsModalOpen(true)
+  }, [])
+
+  const handleCloseModal = useCallback(() => {
+    setIsModalOpen(false)
+    setTimeout(() => setSelectedProject(null), 300) // Delay para a animação
+  }, [])
 
   // Configurações de animação para diferentes seções (memoizado)
   const sectionAnimations = useMemo(() => ({
@@ -291,6 +525,7 @@ export default function ProjectShowcase() {
               index={index}
               isInView={isInView}
               onClick={handleProjectClick}
+              onLearnMore={handleLearnMore}
             />
           ))}
         </motion.div>
@@ -326,6 +561,13 @@ export default function ProjectShowcase() {
           </div>
         </motion.div>
       </div>
+
+      {/* Modal de detalhes do projeto */}
+      <ProjectDetailModal
+        project={selectedProject}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </section>
   )
 }

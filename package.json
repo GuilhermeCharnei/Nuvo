@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "./node_modules/.bin/next dev --hostname 0.0.0.0 --port 5000",
+    "dev": "next dev --port 3000",
+    "dev:replit": "next dev --hostname 0.0.0.0 --port 5000",
     "build": "next build",
-    "start": "next start --hostname 0.0.0.0 --port 5000",
+    "start": "next start --port 3000",
+    "start:replit": "next start --hostname 0.0.0.0 --port 5000",
     "lint": "next lint"
   },
   "dependencies": {

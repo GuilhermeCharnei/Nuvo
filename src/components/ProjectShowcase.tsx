@@ -31,7 +31,7 @@ import type { Project, ProjectCategoryKey } from '@/types'
 /**
  * Hook personalizado para gerenciar estado dos filtros
  */
-const useProjectFilters = (projects: Project[]) => {
+const useProjectFilters = (projects: Project[], galleryRef: React.RefObject<HTMLDivElement>) => {
   const [activeTab, setActiveTab] = useState<ProjectCategoryKey>('all')
 
   /**
@@ -42,10 +42,24 @@ const useProjectFilters = (projects: Project[]) => {
     : projects.filter(project => project.category === activeTab)
 
   /**
-   * Altera a categoria ativa do filtro
+   * Altera a categoria ativa do filtro e faz scroll para a galeria
    */
   const handleCategoryChange = (category: ProjectCategoryKey) => {
     setActiveTab(category)
+    
+    // Scroll suave para a galeria após uma pequena delay para permitir re-render
+    setTimeout(() => {
+      if (galleryRef.current) {
+        const offset = 100 // Espaço extra para melhor visualização
+        const elementPosition = galleryRef.current.getBoundingClientRect().top + window.pageYOffset
+        const offsetPosition = elementPosition - offset
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        })
+      }
+    }, 100)
   }
 
   return {
@@ -206,10 +220,11 @@ const CategoryFilters: React.FC<CategoryFiltersProps> = ({
  */
 export default function ProjectShowcase() {
   const ref = useRef(null)
+  const galleryRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, amount: 0.1 })
   
   // Hooks personalizados para lógica de negócio
-  const { activeTab, filteredProjects, handleCategoryChange } = useProjectFilters(projectsData)
+  const { activeTab, filteredProjects, handleCategoryChange } = useProjectFilters(projectsData, galleryRef)
   const { handleProjectClick } = useProjectNavigation()
 
   // Configurações de animação para diferentes seções
@@ -256,6 +271,7 @@ export default function ProjectShowcase() {
 
         {/* Grid de projetos */}
         <motion.div
+          ref={galleryRef}
           layout
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
         >

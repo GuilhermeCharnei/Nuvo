@@ -187,9 +187,51 @@ export const identifyIntent = (message: string): string[] => {
 }
 
 /**
+ * Procura resposta no FAQ baseado na pergunta
+ */
+export const findFAQAnswer = (question: string): string | null => {
+  const questionLower = question.toLowerCase()
+  
+  // Busca por palavras-chave no FAQ
+  if (questionLower.includes('warranty') || questionLower.includes('guarantee')) {
+    return `${FAQ.warranty.answer}`
+  }
+  
+  if (questionLower.includes('timeline') || questionLower.includes('how long') || questionLower.includes('time')) {
+    return `${FAQ.timeline.answer}`
+  }
+  
+  if (questionLower.includes('consultation') || questionLower.includes('free') || questionLower.includes('quote')) {
+    return `${FAQ.consultation.answer}`
+  }
+  
+  if (questionLower.includes('material') || questionLower.includes('wood') || questionLower.includes('quality')) {
+    return `${FAQ.materials.answer}`
+  }
+  
+  if (questionLower.includes('installation') || questionLower.includes('install')) {
+    return `${FAQ.installation.answer}`
+  }
+  
+  if (questionLower.includes('design') || questionLower.includes('match') || questionLower.includes('style')) {
+    return `${FAQ.design.answer}`
+  }
+  
+  return null
+}
+
+/**
  * Gera resposta inteligente baseada na análise da mensagem
  */
 export const generateIntelligentResponse = (message: string, profile: CustomerProfile): string => {
+  // Primeiro, verifica se é uma pergunta do FAQ
+  const faqAnswer = findFAQAnswer(message)
+  if (faqAnswer) {
+    return `${faqAnswer}
+
+Is there anything specific about your project that I can help you with? I'd love to learn more about your space and needs! 😊`
+  }
+  
   const intent = identifyIntent(message)
   const products = findProductByKeywords(message)
   

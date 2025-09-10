@@ -280,7 +280,7 @@ const useIntelligentConversation = () => {
       }, 800)
     } else {
       // Fornecer mais informações ou exemplos
-      const moreInfo = "I'd be happy to share more details! 📚\n\nOur wall units are completely custom-built using premium materials and Italian craftsmanship. Each project includes:\n\n• Free 3D design consultation\n• Premium materials (hardwood, stone, metal)\n• Professional installation\n• 36-month warranty\n• CNC precision crafting\n\nWould you like to see some examples of similar projects, or should we schedule that consultation?"
+      const moreInfo = "I'd be happy to share more details! 📚\n\nOur wall units are completely custom-built using premium materials and Italian craftsmanship. Each project includes:\n\n• Free 3D design consultation\n• Premium materials (hardwood, stone, metal)\n• Professional installation\n• 12-month warranty covering manufacturing defects\n• CNC precision crafting\n\nWould you like to see some examples of similar projects, or should we schedule that consultation?"
       
       setTimeout(() => {
         addMessage(createBotMessage(moreInfo, true, ['Show me examples', 'Schedule consultation', 'I need to think about it']))

@@ -42,16 +42,20 @@ const useProjectFilters = (projects: Project[], galleryRef: React.RefObject<HTML
     : projects.filter(project => project.category === activeTab)
 
   /**
-   * Altera a categoria ativa do filtro e faz scroll para a galeria
+   * Altera a categoria ativa do filtro e faz scroll para mostrar filtros e galeria
    */
   const handleCategoryChange = (category: ProjectCategoryKey) => {
     setActiveTab(category)
     
-    // Scroll suave para a galeria após uma pequena delay para permitir re-render
+    // Scroll suave para mostrar os filtros e galeria após uma pequena delay para permitir re-render
     setTimeout(() => {
-      if (galleryRef.current) {
-        const offset = 100 // Espaço extra para melhor visualização
-        const elementPosition = galleryRef.current.getBoundingClientRect().top + window.pageYOffset
+      // Busca pelos filtros para posicionar melhor o scroll
+      const filtersElement = document.querySelector('.category-filters')
+      const targetElement = filtersElement || galleryRef.current
+      
+      if (targetElement) {
+        const offset = 120 // Espaço extra para mostrar título e filtros completamente
+        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset
         const offsetPosition = elementPosition - offset
 
         window.scrollTo({
@@ -263,11 +267,13 @@ export default function ProjectShowcase() {
         </motion.div>
 
         {/* Filtros de categoria */}
-        <CategoryFilters
-          activeTab={activeTab}
-          onCategoryChange={handleCategoryChange}
-          isInView={isInView}
-        />
+        <div className="category-filters">
+          <CategoryFilters
+            activeTab={activeTab}
+            onCategoryChange={handleCategoryChange}
+            isInView={isInView}
+          />
+        </div>
 
         {/* Grid de projetos */}
         <motion.div

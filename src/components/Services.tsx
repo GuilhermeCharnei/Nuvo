@@ -111,6 +111,13 @@ export default function Services() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
+                onClick={() => {
+                  // Scroll to call-to-action section for more information
+                  const ctaSection = document.querySelector('[data-section="call-to-action"]')
+                  if (ctaSection) {
+                    ctaSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                  }
+                }}
                 className="mt-4 lg:mt-6 w-full bg-transparent border border-[var(--color-secondary)] text-[var(--color-secondary)] hover:bg-[var(--color-secondary)] hover:text-white py-3 rounded-lg text-sm sm:text-base font-semibold transition-all duration-300 min-h-[44px]"
               >
                 Learn More
@@ -132,6 +139,13 @@ export default function Services() {
           <motion.button
             whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(196, 165, 116, 0.4)' }}
             whileTap={{ scale: 0.98 }}
+            onClick={() => {
+              // Scroll to call-to-action section for consultation
+              const ctaSection = document.querySelector('[data-section="call-to-action"]')
+              if (ctaSection) {
+                ctaSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+              }
+            }}
             className="bg-[var(--color-secondary)] hover:bg-[var(--color-accent)] text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 shadow-lg"
           >
             Get Your Free Consultation

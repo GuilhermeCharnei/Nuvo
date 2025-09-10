@@ -159,6 +159,13 @@ export default function Process() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
+            onClick={() => {
+              // Scroll to call-to-action section for consultation scheduling
+              const ctaSection = document.querySelector('[data-section="call-to-action"]')
+              if (ctaSection) {
+                ctaSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+              }
+            }}
             className="bg-[var(--color-secondary)] hover:bg-[var(--color-accent)] text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 shadow-lg"
           >
             Schedule Your Free Consultation

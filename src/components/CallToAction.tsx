@@ -34,30 +34,50 @@ export default function CallToAction() {
       icon: FaPhone,
       title: 'Call Us',
       info: '+1 (305) 555-NUVO',
-      subinfo: 'Available 8AM - 6PM EST'
+      subinfo: 'Available 8AM - 6PM EST',
+      isClickable: true,
+      action: () => window.open('tel:+13055556886', '_self')
     },
     {
       icon: FaEnvelope,
       title: 'Email Us',
       info: 'info@nuvowoodwork.com',
-      subinfo: 'We respond within 24 hours'
+      subinfo: 'We respond within 24 hours',
+      isClickable: true,
+      action: () => window.open('mailto:info@nuvowoodwork.com', '_self')
     },
     {
       icon: FaMapMarkerAlt,
       title: 'Visit Our Factory',
       info: '4801 Johnson Rd Suite 4, Coconut Creek, FL 33073',
-      subinfo: 'By appointment only'
+      subinfo: 'By appointment only',
+      isClickable: true,
+      action: () => {
+        const address = encodeURIComponent('4801 Johnson Rd Suite 4, Coconut Creek, FL 33073')
+        const userAgent = navigator.userAgent.toLowerCase()
+        if (userAgent.indexOf('iphone') > -1 || userAgent.indexOf('ipad') > -1) {
+          // iOS device - prefer Apple Maps
+          window.open(`maps://maps.google.com/maps?q=${address}`, '_self')
+        } else if (userAgent.indexOf('android') > -1) {
+          // Android device - prefer Google Maps
+          window.open(`google.navigation:q=${address}`, '_self')
+        } else {
+          // Desktop or unknown - use Google Maps web
+          window.open(`https://maps.google.com/maps?q=${address}`, '_blank')
+        }
+      }
     },
     {
       icon: FaClock,
       title: 'Business Hours',
       info: 'Mon - Fri: 8AM - 6PM',
-      subinfo: 'Sat: 9AM - 4PM'
+      subinfo: 'Sat: 9AM - 4PM',
+      isClickable: false
     }
   ]
 
   return (
-    <section className="py-24 bg-gradient-luxury wood-texture relative overflow-hidden" ref={ref}>
+    <section className="py-24 bg-gradient-luxury wood-texture relative overflow-hidden" ref={ref} data-section="call-to-action">
       {/* Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-0 right-0 w-1/3 h-full opacity-10">
@@ -119,7 +139,10 @@ export default function CallToAction() {
                   initial={{ opacity: 0, y: 30 }}
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                   transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
-                  className="flex items-start space-x-4 bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20"
+                  className={`flex items-start space-x-4 bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20 ${
+                    contact.isClickable ? 'cursor-pointer hover:bg-white/20 transition-all duration-300 transform hover:scale-[1.02]' : ''
+                  }`}
+                  onClick={contact.isClickable ? contact.action : undefined}
                 >
                   <div className="w-12 h-12 bg-[var(--color-secondary)] rounded-lg flex items-center justify-center flex-shrink-0">
                     <contact.icon className="text-white text-xl" />
@@ -128,12 +151,17 @@ export default function CallToAction() {
                     <h4 className="font-semibold text-white mb-1">
                       {contact.title}
                     </h4>
-                    <p className="text-[var(--color-secondary)] text-sm font-medium">
+                    <p className={`text-sm font-medium ${contact.isClickable ? 'text-[var(--color-secondary)] hover:underline' : 'text-[var(--color-secondary)]'}`}>
                       {contact.info}
                     </p>
                     <p className="text-gray-400 text-xs">
                       {contact.subinfo}
                     </p>
+                    {contact.isClickable && (
+                      <p className="text-gray-300 text-xs mt-1 italic">
+                        Click to {contact.title.toLowerCase()}
+                      </p>
+                    )}
                   </div>
                 </motion.div>
               ))}

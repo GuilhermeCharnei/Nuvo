@@ -1,295 +1,545 @@
+/**
+ * Componente Chatbot Sofia - Vendedor Inteligente de Wall Units
+ * 
+ * Chatbot consultivo que entende necessidades específicas e recomenda 
+ * soluções personalizadas de Wall Units NUVO.
+ * 
+ * Funcionalidades principais:
+ * - Descoberta inteligente de necessidades
+ * - Recomendações personalizadas baseadas em perfil
+ * - Qualificação de leads consultiva
+ * - Interface conversacional natural
+ * - Integração com base de conhecimento de produtos
+ */
+
 'use client'
 
-import React, { useState, useRef, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FaRobot, FaTimes, FaPaperPlane, FaUser } from 'react-icons/fa'
+import { FaComments, FaTimes, FaPaperPlane, FaUser, FaRobot } from 'react-icons/fa'
+import Image from 'next/image'
+import { CHATBOT_MESSAGES, APP_CONFIG, COMPANY_INFO } from '@/lib/constants'
+import { analyzeCustomerNeeds, generateIntelligentResponse, generateProposal, isReadyForProposal, type CustomerProfile } from '@/lib/chatbotLogic'
+import type { ChatMessage, ConversationStage, ChatbotState } from '@/types'
 
-interface Message {
-  id: string
-  text: string
-  isUser: boolean
-  timestamp: Date
-  options?: string[]
+/**
+ * Utilitário para gerar IDs únicos de mensagens
+ */
+const generateMessageId = (): string => {
+  return `msg_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
 }
 
-export default function Chatbot() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [messages, setMessages] = useState<Message[]>([])
-  const [inputText, setInputText] = useState('')
-  const [isTyping, setIsTyping] = useState(false)
-  const messagesEndRef = useRef<HTMLDivElement>(null)
+/**
+ * Utilitário para criar mensagens do bot
+ */
+const createBotMessage = (content: string, hasOptions = false, options: string[] = []): ChatMessage => ({
+  id: generateMessageId(),
+  content,
+  sender: 'bot',
+  timestamp: new Date(),
+  hasOptions,
+  options
+})
 
+/**
+ * Utilitário para criar mensagens do usuário
+ */
+const createUserMessage = (content: string): ChatMessage => ({
+  id: generateMessageId(),
+  content,
+  sender: 'user',
+  timestamp: new Date()
+})
+
+/**
+ * Hook para lógica de conversa inteligente
+ * Implementa vendas consultivas focadas em Wall Units
+ */
+const useIntelligentConversation = () => {
+  const [state, setState] = useState<ChatbotState>({
+    isOpen: false,
+    messages: [],
+    stage: 'greeting',
+    isWaitingForResponse: false,
+    userData: {}
+  })
+
+  /**
+   * Adiciona nova mensagem ao chat
+   */
+  const addMessage = (message: ChatMessage) => {
+    setState(prev => ({
+      ...prev,
+      messages: [...prev.messages, message]
+    }))
+  }
+
+  /**
+   * Processa resposta do usuário com inteligência de vendas
+   */
+  const processUserResponse = (response: string) => {
+    // Adiciona mensagem do usuário
+    addMessage(createUserMessage(response))
+
+    // Processa baseado no estágio da conversa
+    switch (state.stage) {
+      case 'greeting':
+        handleRoomSelection(response)
+        break
+      case 'room_selection':
+        handlePurposeDiscovery(response)
+        break
+      case 'purpose_discovery':
+        handleStyleInquiry(response)
+        break
+      case 'style_inquiry':
+        handleChallengesDiscovery(response)
+        break
+      case 'challenges_discovery':
+        handleBudgetInquiry(response)
+        break
+      case 'budget_inquiry':
+        handleTimelineInquiry(response)
+        break
+      case 'timeline_inquiry':
+        handleRecommendation(response)
+        break
+      case 'recommendation':
+        handleContactCollection()
+        break
+      default:
+        handleFreeTextQuestion(response)
+    }
+  }
+
+  /**
+   * Seleciona ambiente/cômodo
+   */
+  const handleRoomSelection = (room: string) => {
+    setState(prev => ({
+      ...prev,
+      stage: 'purpose_discovery',
+      userData: { ...prev.userData, room }
+    }))
+
+    let response = ''
+    if (room === 'Entertainment Room') {
+      response = "Entertainment rooms are absolutely magical! 🎬 I love designing wall units that become the focal point while organizing all your media beautifully.\n\n"
+    } else if (room === 'Home Office') {
+      response = "Home offices are so important these days! 💼 A well-designed wall unit can transform your productivity and make video calls look incredibly professional.\n\n"
+    } else if (room === 'Living Room') {
+      response = "Living rooms are the heart of the home! ✨ The right wall unit becomes both functional storage and a stunning design statement.\n\n"
+    } else {
+      response = `${room} - what a wonderful space to transform! 🏡 \n\n`
+    }
+
+    response += CHATBOT_MESSAGES.discovery.purpose
+
+    setTimeout(() => {
+      addMessage(createBotMessage(response, true, [...CHATBOT_MESSAGES.purposeOptions]))
+    }, 1000)
+  }
+
+  /**
+   * Descobre propósito e atividades
+   */
+  const handlePurposeDiscovery = (purpose: string) => {
+    const currentPurpose = state.userData.purpose || []
+    const updatedPurpose = [...currentPurpose, purpose]
+
+    setState(prev => ({
+      ...prev,
+      stage: 'style_inquiry',
+      userData: { ...prev.userData, purpose: updatedPurpose }
+    }))
+
+    let response = ''
+    if (purpose === 'Entertainment & TV') {
+      response = CHATBOT_MESSAGES.productRecommendations.entertainment + "\n\n"
+    } else if (purpose === 'Work & Productivity') {
+      response = CHATBOT_MESSAGES.productRecommendations.office + "\n\n"
+    } else if (purpose === 'Storage & Organization') {
+      response = CHATBOT_MESSAGES.productRecommendations.storage + "\n\n"
+    } else {
+      response = `${purpose} - that's exactly what we excel at! 🎯 Wall units are perfect for this type of functionality.\n\n`
+    }
+
+    response += CHATBOT_MESSAGES.discovery.style
+
+    setTimeout(() => {
+      addMessage(createBotMessage(response, true, [...CHATBOT_MESSAGES.styleOptions]))
+    }, 1200)
+  }
+
+  /**
+   * Descobre preferências de estilo
+   */
+  const handleStyleInquiry = (style: string) => {
+    setState(prev => ({
+      ...prev,
+      stage: 'challenges_discovery',
+      userData: { ...prev.userData, style }
+    }))
+
+    let response = ''
+    if (style === 'Clean Modern') {
+      response = "Clean modern is absolutely timeless! ✨ I love creating wall units with sleek lines, hidden storage, and integrated lighting that feels effortless.\n\n"
+    } else if (style === 'Warm Traditional') {
+      response = "Warm traditional never goes out of style! 🏛️ Rich wood tones, classic proportions, and beautiful craftsmanship create such inviting spaces.\n\n"
+    } else if (style === 'Contemporary Mix') {
+      response = "Contemporary mix is so sophisticated! 🎨 We can blend modern functionality with classic touches for a truly personalized look.\n\n"
+    } else {
+      response = `${style} - excellent choice! 👌 That aesthetic works beautifully with wall units.\n\n`
+    }
+
+    response += CHATBOT_MESSAGES.discovery.challenges
+
+    setTimeout(() => {
+      addMessage(createBotMessage(response, false))
+    }, 1000)
+  }
+
+  /**
+   * Descobre desafios específicos
+   */
+  const handleChallengesDiscovery = (challenges: string) => {
+    setState(prev => ({
+      ...prev,
+      stage: 'budget_inquiry',
+      userData: { ...prev.userData, challenges: [challenges] }
+    }))
+
+    const response = `That's exactly the kind of challenge we love solving! 🎯 Custom wall units are perfect for addressing specific storage and organization needs while maintaining beautiful design.\n\n${CHATBOT_MESSAGES.qualification.budget}`
+
+    setTimeout(() => {
+      addMessage(createBotMessage(response, true, [...CHATBOT_MESSAGES.budgetOptions]))
+    }, 1000)
+  }
+
+  /**
+   * Define orçamento
+   */
+  const handleBudgetInquiry = (budget: string) => {
+    setState(prev => ({
+      ...prev,
+      stage: 'timeline_inquiry',
+      userData: { ...prev.userData, budget }
+    }))
+
+    let response = ''
+    if (budget === 'I need guidance on this') {
+      response = "Absolutely! I'm here to help you understand the investment. Based on what you've shared, I can give you realistic ranges that fit your vision.\n\n"
+    } else {
+      response = `Perfect! ${budget} gives us some excellent options to work with. 💰\n\n`
+    }
+
+    response += CHATBOT_MESSAGES.qualification.timeline
+
+    setTimeout(() => {
+      addMessage(createBotMessage(response, true, [...CHATBOT_MESSAGES.timelineOptions]))
+    }, 1000)
+  }
+
+  /**
+   * Define cronograma
+   */
+  const handleTimelineInquiry = (timeline: string) => {
+    setState(prev => ({
+      ...prev,
+      stage: 'recommendation',
+      userData: { ...prev.userData, timeline }
+    }))
+
+    // Gera recomendação personalizada
+    const profile: CustomerProfile = { ...state.userData, timeline }
+    const recommendation = analyzeCustomerNeeds(profile)
+    
+    let response = `${timeline} - perfect timing! ⏰\n\n`
+    response += recommendation.reasoning + "\n\n"
+    response += `**Investment Range:** ${recommendation.estimatedInvestment}\n`
+    response += `**Estimated Timeline:** ${recommendation.proposedTimeline}\n\n`
+    response += "I'd love to show you some examples of similar projects and discuss your specific features in detail!\n\n"
+    response += "Would you like to schedule a FREE consultation where we create 3D renderings of your custom design?"
+
+    setTimeout(() => {
+      addMessage(createBotMessage(response, true, ['Yes, schedule consultation!', 'Tell me more first', 'Send me examples']))
+    }, 1500)
+  }
+
+  /**
+   * Gera recomendação final
+   */
+  const handleRecommendation = (response: string) => {
+    if (response === 'Yes, schedule consultation!') {
+      setState(prev => ({ ...prev, stage: 'contact_collection' }))
+      
+      const message = "Fantastic! 🎉 I'm so excited to help you create your dream wall unit!\n\nTo schedule your free consultation and 3D design session, I'll need your contact information. Our design team will reach out within 24 hours.\n\nWhat's your name?"
+      
+      setTimeout(() => {
+        addMessage(createBotMessage(message, false))
+      }, 800)
+    } else {
+      // Fornecer mais informações ou exemplos
+      const moreInfo = "I'd be happy to share more details! 📚\n\nOur wall units are completely custom-built using premium materials and Italian craftsmanship. Each project includes:\n\n• Free 3D design consultation\n• Premium materials (hardwood, stone, metal)\n• Professional installation\n• 12-month warranty covering manufacturing defects\n• CNC precision crafting\n\nWould you like to see some examples of similar projects, or should we schedule that consultation?"
+      
+      setTimeout(() => {
+        addMessage(createBotMessage(moreInfo, true, ['Show me examples', 'Schedule consultation', 'I need to think about it']))
+      }, 1000)
+    }
+  }
+
+  /**
+   * Coleta informações de contato
+   */
+  const handleContactCollection = () => {
+    // Implementação da coleta de contato permanece similar
+    const message = "Perfect! Let me get your information so our design team can reach out with some amazing ideas for your space. 📞\n\nWhat's the best email to reach you?"
+    
+    setTimeout(() => {
+      addMessage(createBotMessage(message, false))
+    }, 800)
+  }
+
+  /**
+   * Responde perguntas livres usando IA
+   */
+  const handleFreeTextQuestion = (message: string) => {
+    const response = generateIntelligentResponse(message, state.userData)
+    
+    setTimeout(() => {
+      addMessage(createBotMessage(response, false))
+    }, 1000)
+  }
+
+  return {
+    state,
+    setState,
+    addMessage,
+    processUserResponse
+  }
+}
+
+/**
+ * Componente principal do Chatbot
+ */
+export default function Chatbot() {
+  const { state, setState, addMessage, processUserResponse } = useIntelligentConversation()
+  const [currentInput, setCurrentInput] = useState('')
+  const [showWelcomePopup, setShowWelcomePopup] = useState(false)
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  /**
+   * Scroll automático para a última mensagem
+   */
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
 
   useEffect(() => {
     scrollToBottom()
-  }, [messages])
+  }, [state.messages])
 
+  /**
+   * Popup de boas-vindas após delay
+   */
   useEffect(() => {
-    if (isOpen && messages.length === 0) {
-      // Initial greeting when chatbot opens
+    const timer = setTimeout(() => {
+      if (state.messages.length === 0) {
+        setShowWelcomePopup(true)
+      }
+    }, APP_CONFIG.chatbot.welcomeDelay)
+
+    return () => clearTimeout(timer)
+  }, [state.messages.length])
+
+  /**
+   * Foca no input quando o chat abre
+   */
+  useEffect(() => {
+    if (state.isOpen && inputRef.current) {
+      inputRef.current.focus()
+    }
+  }, [state.isOpen])
+
+  /**
+   * Abre o chatbot e inicia conversa
+   */
+  const handleOpenChat = () => {
+    setState(prev => ({ ...prev, isOpen: true }))
+    setShowWelcomePopup(false)
+    
+    if (state.messages.length === 0) {
       setTimeout(() => {
-        addBotMessage(
-          "Olá! Eu sou a Sofia, assistente virtual da NUVO WOODWORK! 🏠✨\n\nEstou aqui para ajudar você a descobrir a Wall Unit perfeita para seu espaço. Como posso te ajudar hoje?",
-          [
-            "Quero saber sobre Wall Units",
-            "Preciso de um orçamento",
-            "Quais tipos vocês fazem?",
-            "Falar com um consultor"
-          ]
-        )
+        addMessage(createBotMessage(
+          CHATBOT_MESSAGES.welcome,
+          true,
+          [...CHATBOT_MESSAGES.roomOptions]
+        ))
       }, 500)
     }
-  }, [isOpen])
-
-  const addBotMessage = (text: string, options?: string[]) => {
-    const botMessage: Message = {
-      id: Date.now().toString(),
-      text,
-      isUser: false,
-      timestamp: new Date(),
-      options
-    }
-    
-    setMessages(prev => [...prev, botMessage])
-    setIsTyping(false)
   }
 
-  const addUserMessage = (text: string) => {
-    const userMessage: Message = {
-      id: Date.now().toString(),
-      text,
-      isUser: true,
-      timestamp: new Date()
-    }
-    
-    setMessages(prev => [...prev, userMessage])
-    setInputText('')
-    handleBotResponse(text)
+  /**
+   * Fecha o chatbot
+   */
+  const handleCloseChat = () => {
+    setState(prev => ({ ...prev, isOpen: false }))
   }
 
-  const handleBotResponse = (userText: string) => {
-    setIsTyping(true)
-    
-    setTimeout(() => {
-      const lowerText = userText.toLowerCase()
-      
-      if (lowerText.includes('wall unit') || lowerText.includes('quero saber')) {
-        addBotMessage(
-          "Perfeito! As Wall Units da NUVO são criadas sob medida para cada ambiente. 🎯\n\nNossas especialidades incluem:\n\n• Salas de estar com sistema de entretenimento\n• Ambientes gourmet com adega integrada\n• Home offices organizacionais\n• Quartos com storage inteligente\n\nQual ambiente você gostaria de transformar?",
-          [
-            "Sala de estar",
-            "Ambiente gourmet", 
-            "Home office",
-            "Quarto principal",
-            "Ver portfolio completo"
-          ]
-        )
-      } else if (lowerText.includes('orçamento') || lowerText.includes('preço')) {
-        addBotMessage(
-          "Ótimo! Para fazer um orçamento personalizado, preciso conhecer um pouco do seu projeto. 📐\n\nMe conta:\n\n• Qual o ambiente?\n• Qual o tamanho aproximado da parede?\n• Você tem alguma referência de estilo?\n• Qual sua região?",
-          [
-            "Começar orçamento",
-            "Falar com consultor",
-            "Ver projetos similares",
-            "Agendar visita técnica"
-          ]
-        )
-      } else if (lowerText.includes('tipos') || lowerText.includes('quais')) {
-        addBotMessage(
-          "Trabalhamos com diversos tipos de Wall Units! 🏗️\n\n🏠 **RESIDENCIAIS:**\n• Salas de estar (TV + storage)\n• Ambientes gourmet (adega + bar)\n• Home offices (mesa integrada)\n• Quartos (guarda-roupa + nichos)\n\n🏢 **CORPORATIVOS:**\n• Escritórios executivos\n• Salas de reunião\n• Recepções\n\nQual tipo desperta mais seu interesse?",
-          [
-            "Wall Units residenciais",
-            "Soluções corporativas", 
-            "Ver galeria de projetos",
-            "Quero orçamento"
-          ]
-        )
-      } else if (lowerText.includes('sala de estar')) {
-        addBotMessage(
-          "Excelente escolha! Nossas Wall Units para sala de estar são o coração da casa! ❤️\n\n**Incluem:**\n• Painel para TV até 75 polegadas\n• Storage para equipamentos\n• Nichos para decoração\n• Iluminação LED integrada\n• Gerenciamento de cabos invisível\n\n**Materiais:** Madeira nobre, laca premium ou melamina de alto padrão\n\nGostaria de ver alguns projetos realizados?",
-          [
-            "Ver projetos de sala",
-            "Quero orçamento",
-            "Outros ambientes",
-            "Falar com especialista"
-          ]
-        )
-      } else if (lowerText.includes('gourmet') || lowerText.includes('cozinha')) {
-        addBotMessage(
-          "Ambiente gourmet é nossa paixão! 👨‍🍳✨\n\n**Nossas Wall Units gourmet incluem:**\n• Adega climatizada integrada\n• Bar com iluminação especial\n• Storage para cristais e utensílios\n• Sistemas push-pull premium\n• Acabamentos resistentes à umidade\n\n**Diferenciais:**\n• Controle de temperatura para vinhos\n• Vidro anti-UV\n• Iluminação LED específica\n\nQuer ver como ficou em outros projetos?",
-          [
-            "Ver projetos gourmet",
-            "Sobre a adega climatizada",
-            "Solicitar orçamento",
-            "Outros tipos de Wall Unit"
-          ]
-        )
-      } else if (lowerText.includes('home office') || lowerText.includes('escritório')) {
-        addBotMessage(
-          "Home office bem organizado é produtividade garantida! 💼📚\n\n**Nossa Wall Unit para escritório inclui:**\n• Mesa integrada (tamanho personalizado)\n• Prateleiras ajustáveis\n• Nichos para equipamentos\n• Sistema de cabos invisível\n• Iluminação focal para trabalho\n• Storage para documentos\n\n**Ideal para:**\n• Profissionais liberais\n• Estudantes\n• Trabalho remoto\n• Ateliers criativos\n\nVamos planejar seu espaço de trabalho ideal?",
-          [
-            "Ver projetos de escritório",
-            "Quero orçamento",
-            "Dicas de organização",
-            "Falar com consultor"
-          ]
-        )
-      } else if (lowerText.includes('consultor') || lowerText.includes('especialista')) {
-        addBotMessage(
-          "Perfeito! Vou conectar você com nossa equipe de especialistas! 👥\n\n**Opções de atendimento:**\n\n📞 **Ligação imediata:** (11) 99999-9999\n📱 **WhatsApp:** Resposta em até 5 minutos\n📅 **Agendamento:** Consulta presencial gratuita\n💬 **Chat:** Continue aqui comigo\n\nQual forma prefere?",
-          [
-            "WhatsApp agora",
-            "Ligar agora", 
-            "Agendar consulta presencial",
-            "Continuar por aqui"
-          ]
-        )
-      } else if (lowerText.includes('portfolio') || lowerText.includes('projetos') || lowerText.includes('galeria')) {
-        addBotMessage(
-          "Temos um portfolio incrível para você explorar! 🎨📸\n\n**Acesse nosso portfolio completo:**\n\n• 500+ projetos realizados\n• Filtros por ambiente\n• Detalhes técnicos\n• Depoimentos dos clientes\n• Antes e depois\n\nVou rolar a página para você ver nossa galeria, ok?",
-          [
-            "Ver galeria agora",
-            "Projetos por categoria",
-            "Quero orçamento",
-            "Continuar conversa"
-          ]
-        )
-      } else if (lowerText.includes('whatsapp')) {
-        addBotMessage(
-          "Perfeito! Te redirecionando para o WhatsApp! 📱\n\nNossa equipe está online e pronta para te atender. Você receberá:\n\n• Resposta imediata\n• Fotos de projetos similares\n• Orçamento preliminar\n• Agendamento de visita técnica\n\nAté logo! 👋"
-        )
-        setTimeout(() => {
-          const message = encodeURIComponent("Olá! Vim do site da NUVO e tenho interesse em uma Wall Unit personalizada. A Sofia me indicou vocês!")
-          window.open(`https://wa.me/5511999999999?text=${message}`, '_blank')
-        }, 2000)
-      } else if (lowerText.includes('agendar') || lowerText.includes('visita')) {
-        addBotMessage(
-          "Ótima escolha! A visita técnica é fundamental para um projeto perfeito! 🏠👷‍♂️\n\n**Nossa visita técnica inclui:**\n\n• Medição precisa do ambiente\n• Análise das instalações existentes\n• Sugestões de design personalizado\n• Orçamento detalhado no local\n• Prazo de execução\n\n**É totalmente gratuita e sem compromisso!**\n\nQual região você está?",
-          [
-            "São Paulo - Capital",
-            "Grande São Paulo",
-            "Interior de SP",
-            "Outras regiões",
-            "Falar com agendamento"
-          ]
-        )
-      } else {
-        // Default response for unrecognized input
-        addBotMessage(
-          "Entendo! Deixe-me te ajudar da melhor forma. 🤔\n\nEstou aqui para esclarecer dúvidas sobre:\n\n• Tipos de Wall Units\n• Processo de criação\n• Materiais e acabamentos\n• Prazos e investimento\n• Agendamento de consulta\n\nO que você gostaria de saber especificamente?",
-          [
-            "Tipos de Wall Unit",
-            "Como funciona o processo",
-            "Quanto custa em média",
-            "Quero falar com consultor"
-          ]
-        )
-      }
-    }, 1000 + Math.random() * 1000) // Random delay for more natural feel
-  }
-
-  const handleSendMessage = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (inputText.trim()) {
-      addUserMessage(inputText.trim())
+  /**
+   * Envia mensagem do usuário
+   */
+  const handleSendMessage = () => {
+    if (currentInput.trim()) {
+      processUserResponse(currentInput.trim())
+      setCurrentInput('')
     }
   }
 
-  const handleOptionClick = (option: string) => {
-    addUserMessage(option)
+  /**
+   * Trata tecla Enter
+   */
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      handleSendMessage()
+    }
+  }
+
+  /**
+   * Seleciona opção predefinida
+   */
+  const handleOptionSelect = (option: string) => {
+    processUserResponse(option)
   }
 
   return (
     <>
-      {/* Floating Action Button */}
-      <motion.button
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 w-16 h-16 bg-[var(--color-secondary)] hover:bg-[var(--color-accent)] text-white rounded-full shadow-luxury flex items-center justify-center z-40 transition-colors"
-        data-chatbot-trigger
-        data-testid="chatbot-trigger"
-      >
-        <FaRobot className="text-2xl" />
-        
-        {/* Pulse animation for attention */}
-        <div className="absolute inset-0 bg-[var(--color-secondary)] rounded-full animate-ping opacity-20"></div>
-        
-        {/* Notification badge */}
-        <div className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center">
-          <span className="text-xs text-white font-bold">!</span>
-        </div>
-      </motion.button>
-
-      {/* Chat Window */}
+      {/* Popup de boas-vindas */}
       <AnimatePresence>
-        {isOpen && (
+        {showWelcomePopup && !state.isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 100, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 100, scale: 0.9 }}
-            className="fixed bottom-6 right-6 w-96 h-[600px] bg-white rounded-2xl shadow-2xl z-50 flex flex-col overflow-hidden"
-            data-testid="chatbot-window"
+            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: 20 }}
+            className="fixed bottom-24 right-6 bg-white rounded-2xl shadow-luxury p-4 max-w-sm z-40 border border-[var(--color-secondary)]/20"
           >
-            {/* Header */}
-            <div className="bg-[var(--color-secondary)] text-white p-4 flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                  <FaRobot className="text-white text-lg" />
-                </div>
-                <div>
-                  <h3 className="font-semibold">Sofia - NUVO Assistant</h3>
-                  <p className="text-xs text-white/80">Online • Responde em segundos</p>
-                </div>
+            <div className="flex items-start space-x-3">
+              <div className="w-10 h-10 bg-[var(--color-secondary)] rounded-full flex items-center justify-center flex-shrink-0">
+                <FaRobot className="text-white text-sm" />
+              </div>
+              <div className="flex-1">
+                <p className="text-sm text-[var(--color-primary)] font-medium mb-1">
+                  Hi! I'm Sofia from NUVO 👋
+                </p>
+                <p className="text-xs text-[var(--color-gray)] mb-3">
+                  I'd love to help you design the perfect wall unit for your space!
+                </p>
+                <button
+                  onClick={handleOpenChat}
+                  className="text-xs bg-[var(--color-secondary)] text-white px-3 py-1 rounded-full hover:bg-[var(--color-accent)] transition-colors"
+                >
+                  Let's Chat!
+                </button>
               </div>
               <button
-                onClick={() => setIsOpen(false)}
-                className="w-8 h-8 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors"
-                data-testid="chatbot-close"
+                onClick={() => setShowWelcomePopup(false)}
+                className="text-gray-400 hover:text-gray-600 text-xs"
               >
                 <FaTimes />
               </button>
             </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-            {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4">
-              {messages.map((message) => (
+      {/* Botão flutuante do chatbot */}
+      <motion.button
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        onClick={state.isOpen ? handleCloseChat : handleOpenChat}
+        className="fixed bottom-6 right-6 w-14 h-14 bg-[var(--color-secondary)] hover:bg-[var(--color-accent)] text-white rounded-full shadow-luxury flex items-center justify-center z-50 transition-all duration-300"
+        data-chatbot-trigger
+        aria-label={state.isOpen ? "Close chat" : "Open chat with Sofia"}
+      >
+        {state.isOpen ? <FaTimes className="text-lg sm:text-xl" /> : <FaComments className="text-lg sm:text-xl" />}
+        {!state.isOpen && state.messages.length === 0 && (
+          <div className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center">
+            <span className="text-xs text-white font-bold">!</span>
+          </div>
+        )}
+      </motion.button>
+
+      {/* Janela do chat */}
+      <AnimatePresence>
+        {state.isOpen && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            className="fixed bottom-24 right-6 w-96 max-w-[calc(100vw-2rem)] h-[500px] bg-white rounded-2xl shadow-luxury flex flex-col z-40 border border-[var(--color-secondary)]/20"
+          >
+            {/* Header do chat */}
+            <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-[var(--color-secondary)] text-white rounded-t-2xl">
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 bg-white rounded-full p-1">
+                  <Image
+                    src="/images/logo.png"
+                    alt="NUVO"
+                    width={24}
+                    height={24}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-sm">Sofia - NUVO Wall Unit Specialist</h3>
+                  <p className="text-xs opacity-90">🟢 Online - Ready to help!</p>
+                </div>
+              </div>
+              <button
+                onClick={handleCloseChat}
+                className="text-white hover:bg-white/20 p-1 rounded transition-colors"
+              >
+                <FaTimes className="text-sm" />
+              </button>
+            </div>
+
+            {/* Área de mensagens */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
+              {state.messages.map((message) => (
                 <div
                   key={message.id}
-                  className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
+                  className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
-                  <div className={`flex items-start space-x-2 max-w-[85%] ${message.isUser ? 'flex-row-reverse space-x-reverse' : ''}`}>
+                  <div className={`flex max-w-[80%] ${message.sender === 'user' ? 'flex-row-reverse' : 'flex-row'} items-start space-x-2`}>
                     {/* Avatar */}
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                      message.isUser 
-                        ? 'bg-[var(--color-primary)] text-white' 
-                        : 'bg-[var(--color-secondary)] text-white'
+                      message.sender === 'user' 
+                        ? 'bg-[var(--color-primary)] text-white ml-2' 
+                        : 'bg-[var(--color-secondary)] text-white mr-2'
                     }`}>
-                      {message.isUser ? <FaUser className="text-xs" /> : <FaRobot className="text-xs" />}
+                      {message.sender === 'user' ? <FaUser className="text-xs" /> : <FaRobot className="text-xs" />}
                     </div>
                     
-                    {/* Message Bubble */}
-                    <div className={`rounded-2xl p-3 ${
-                      message.isUser 
-                        ? 'bg-[var(--color-primary)] text-white rounded-br-sm' 
-                        : 'bg-gray-100 text-[var(--color-primary)] rounded-bl-sm'
+                    {/* Mensagem */}
+                    <div className={`rounded-2xl px-4 py-3 ${
+                      message.sender === 'user'
+                        ? 'bg-[var(--color-primary)] text-white'
+                        : 'bg-white border border-gray-200'
                     }`}>
-                      <p className="text-sm whitespace-pre-line leading-relaxed">
-                        {message.text}
+                      <p className="text-sm whitespace-pre-wrap leading-relaxed">
+                        {message.content}
                       </p>
                       
-                      {/* Quick Options */}
-                      {message.options && (
+                      {/* Opções de resposta rápida */}
+                      {message.hasOptions && message.options && (
                         <div className="mt-3 space-y-2">
                           {message.options.map((option, index) => (
                             <button
                               key={index}
-                              onClick={() => handleOptionClick(option)}
-                              className="block w-full text-left text-xs bg-white/20 hover:bg-white/30 rounded-lg p-2 transition-colors border border-white/30"
-                              data-testid={`chatbot-option-${index}`}
+                              onClick={() => handleOptionSelect(option)}
+                              className="block w-full text-left px-3 py-2 text-xs bg-[var(--color-secondary)]/10 hover:bg-[var(--color-secondary)]/20 text-[var(--color-primary)] rounded-lg transition-colors border border-[var(--color-secondary)]/20"
                             >
                               {option}
                             </button>
@@ -300,49 +550,30 @@ export default function Chatbot() {
                   </div>
                 </div>
               ))}
-
-              {/* Typing Indicator */}
-              {isTyping && (
-                <div className="flex justify-start">
-                  <div className="flex items-start space-x-2 max-w-[85%]">
-                    <div className="w-8 h-8 bg-[var(--color-secondary)] rounded-full flex items-center justify-center flex-shrink-0">
-                      <FaRobot className="text-white text-xs" />
-                    </div>
-                    <div className="bg-gray-100 rounded-2xl rounded-bl-sm p-3">
-                      <div className="flex space-x-1">
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-              
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Input */}
-            <form onSubmit={handleSendMessage} className="p-4 border-t border-gray-200">
-              <div className="flex space-x-3">
+            {/* Área de input */}
+            <div className="p-4 border-t border-gray-200 bg-white rounded-b-2xl">
+              <div className="flex space-x-2">
                 <input
+                  ref={inputRef}
                   type="text"
-                  value={inputText}
-                  onChange={(e) => setInputText(e.target.value)}
-                  placeholder="Digite sua mensagem..."
-                  className="flex-1 border border-gray-300 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-transparent"
-                  data-testid="chatbot-input"
+                  value={currentInput}
+                  onChange={(e) => setCurrentInput(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  placeholder="Type your message..."
+                  className="flex-1 px-4 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-transparent outline-none text-sm"
                 />
                 <button
-                  type="submit"
-                  disabled={!inputText.trim() || isTyping}
+                  onClick={handleSendMessage}
+                  disabled={!currentInput.trim()}
                   className="w-10 h-10 bg-[var(--color-secondary)] hover:bg-[var(--color-accent)] disabled:bg-gray-300 text-white rounded-full flex items-center justify-center transition-colors"
-                  data-testid="chatbot-send"
                 >
                   <FaPaperPlane className="text-sm" />
                 </button>
               </div>
-            </form>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

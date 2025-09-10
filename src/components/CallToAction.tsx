@@ -1,194 +1,324 @@
 'use client'
 
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { FaPhone, FaWhatsapp, FaCalendar, FaArrowRight } from 'react-icons/fa'
+import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock } from 'react-icons/fa'
+import Image from 'next/image'
 
 export default function CallToAction() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.2 })
+  const isInView = useInView(ref, { once: true, amount: 0.1 })
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    project: '',
+    message: ''
+  })
 
-  const handleWhatsApp = () => {
-    const message = encodeURIComponent("Olá! Tenho interesse em uma Wall Unit personalizada. Gostaria de saber mais sobre seus projetos.")
-    window.open(`https://wa.me/5511999999999?text=${message}`, '_blank')
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    })
   }
 
-  const handlePhoneCall = () => {
-    window.open('tel:+5511999999999', '_self')
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    // Handle form submission here
+    console.log('Form submitted:', formData)
   }
 
-  const handleScheduleCall = () => {
-    // Open chatbot for scheduling
-    const chatbotButton = document.querySelector('[data-chatbot-trigger]') as HTMLButtonElement
-    if (chatbotButton) {
-      chatbotButton.click()
+  const contactInfo = [
+    {
+      icon: FaPhone,
+      title: 'Call Us',
+      info: '+1 (305) 555-NUVO',
+      subinfo: 'Available 8AM - 6PM EST',
+      isClickable: true,
+      action: () => window.open('tel:+13055556886', '_self')
+    },
+    {
+      icon: FaEnvelope,
+      title: 'Email Us',
+      info: 'info@nuvowoodwork.com',
+      subinfo: 'We respond within 24 hours',
+      isClickable: true,
+      action: () => window.open('mailto:info@nuvowoodwork.com', '_self')
+    },
+    {
+      icon: FaMapMarkerAlt,
+      title: 'Visit Our Factory',
+      info: '4801 Johnson Rd Suite 4, Coconut Creek, FL 33073',
+      subinfo: 'By appointment only',
+      isClickable: true,
+      action: () => {
+        const address = encodeURIComponent('4801 Johnson Rd Suite 4, Coconut Creek, FL 33073')
+        const userAgent = navigator.userAgent.toLowerCase()
+        if (userAgent.indexOf('iphone') > -1 || userAgent.indexOf('ipad') > -1) {
+          // iOS device - prefer Apple Maps
+          window.open(`maps://maps.google.com/maps?q=${address}`, '_self')
+        } else if (userAgent.indexOf('android') > -1) {
+          // Android device - prefer Google Maps
+          window.open(`google.navigation:q=${address}`, '_self')
+        } else {
+          // Desktop or unknown - use Google Maps web
+          window.open(`https://maps.google.com/maps?q=${address}`, '_blank')
+        }
+      }
+    },
+    {
+      icon: FaClock,
+      title: 'Business Hours',
+      info: 'Mon - Fri: 8AM - 6PM',
+      subinfo: 'Sat: 9AM - 4PM',
+      isClickable: false
     }
-  }
+  ]
 
   return (
-    <section 
-      className="py-20 bg-gradient-luxury wood-texture relative overflow-hidden" 
-      ref={ref}
-      data-section="call-to-action"
-    >
-      {/* Background Pattern */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-primary)]/90 to-[var(--color-primary)]/70" />
-      
-      <div className="relative z-10 max-w-6xl mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          
+    <section className="py-24 bg-gradient-luxury wood-texture relative overflow-hidden" ref={ref} data-section="call-to-action">
+      {/* Background Elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-0 right-0 w-1/3 h-full opacity-10">
+          <Image
+            src="/images/imgi_9_541880794_18077731115493478_1184188163504688235_n_1757111152300.jpg"
+            alt="NUVO Background"
+            fill
+            className="object-cover"
+            sizes="33vw"
+          />
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
           {/* Left Content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
             transition={{ duration: 0.8 }}
-            className="text-white"
           >
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="mb-6"
-            >
-              <span className="text-[var(--color-secondary)] text-lg font-semibold tracking-wide">
-                PRONTO PARA COMEÇAR?
-              </span>
-            </motion.div>
-            
-            <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-6 leading-tight"
-            >
-              Transforme seu espaço com uma
-              <span className="text-[var(--color-secondary)]"> Wall Unit única</span>
-            </motion.h2>
-            
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-lg text-gray-200 mb-8 leading-relaxed max-w-2xl"
-            >
-              Cada projeto é único, assim como você. Nossa equipe está pronta para criar 
-              a solução perfeita para seu ambiente com design sob medida, materiais premium 
-              e acabamento impecável.
-            </motion.p>
+            {/* Header */}
+            <div className="mb-12">
+              <motion.span
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="text-[var(--color-secondary)] text-lg font-semibold tracking-wide mb-4 block"
+              >
+                START YOUR PROJECT
+              </motion.span>
+              
+              <motion.h2
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="text-4xl md:text-5xl font-display font-bold text-white mb-6 leading-tight"
+              >
+                Create Your Perfect
+                <span className="text-[var(--color-secondary)]"> Wall Unit</span>
+              </motion.h2>
+              
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="text-lg text-gray-300 mb-8 leading-relaxed"
+              >
+                Ready to transform your wall into a functional work of art? Get your free consultation 
+                and discover how we can create the perfect wall unit for your space.
+              </motion.p>
+            </div>
 
-            {/* Stats */}
+            {/* Contact Info Grid */}
+            <div className="grid md:grid-cols-2 gap-6 mb-12">
+              {contactInfo.map((contact, index) => (
+                <motion.div
+                  key={contact.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                  transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
+                  className={`flex items-start space-x-4 bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20 ${
+                    contact.isClickable ? 'cursor-pointer hover:bg-white/20 transition-all duration-300 transform hover:scale-[1.02]' : ''
+                  }`}
+                  onClick={contact.isClickable ? contact.action : undefined}
+                >
+                  <div className="w-12 h-12 bg-[var(--color-secondary)] rounded-lg flex items-center justify-center flex-shrink-0">
+                    <contact.icon className="text-white text-xl" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-white mb-1">
+                      {contact.title}
+                    </h4>
+                    <p className={`text-sm font-medium ${contact.isClickable ? 'text-[var(--color-secondary)] hover:underline' : 'text-[var(--color-secondary)]'}`}>
+                      {contact.info}
+                    </p>
+                    <p className="text-gray-400 text-xs">
+                      {contact.subinfo}
+                    </p>
+                    {contact.isClickable && (
+                      <p className="text-gray-300 text-xs mt-1 italic">
+                        Click to {contact.title.toLowerCase()}
+                      </p>
+                    )}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Trust Badges */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="grid grid-cols-3 gap-6 mb-8"
+              transition={{ duration: 0.8, delay: 0.9 }}
+              className="flex flex-wrap gap-4"
             >
-              <div className="text-center">
-                <div className="text-2xl font-bold text-[var(--color-secondary)] mb-1">500+</div>
-                <div className="text-sm text-gray-300">Projetos Realizados</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-[var(--color-secondary)] mb-1">98%</div>
-                <div className="text-sm text-gray-300">Satisfação</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-[var(--color-secondary)] mb-1">15+</div>
-                <div className="text-sm text-gray-300">Anos Experiência</div>
-              </div>
+              {['30-Year Warranty', 'Licensed & Insured', 'Free Consultation', '4.9★ Rating'].map((badge, index) => (
+                <div key={badge} className="bg-[var(--color-secondary)] text-white px-4 py-2 rounded-full text-sm font-medium">
+                  {badge}
+                </div>
+              ))}
             </motion.div>
           </motion.div>
 
-          {/* Right Contact Options */}
+          {/* Right Form */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="space-y-6"
+            className="bg-white rounded-2xl p-8 shadow-luxury"
           >
-            {/* WhatsApp */}
-            <motion.button
-              whileHover={{ scale: 1.05, y: -5 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={handleWhatsApp}
-              className="w-full bg-green-600 hover:bg-green-700 text-white p-6 rounded-2xl flex items-center justify-between transition-all duration-300 shadow-luxury group"
-              data-testid="button-whatsapp"
-            >
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
-                  <FaWhatsapp className="text-2xl" />
-                </div>
-                <div className="text-left">
-                  <div className="font-semibold text-lg">WhatsApp</div>
-                  <div className="text-green-100 text-sm">Resposta imediata</div>
-                </div>
+            <h3 className="text-2xl font-display font-bold text-[var(--color-primary)] mb-6 text-center">
+              Get Your Free Consultation
+            </h3>
+            
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-4">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                >
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Your Name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-transparent transition-all duration-300"
+                    required
+                  />
+                </motion.div>
+                
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                  transition={{ duration: 0.6, delay: 0.5 }}
+                >
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Your Email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-transparent transition-all duration-300"
+                    required
+                  />
+                </motion.div>
               </div>
-              <FaArrowRight className="text-xl group-hover:translate-x-2 transition-transform" />
-            </motion.button>
 
-            {/* Phone Call */}
-            <motion.button
-              whileHover={{ scale: 1.05, y: -5 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={handlePhoneCall}
-              className="w-full bg-[var(--color-secondary)] hover:bg-[var(--color-accent)] text-white p-6 rounded-2xl flex items-center justify-between transition-all duration-300 shadow-luxury group"
-              data-testid="button-phone"
-            >
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
-                  <FaPhone className="text-xl" />
-                </div>
-                <div className="text-left">
-                  <div className="font-semibold text-lg">Ligue Agora</div>
-                  <div className="text-[var(--color-light)] text-sm">(11) 99999-9999</div>
-                </div>
-              </div>
-              <FaArrowRight className="text-xl group-hover:translate-x-2 transition-transform" />
-            </motion.button>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+              >
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="Phone Number"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-transparent transition-all duration-300"
+                />
+              </motion.div>
 
-            {/* Schedule Consultation */}
-            <motion.button
-              whileHover={{ scale: 1.05, y: -5 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={handleScheduleCall}
-              className="w-full bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border border-white/30 p-6 rounded-2xl flex items-center justify-between transition-all duration-300 shadow-luxury group"
-              data-testid="button-schedule"
-            >
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 bg-[var(--color-secondary)] rounded-full flex items-center justify-center">
-                  <FaCalendar className="text-xl text-white" />
-                </div>
-                <div className="text-left">
-                  <div className="font-semibold text-lg">Agendar Consulta</div>
-                  <div className="text-gray-200 text-sm">Consultoria gratuita</div>
-                </div>
-              </div>
-              <FaArrowRight className="text-xl group-hover:translate-x-2 transition-transform" />
-            </motion.button>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.6, delay: 0.7 }}
+              >
+                <select
+                  name="project"
+                  value={formData.project}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-transparent transition-all duration-300"
+                >
+                  <option value="">Select Project Type</option>
+                  <option value="entertainment">Entertainment Wall Unit</option>
+                  <option value="kitchen">Kitchen Wall Unit</option>
+                  <option value="office">Office Wall Unit</option>
+                  <option value="living">Living Room Wall Unit</option>
+                  <option value="bedroom">Bedroom Wall Unit</option>
+                  <option value="custom">Custom Wall Unit</option>
+                </select>
+              </motion.div>
 
-            {/* Trust Indicators */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-              className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20"
-            >
-              <div className="flex items-center justify-center space-x-6 text-white text-sm">
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                  <span>Orçamento Gratuito</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                  <span>Sem Compromisso</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                  <span>Atendimento 24h</span>
-                </div>
-              </div>
-            </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+              >
+                <textarea
+                  name="message"
+                  placeholder="Tell us about your wall unit project..."
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  rows={4}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-transparent transition-all duration-300 resize-none"
+                />
+              </motion.div>
+
+              <motion.button
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.6, delay: 0.9 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                type="submit"
+                className="w-full bg-[var(--color-secondary)] hover:bg-[var(--color-accent)] text-white py-4 rounded-lg text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
+              >
+                Get My Wall Unit Quote
+              </motion.button>
+            </form>
+
+            <p className="text-center text-sm text-[var(--color-gray)] mt-4">
+              100% Free • No Obligation • Respond within 24 hours
+            </p>
           </motion.div>
         </div>
+
+        {/* Footer */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.8, delay: 1.2 }}
+          className="text-center mt-20 pt-12 border-t border-white/20"
+        >
+          <div className="flex items-center justify-center space-x-3 mb-6">
+            <Image
+              src="/images/logo.png"
+              alt="NUVO WOODWORK"
+              width={150}
+              height={50}
+              className="brightness-0 invert"
+            />
+          </div>
+          <p className="text-gray-400 text-sm max-w-2xl mx-auto">
+            © 2024 NUVO WOODWORK. All rights reserved. Where Italian-Brazilian heritage meets Florida luxury. 
+            Licensed, insured, and committed to excellence since 2015.
+          </p>
+        </motion.div>
       </div>
     </section>
   )

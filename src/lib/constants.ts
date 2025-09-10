@@ -1,274 +1,233 @@
 /**
- * Constantes globais da aplicação NUVO WOODWORK
- * 
- * Este arquivo centraliza todas as informações da empresa, configurações,
- * categorias de projetos e classes de estilo reutilizáveis.
+ * Constantes centralizadas do projeto NUVO WOODWORK
+ * Este arquivo contém todas as configurações e valores fixos usados em toda a aplicação
  */
 
-import type { ProjectCategory } from '@/types'
+// ==========================================
+// INFORMAÇÕES DA EMPRESA
+// ==========================================
 
-/**
- * Informações da empresa NUVO WOODWORK
- */
+/** Informações básicas da empresa NUVO WOODWORK */
 export const COMPANY_INFO = {
-  name: "NUVO WOODWORK",
-  tagline: "Structure in Simplicity",
-  description: "Wall Units sob medida que organizam, conectam e impressionam. Design arquitetônico com estrutura, simplicidade e presença.",
+  name: 'NUVO WOODWORK',
+  tagline: 'Wall Units That Transform Spaces',
+  description: 'Custom wall units that organize, connect, and impress. From entertainment centers to storage solutions, we create architectural elements that integrate seamlessly with your space.',
   
-  // Informações de contato
-  contact: {
-    phone: "(11) 99999-9999",
-    whatsapp: "5511999999999",
-    email: "contato@nuvowoodwork.com",
-    address: {
-      street: "Rua da Marcenaria, 123",
-      district: "Design District",
-      city: "São Paulo",
-      state: "SP"
-    }
+  // Endereço da fábrica atualizado
+  address: {
+    street: '4801 Johnson Rd Suite 4',
+    city: 'Coconut Creek',
+    state: 'FL',
+    zipCode: '33073',
+    country: 'USA',
+    full: '4801 Johnson Rd Suite 4, Coconut Creek, FL 33073'
   },
-
-  // Horários de atendimento
-  businessHours: {
-    weekdays: "Segunda a Sexta: 8h às 18h",
-    saturday: "Sábado: 9h às 15h",
-    sunday: "Fechado"
-  },
-
-  // Estatísticas da empresa
+  
+  // Área de atendimento
+  serviceArea: 'South Florida',
+  
+  // Estatísticas da empresa para o hero
   stats: {
-    experience: "15+",
-    clients: "500+",
-    successRate: "98%",
-    rating: "4.9"
-  },
-
-  // Redes sociais
-  social: {
-    instagram: "https://instagram.com/nuvowoodwork",
-    facebook: "https://facebook.com/nuvowoodwork", 
-    youtube: "https://youtube.com/nuvowoodwork",
-    linkedin: "https://linkedin.com/company/nuvowoodwork"
+    experience: '30+',
+    clients: '4K+',
+    successRate: '98%',
+    rating: '4.9'
   }
 } as const
 
-/**
- * Categorias de projetos disponíveis
- */
-export const PROJECT_CATEGORIES: ProjectCategory[] = [
-  {
-    key: 'all',
-    label: 'Todos os Projetos',
-    description: 'Visualizar todos os projetos realizados'
-  },
-  {
-    key: 'living-room',
-    label: 'Sala de Estar',
-    description: 'Wall units para entretenimento e convívio'
-  },
-  {
-    key: 'gourmet',
-    label: 'Ambiente Gourmet',
-    description: 'Adegas e espaços gastronômicos integrados'
-  },
-  {
-    key: 'office',
-    label: 'Home Office',
-    description: 'Escritórios funcionais e organizados'
-  },
-  {
-    key: 'corporate',
-    label: 'Corporativo',
-    description: 'Soluções para ambientes empresariais'
-  },
-  {
-    key: 'bedroom',
-    label: 'Quarto Principal',
-    description: 'Storage e design para ambientes íntimos'
-  },
-  {
-    key: 'custom',
-    label: 'Projetos Especiais',
-    description: 'Soluções únicas e personalizadas'
-  }
-] as const
+// ==========================================
+// CONFIGURAÇÕES DA APLICAÇÃO
+// ==========================================
 
-/**
- * Configurações gerais da aplicação
- */
+/** Configurações de comportamento da aplicação */
 export const APP_CONFIG = {
+  // Configurações do chatbot
+  chatbot: {
+    welcomeDelay: 3000, // 3 segundos para aparecer popup de boas-vindas
+    animationDuration: 300, // duração das animações em ms
+    maxMessages: 100, // máximo de mensagens no histórico
+  },
+  
   // Configurações de animação
   animation: {
     duration: {
       fast: 0.3,
       normal: 0.6,
-      slow: 1.0
+      slow: 1.0,
     },
-    easing: {
-      default: [0.4, 0, 0.2, 1],
-      spring: [0.6, 0.05, 0.01, 0.9]
-    }
+    easing: 'ease-in-out',
   },
-
+  
   // Configurações de scroll
   scroll: {
-    behavior: 'smooth' as const,
-    offset: 80 // Offset para compensar navbar fixa
-  },
-
-  // Breakpoints responsivos (seguindo Tailwind)
-  breakpoints: {
-    sm: '640px',
-    md: '768px', 
-    lg: '1024px',
-    xl: '1280px',
-    '2xl': '1536px'
-  },
-
-  // Configurações de SEO
-  seo: {
-    defaultTitle: 'NUVO WOODWORK - Wall Units Sob Medida',
-    titleSeparator: ' | ',
-    defaultDescription: 'Wall Units que organizam, conectam e impressionam. Design sob medida com estrutura, simplicidade e presença.'
+    behavior: 'smooth' as ScrollBehavior,
+    offset: 80, // offset para navegação fixa
   }
 } as const
 
-/**
- * Classes CSS reutilizáveis
- * Padroniza estilos comuns em toda a aplicação
- */
+// ==========================================
+// FAIXAS DE PREÇOS DOS PROJETOS
+// ==========================================
+
+/** Faixas de preços para diferentes tipos de wall units */
+export const PRICE_RANGES = {
+  display: { min: 15000, max: 50000, label: '$15K-$50K' },
+  kitchen: { min: 25000, max: 75000, label: '$25K-$75K' },
+  entertainment: { min: 35000, max: 85000, label: '$35K-$85K' },
+  bar: { min: 45000, max: 100000, label: '$45K-$100K' },
+  wine: { min: 60000, max: 150000, label: '$60K-$150K+' },
+  office: { min: 35000, max: 75000, label: '$35K-$75K' },
+  living: { min: 40000, max: 100000, label: '$40K-$100K' },
+  dining: { min: 30000, max: 70000, label: '$30K-$70K' },
+  architectural: { min: 15000, max: 50000, label: '$15K-$50K' }
+} as const
+
+// ==========================================
+// CATEGORIAS DE PROJETOS
+// ==========================================
+
+/** Categorias disponíveis para filtros de portfolio */
+export const PROJECT_CATEGORIES = [
+  { key: 'all', label: 'All Wall Units', description: 'View all our custom wall unit projects' },
+  { key: 'bar', label: 'Wet Bars', description: 'Sophisticated entertainment spaces with integrated storage' },
+  { key: 'display', label: 'Display Units', description: 'Elegant showcases for collections and decorative items' },
+  { key: 'entertainment', label: 'Entertainment', description: 'Media centers and home theater solutions' },
+  { key: 'wine', label: 'Wine Storage', description: 'Climate-controlled wine displays and cellars' },
+  { key: 'office', label: 'Office Units', description: 'Professional workspace solutions' },
+  { key: 'kitchen', label: 'Kitchen', description: 'Custom kitchen storage and organization' },
+  { key: 'living', label: 'Living Room', description: 'Complete living space transformations' },
+  { key: 'dining', label: 'Dining Room', description: 'Elegant dining room storage and display' },
+  { key: 'architectural', label: 'Architectural', description: 'Statement pieces and architectural elements' }
+] as const
+
+// ==========================================
+// MENSAGENS DO CHATBOT
+// ==========================================
+
+/** Mensagens pré-definidas para o chatbot Sofia - Vendedor Inteligente */
+export const CHATBOT_MESSAGES = {
+  // Mensagem de boas-vindas focada em Wall Units
+  welcome: "Hi there! I'm Sofia from NUVO! 👋\n\nI specialize in helping people create stunning Wall Units that completely transform their spaces. Think of them as architectural art that tells your story while solving your storage and display needs.\n\nI'd love to understand what you're envisioning for your space. What room are you looking to transform?",
+  
+  // Opções de ambientes para Wall Units
+  roomOptions: [
+    'Living Room',
+    'Entertainment Room', 
+    'Home Office',
+    'Kitchen',
+    'Bedroom',
+    'Dining Room',
+    'Something Custom'
+  ],
+  
+  // Mensagens de discovery inteligente
+  discovery: {
+    purpose: "Perfect! Now help me understand how you use this space. What activities happen there daily?",
+    style: "I love getting a sense of your style! Do you lean more toward clean modern lines, warm traditional elements, or a sophisticated mix of both?",
+    challenges: "What storage or organization challenges are you hoping to solve? I want to make sure we design something that truly works for your lifestyle.",
+    inspiration: "Have you seen any wall units that caught your eye? Or any specific features that made you think 'I wish I had that!'?"
+  },
+  
+  // Opções de propósito/atividades
+  purposeOptions: [
+    'Entertainment & TV',
+    'Display & Collections', 
+    'Work & Productivity',
+    'Storage & Organization',
+    'Wine & Bar Setup',
+    'Books & Library',
+    'Multi-purpose'
+  ],
+  
+  // Opções de estilo
+  styleOptions: [
+    'Clean Modern',
+    'Warm Traditional',
+    'Contemporary Mix', 
+    'Industrial Chic',
+    'Classic Elegant',
+    'Not Sure - Show Me!'
+  ],
+  
+  // Mensagens de qualificação
+  qualification: {
+    budget: "To design the perfect solution for you, what investment range feels comfortable? I want to show you options that fit both your vision and budget.",
+    timeline: "When would you love to be enjoying your new wall unit? This helps me understand if we need to plan around any special occasions or deadlines.",
+    decision: "Are you the primary decision-maker for this project, or will others be involved in the final choice?"
+  },
+  
+  // Opções de orçamento ajustadas para Wall Units
+  budgetOptions: [
+    '$15K - $35K',
+    '$35K - $65K', 
+    '$65K - $100K',
+    '$100K - $150K+',
+    'I need guidance on this'
+  ],
+  
+  // Opções de timeline
+  timelineOptions: [
+    'ASAP - Within 2 months',
+    '3-4 months',
+    '5-6 months', 
+    'After the holidays',
+    'No specific timeline'
+  ],
+  
+  // Respostas personalizadas por categoria
+  productRecommendations: {
+    entertainment: "Entertainment wall units are my absolute favorite! 🎬 We can create a stunning focal point that houses your TV, sound system, and all your media while hiding those messy cables. Plus, we can add features like ambient lighting, game storage, or even a hidden bar area.",
+    office: "A home office wall unit is such a smart investment! 💼 We can design built-in desks, file storage, display shelving for books, and even hidden printer storage. Everything organized and beautiful - perfect for productivity and video calls!",
+    kitchen: "Kitchen wall units are game-changers! 👨‍🍳 We can create stunning upper cabinetry that maximizes storage while maintaining that open, airy feel. Think spice organization, dish display, and integrated lighting that makes cooking a joy.",
+    display: "Display wall units are pure art! 🎨 We can design custom shelving and lighting to showcase your collections, books, or treasured pieces. Each item becomes part of the room's design story.",
+    storage: "Smart storage solutions are what we do best! 📦 We'll maximize every inch while keeping everything accessible and beautiful. No more clutter - just organized elegance."
+  }
+} as const
+
+// ==========================================
+// CONFIGURAÇÕES DE ESTILO
+// ==========================================
+
+/** Classes CSS customizadas reutilizáveis */
 export const STYLE_CLASSES = {
   // Gradientes
   gradients: {
-    text: 'bg-gradient-to-r from-[var(--color-secondary)] to-[var(--color-accent)] bg-clip-text text-transparent',
-    overlay: 'absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent',
-    luxury: 'bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary)]/80'
+    primary: 'bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)]',
+    text: 'gradient-text',
+    overlay: 'bg-gradient-to-t from-black/60 via-transparent to-transparent'
   },
-
+  
+  // Shadows
+  shadows: {
+    luxury: 'shadow-luxury',
+    card: 'shadow-lg',
+    button: 'shadow-lg hover:shadow-xl'
+  },
+  
+  // Transições
+  transitions: {
+    default: 'transition-all duration-300',
+    fast: 'transition-all duration-150',
+    slow: 'transition-all duration-500'
+  },
+  
   // Botões
   buttons: {
-    primary: 'bg-[var(--color-secondary)] hover:bg-[var(--color-accent)] text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105',
-    secondary: 'bg-transparent border-2 border-white text-white hover:bg-white hover:text-[var(--color-primary)] px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300',
-    ghost: 'bg-transparent border border-[var(--color-secondary)] text-[var(--color-secondary)] hover:bg-[var(--color-secondary)] hover:text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300'
-  },
-
-  // Sombras
-  shadows: {
-    luxury: 'shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)]',
-    card: 'shadow-lg hover:shadow-xl transition-shadow duration-300',
-    soft: 'shadow-md'
-  },
-
-  // Animações
-  animations: {
-    fadeInUp: 'animate-fade-in-up',
-    scaleIn: 'animate-scale-in',
-    float: 'animate-float'
-  },
-
-  // Layout
-  containers: {
-    main: 'max-w-7xl mx-auto px-4 sm:px-6',
-    content: 'max-w-4xl mx-auto px-4 sm:px-6',
-    narrow: 'max-w-2xl mx-auto px-4 sm:px-6'
-  },
-
-  // Espaçamentos de seção
-  sections: {
-    padding: 'py-16 sm:py-20 lg:py-24'
+    primary: 'bg-[var(--color-secondary)] hover:bg-[var(--color-accent)] text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 shadow-lg',
+    secondary: 'border-2 border-white text-white hover:bg-white hover:text-[var(--color-primary)] px-6 py-3 rounded-lg font-semibold transition-all duration-300',
+    ghost: 'bg-transparent border-2 border-[var(--color-secondary)] text-[var(--color-secondary)] hover:bg-[var(--color-secondary)] hover:text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300'
   }
 } as const
 
-/**
- * Configurações de tipos de Wall Unit
- */
-export const WALL_UNIT_TYPES = {
-  'living-room': {
-    title: 'Sala de Estar',
-    icon: 'FaCouch',
-    features: [
-      'Painel para TV até 75 polegadas',
-      'Storage para equipamentos',
-      'Nichos para decoração', 
-      'Iluminação LED integrada',
-      'Gerenciamento de cabos invisível'
-    ],
-    materials: ['Madeira nobre', 'Laca premium', 'Melamina alto padrão'],
-    priceRange: 'R$ 8.000 - R$ 25.000'
-  },
-  gourmet: {
-    title: 'Ambiente Gourmet',
-    icon: 'FaUtensils',
-    features: [
-      'Adega climatizada integrada',
-      'Bar com iluminação especial',
-      'Storage para cristais',
-      'Sistema push-pull premium',
-      'Acabamentos resistentes'
-    ],
-    materials: ['Madeira tratada', 'Vidro anti-UV', 'Aço inoxidável'],
-    priceRange: 'R$ 15.000 - R$ 45.000'
-  },
-  office: {
-    title: 'Home Office',
-    icon: 'FaLaptop',
-    features: [
-      'Mesa integrada personalizada',
-      'Prateleiras ajustáveis',
-      'Sistema de cabos invisível',
-      'Iluminação focal',
-      'Storage para documentos'
-    ],
-    materials: ['MDF premium', 'Fórmica texturizada', 'Madeira natural'],
-    priceRange: 'R$ 6.000 - R$ 18.000'
-  }
-} as const
+// ==========================================
+// UTILITÁRIOS DE TIPO
+// ==========================================
 
-/**
- * Mensagens padronizadas do sistema
- */
-export const SYSTEM_MESSAGES = {
-  loading: 'Carregando...',
-  error: 'Ops! Algo deu errado. Tente novamente.',
-  success: 'Ação realizada com sucesso!',
-  noResults: 'Nenhum resultado encontrado.',
-  comingSoon: 'Em breve! Estamos preparando algo incrível.',
-  
-  // Mensagens específicas do chatbot
-  chatbot: {
-    greeting: 'Olá! Eu sou a Sofia, assistente virtual da NUVO WOODWORK!',
-    offline: 'Estou temporariamente offline. Use nosso WhatsApp: (11) 99999-9999',
-    error: 'Desculpe, não consegui processar sua mensagem. Pode repetir?'
-  },
+/** Tipo para as chaves das categorias de projeto */
+export type ProjectCategoryKey = typeof PROJECT_CATEGORIES[number]['key']
 
-  // Mensagens de formulário
-  form: {
-    required: 'Este campo é obrigatório.',
-    invalidEmail: 'Por favor, digite um e-mail válido.',
-    invalidPhone: 'Por favor, digite um telefone válido.',
-    success: 'Mensagem enviada com sucesso! Entraremos em contato em breve.',
-    error: 'Erro ao enviar mensagem. Tente novamente ou use nosso WhatsApp.'
-  }
-} as const
+/** Tipo para as chaves das faixas de preço */
+export type PriceRangeKey = keyof typeof PRICE_RANGES
 
-/**
- * URLs e links importantes
- */
-export const URLS = {
-  whatsapp: `https://wa.me/${COMPANY_INFO.contact.whatsapp}`,
-  phone: `tel:+${COMPANY_INFO.contact.whatsapp}`,
-  email: `mailto:${COMPANY_INFO.contact.email}`,
-  
-  // Portfolio e projetos
-  portfolio: '/portfolio',
-  project: (id: string | number) => `/project/${id}`,
-  
-  // Páginas institucionais
-  about: '/sobre',
-  contact: '/contato',
-  services: '/servicos',
-  
-  // Links externos
-  googleMaps: 'https://goo.gl/maps/exemplo',
-  calendly: 'https://calendly.com/nuvowoodwork'
-} as const
+/** Tipo para configurações de animação */
+export type AnimationDuration = keyof typeof APP_CONFIG.animation.duration

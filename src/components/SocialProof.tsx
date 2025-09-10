@@ -2,8 +2,7 @@
 
 import React, { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { FaStar, FaQuoteLeft, FaGoogle, FaFacebook, FaInstagram } from 'react-icons/fa'
-import Image from 'next/image'
+import { FaStar, FaQuoteLeft } from 'react-icons/fa'
 
 export default function SocialProof() {
   const ref = useRef(null)
@@ -12,68 +11,40 @@ export default function SocialProof() {
   const testimonials = [
     {
       id: 1,
-      name: "Maria Silva",
-      location: "São Paulo, SP",
-      project: "Wall Unit Sala de Estar",
+      name: 'Sarah Johnson',
+      role: 'Homeowner, Coral Gables',
+      content: 'NUVO transformed our kitchen into a work of art. The attention to detail and craftsmanship is absolutely extraordinary. Every guest comments on the beautiful woodwork.',
       rating: 5,
-      text: "A NUVO transformou completamente nossa sala de estar. A Wall Unit ficou perfeita, integrada com a arquitetura da casa. O acabamento é impecável e o atendimento foi excepcional.",
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b64c?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&h=150"
+      image: '/images/imgi_7_540479857_1411482216613022_6855047719546468565_n_1757111152297.jpg'
     },
     {
       id: 2,
-      name: "Carlos Eduardo",
-      location: "Rio de Janeiro, RJ",
-      project: "Home Office Executivo",
+      name: 'Michael Rodriguez',
+      role: 'Interior Designer, Miami',
+      content: 'Working with NUVO has been exceptional. Their ability to bring complex designs to life while maintaining the highest quality standards is unmatched in South Florida.',
       rating: 5,
-      text: "Precisão milimétrica e design sofisticado. Meu home office ficou muito mais organizado e produtivo. A equipe da NUVO entende exatamente o que o cliente precisa.",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&h=150"
+      image: '/images/imgi_15_539139475_18077099540493478_1747837317726997206_n_1757111141442.jpg'
     },
     {
       id: 3,
-      name: "Ana Paula Rodrigues",
-      location: "Belo Horizonte, MG",
-      project: "Ambiente Gourmet",
+      name: 'Jennifer Chen',
+      role: 'Architect, Boca Raton',
+      content: 'The Italian-Brazilian heritage truly shows in their work. Eduardo and his team create pieces that are both functional and artistic. Absolutely recommend for luxury projects.',
       rating: 5,
-      text: "Superou todas as expectativas! A adega integrada e o espaço gourmet ficaram um sonho. Recebo muitos elogios dos amigos. Vale cada centavo investido.",
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&h=150"
+      image: '/images/imgi_14_539774193_18077198129493478_187446010639494702_n_1757111152300.jpg'
     }
   ]
 
-  const socialStats = [
-    {
-      platform: "Google",
-      icon: FaGoogle,
-      rating: "4.9",
-      reviews: "127",
-      color: "text-blue-600"
-    },
-    {
-      platform: "Facebook", 
-      icon: FaFacebook,
-      rating: "4.8",
-      reviews: "89",
-      color: "text-blue-800"
-    },
-    {
-      platform: "Instagram",
-      icon: FaInstagram,
-      rating: "4.9",
-      reviews: "234",
-      color: "text-pink-600"
-    }
-  ]
-
-  const certifications = [
-    "Arquitetos Certificados",
-    "Marceneiros Especialistas",
-    "Garantia de 5 Anos",
-    "ISO 9001:2015"
+  const stats = [
+    { number: '4,000+', label: 'Satisfied Clients' },
+    { number: '30+', label: 'Years Experience' },
+    { number: '98%', label: 'Projects On Time' },
+    { number: '4.9/5', label: 'Client Rating' }
   ]
 
   return (
-    <section className="py-20 bg-[var(--color-light)]" ref={ref}>
+    <section className="py-24 bg-white" ref={ref}>
       <div className="max-w-7xl mx-auto px-6">
-        
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -82,163 +53,118 @@ export default function SocialProof() {
           className="text-center mb-16"
         >
           <span className="text-[var(--color-accent)] text-lg font-semibold tracking-wide mb-4 block">
-            CLIENTES SATISFEITOS
+            CLIENT TESTIMONIALS
           </span>
           <h2 className="text-4xl md:text-5xl font-display font-bold text-[var(--color-primary)] mb-6">
-            O que nossos clientes
-            <span className="gradient-text"> dizem sobre nós</span>
+            Trusted by Florida's
+            <span className="gradient-text"> Elite</span>
           </h2>
           <p className="text-lg text-[var(--color-gray)] max-w-3xl mx-auto">
-            Mais de 500 projetos realizados com excelência. Veja porque somos referência 
-            em Wall Units personalizadas no Brasil.
+            Don't just take our word for it. Here's what our clients say about 
+            their experience working with NUVO.
           </p>
         </motion.div>
 
-        {/* Social Media Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="grid md:grid-cols-3 gap-6 mb-16"
-        >
-          {socialStats.map((stat, index) => (
-            <motion.div
-              key={stat.platform}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-white rounded-2xl p-6 shadow-luxury text-center hover:shadow-xl transition-all duration-300"
-              data-testid={`social-stat-${stat.platform.toLowerCase()}`}
-            >
-              <div className="flex items-center justify-center mb-4">
-                <div className={`w-12 h-12 ${stat.color} text-2xl flex items-center justify-center`}>
-                  <stat.icon />
-                </div>
-              </div>
-              <div className="text-3xl font-bold text-[var(--color-primary)] mb-2">
-                {stat.rating} ⭐
-              </div>
-              <div className="text-[var(--color-gray)] text-sm">
-                {stat.reviews} avaliações no {stat.platform}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Testimonials */}
+        {/* Testimonials Grid */}
         <div className="grid lg:grid-cols-3 gap-8 mb-16">
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.id}
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.8, delay: 0.3 + index * 0.1 }}
-              className="bg-white rounded-2xl p-8 shadow-luxury hover:shadow-xl transition-all duration-300 relative"
-              data-testid={`testimonial-${testimonial.id}`}
+              transition={{ duration: 0.6, delay: index * 0.2 }}
+              whileHover={{ y: -5 }}
+              className="bg-[var(--color-light)] rounded-2xl p-8 shadow-luxury relative"
             >
               {/* Quote Icon */}
-              <div className="absolute -top-4 -left-4 w-8 h-8 bg-[var(--color-secondary)] rounded-full flex items-center justify-center">
-                <FaQuoteLeft className="text-white text-sm" />
+              <div className="absolute top-6 right-6 text-[var(--color-secondary)] opacity-20">
+                <FaQuoteLeft className="text-3xl" />
               </div>
 
-              {/* Stars */}
+              {/* Rating */}
               <div className="flex items-center mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
-                  <FaStar key={i} className="text-yellow-400 text-sm" />
+                  <FaStar key={i} className="text-[var(--color-secondary)] text-sm mr-1" />
                 ))}
               </div>
 
-              {/* Testimonial Text */}
-              <blockquote className="text-[var(--color-gray)] leading-relaxed mb-6 italic">
-                "{testimonial.text}"
-              </blockquote>
+              {/* Content */}
+              <p className="text-[var(--color-gray)] mb-6 leading-relaxed italic">
+                "{testimonial.content}"
+              </p>
 
-              {/* Client Info */}
-              <div className="flex items-center space-x-4">
-                <div className="relative w-12 h-12 rounded-full overflow-hidden">
-                  <Image
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    fill
-                    className="object-cover"
-                    sizes="48px"
-                  />
+              {/* Author */}
+              <div className="flex items-center">
+                <div className="w-12 h-12 bg-[var(--color-secondary)] rounded-full flex items-center justify-center mr-4">
+                  <span className="text-white font-bold text-lg">
+                    {testimonial.name.split(' ').map(n => n[0]).join('')}
+                  </span>
                 </div>
                 <div>
-                  <div className="font-semibold text-[var(--color-primary)]">
+                  <h4 className="font-semibold text-[var(--color-primary)]">
                     {testimonial.name}
-                  </div>
-                  <div className="text-sm text-[var(--color-gray)]">
-                    {testimonial.location}
-                  </div>
-                  <div className="text-xs text-[var(--color-accent)] font-medium mt-1">
-                    {testimonial.project}
-                  </div>
+                  </h4>
+                  <p className="text-sm text-[var(--color-gray)]">
+                    {testimonial.role}
+                  </p>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Certifications & Trust Badges */}
+        {/* Stats */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="bg-white rounded-2xl p-8 shadow-luxury"
+          className="bg-gradient-luxury rounded-2xl p-12 text-center"
         >
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-display font-bold text-[var(--color-primary)] mb-2">
-              Certificações e Garantias
-            </h3>
-            <p className="text-[var(--color-gray)]">
-              Qualidade comprovada e reconhecida no mercado
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-4 gap-6">
-            {certifications.map((cert, index) => (
+          <div className="grid md:grid-cols-4 gap-8">
+            {stats.map((stat, index) => (
               <motion.div
-                key={cert}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+                key={stat.label}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
-                className="text-center p-4 bg-[var(--color-light)] rounded-xl"
-                data-testid={`certification-${index}`}
+                className="text-white"
               >
-                <div className="w-12 h-12 bg-[var(--color-secondary)]/20 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <div className="w-6 h-6 bg-[var(--color-secondary)] rounded-full"></div>
+                <div className="text-4xl md:text-5xl font-bold text-[var(--color-secondary)] mb-2">
+                  {stat.number}
                 </div>
-                <div className="text-sm font-medium text-[var(--color-primary)]">
-                  {cert}
+                <div className="text-gray-300 font-semibold">
+                  {stat.label}
                 </div>
               </motion.div>
             ))}
           </div>
         </motion.div>
 
-        {/* CTA */}
+        {/* Trust Indicators */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="text-center mt-12"
+          transition={{ duration: 0.8, delay: 1 }}
+          className="text-center mt-16"
         >
-          <p className="text-lg text-[var(--color-gray)] mb-6">
-            Junte-se aos nossos clientes satisfeitos
-          </p>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => {
-              const chatbotButton = document.querySelector('[data-chatbot-trigger]') as HTMLButtonElement
-              if (chatbotButton) chatbotButton.click()
-            }}
-            className="bg-[var(--color-secondary)] hover:bg-[var(--color-accent)] text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 shadow-lg"
-            data-testid="button-join-clients"
-          >
-            Solicite Seu Orçamento Gratuito
-          </motion.button>
+          <div className="flex flex-wrap justify-center items-center gap-8 text-[var(--color-gray)]">
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-[var(--color-secondary)] rounded-full" />
+              <span className="text-sm font-medium">Licensed & Insured</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-[var(--color-secondary)] rounded-full" />
+              <span className="text-sm font-medium">30-Year Warranty</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-[var(--color-secondary)] rounded-full" />
+              <span className="text-sm font-medium">Free Consultations</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-[var(--color-secondary)] rounded-full" />
+              <span className="text-sm font-medium">Premium Materials Only</span>
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>

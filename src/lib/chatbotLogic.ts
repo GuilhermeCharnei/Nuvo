@@ -6,6 +6,7 @@
  */
 
 import { PRODUCT_KNOWLEDGE, findProductByKeywords, recommendProducts } from '@/data/productKnowledge'
+import { COMPANY_POLICIES, PRICING_RANGES, FAQ, OBJECTION_HANDLING } from '@/data/botKnowledgeBase'
 import type { ProductCategory } from '@/data/productKnowledge'
 
 export interface CustomerProfile {
@@ -149,9 +150,15 @@ ${recommendation.reasoning}
 **Investment Range:** ${recommendation.estimatedInvestment}
 **Timeline:** ${recommendation.proposedTimeline}
 
+**What's Included:**
+• ${COMPANY_POLICIES.process.consultation}
+• Premium materials and Italian craftsmanship
+• ${COMPANY_POLICIES.process.installation}
+• ${COMPANY_POLICIES.warranty.duration} ${COMPANY_POLICIES.warranty.coverage.toLowerCase()}
+
 I'd love to show you some examples of similar projects we've done and discuss the specific features that would work best for your space.
 
-Would you like to schedule a free consultation where we can create 3D renderings of your custom design? Our team can visit your space and provide detailed recommendations within your ${profile.budget} budget range.`
+Would you like to schedule your free consultation where we create 3D renderings of your custom design? Our team can visit your space and provide detailed recommendations within your ${profile.budget} budget range.`
 }
 
 /**

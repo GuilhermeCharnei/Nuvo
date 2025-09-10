@@ -19,7 +19,7 @@
 
 'use client'
 
-import React, { useRef } from 'react'
+import React, { useRef, useCallback, useMemo } from 'react'
 import { motion, useInView } from 'framer-motion'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
@@ -44,7 +44,7 @@ const useProjectFilters = (projects: Project[], galleryRef: React.RefObject<HTML
   /**
    * Altera a categoria ativa do filtro e faz scroll para mostrar filtros e galeria
    */
-  const handleCategoryChange = (category: ProjectCategoryKey) => {
+  const handleCategoryChange = useCallback((category: ProjectCategoryKey) => {
     setActiveTab(category)
     
     // Scroll suave para mostrar os filtros e galeria após uma pequena delay para permitir re-render
@@ -64,7 +64,7 @@ const useProjectFilters = (projects: Project[], galleryRef: React.RefObject<HTML
         })
       }
     }, 100)
-  }
+  }, [galleryRef])
 
   return {
     activeTab,
@@ -82,9 +82,9 @@ const useProjectNavigation = () => {
   /**
    * Navega para a página de detalhes de um projeto específico
    */
-  const handleProjectClick = (projectId: number) => {
+  const handleProjectClick = useCallback((projectId: number) => {
     router.push(`/project/${projectId}`)
-  }
+  }, [router])
 
   return { handleProjectClick }
 }
@@ -99,37 +99,40 @@ interface ProjectCardProps {
   onClick: (projectId: number) => void
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ 
+const ProjectCard: React.FC<ProjectCardProps> = React.memo(({ 
   project, 
   index, 
   isInView, 
   onClick 
 }) => {
-  // Configurações de animação para o card
-  const cardAnimation = {
+  // Configurações de animação para o card (memoizado)
+  const cardAnimation = useMemo(() => ({
     initial: { opacity: 0, y: 30 },
     animate: isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 },
     transition: { 
       duration: APP_CONFIG.animation.duration.normal, 
       delay: index * 0.1 
     }
-  }
+  }), [isInView, index])
+
+  const handleClick = useCallback(() => onClick(project.id), [onClick, project.id])
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      onClick(project.id)
+    }
+  }, [onClick, project.id])
 
   return (
     <motion.div
       layout
       {...cardAnimation}
-      onClick={() => onClick(project.id)}
+      onClick={handleClick}
       className="group cursor-pointer hover:scale-105 transition-transform duration-300"
       role="button"
       tabIndex={0}
       aria-label={`View details for ${project.title}`}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault()
-          onClick(project.id)
-        }
-      }}
+      onKeyDown={handleKeyDown}
     >
       {/* Container da imagem com overlay */}
       <div className="relative h-80 rounded-2xl overflow-hidden shadow-luxury mb-6">
@@ -177,7 +180,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       </div>
     </motion.div>
   )
-}
+})
 
 /**
  * Componente para os botões de filtro de categoria
@@ -188,7 +191,7 @@ interface CategoryFiltersProps {
   isInView: boolean
 }
 
-const CategoryFilters: React.FC<CategoryFiltersProps> = ({
+const CategoryFilters: React.FC<CategoryFiltersProps> = React.memo(({
   activeTab,
   onCategoryChange,
   isInView
@@ -217,7 +220,7 @@ const CategoryFilters: React.FC<CategoryFiltersProps> = ({
       ))}
     </motion.div>
   )
-}
+})
 
 /**
  * Componente principal ProjectShowcase
@@ -231,8 +234,8 @@ export default function ProjectShowcase() {
   const { activeTab, filteredProjects, handleCategoryChange } = useProjectFilters(projectsData, galleryRef)
   const { handleProjectClick } = useProjectNavigation()
 
-  // Configurações de animação para diferentes seções
-  const sectionAnimations = {
+  // Configurações de animação para diferentes seções (memoizado)
+  const sectionAnimations = useMemo(() => ({
     header: {
       initial: { opacity: 0, y: 30 },
       animate: isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 },
@@ -243,7 +246,7 @@ export default function ProjectShowcase() {
       animate: isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 },
       transition: { duration: 0.8, delay: 0.6 }
     }
-  }
+  }), [isInView])
 
   return (
     <section id="portfolio" className="py-24 bg-white" ref={ref}>

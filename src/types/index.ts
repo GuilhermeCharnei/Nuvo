@@ -167,6 +167,8 @@ export interface ProjectGalleryProps {
 export interface RouteParams {
   /** ID do projeto na URL */
   id: string
+  /** Index signature para compatibilidade com Next.js 14.2.32+ */
+  [key: string]: string | string[]
 }
 
 /** Props para componentes de página */

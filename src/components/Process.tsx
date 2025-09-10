@@ -6,7 +6,7 @@ import { FaPhoneAlt, FaLightbulb, FaHandshake, FaCog, FaTruck, FaHeart } from 'r
 
 export default function Process() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, threshold: 0.1 })
+  const isInView = useInView(ref, { once: true, amount: 0.1 })
 
   const steps = [
     {

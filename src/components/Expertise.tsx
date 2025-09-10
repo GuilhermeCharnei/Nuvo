@@ -7,7 +7,7 @@ import { FaAward, FaCog, FaLeaf, FaUsers } from 'react-icons/fa'
 
 export default function Expertise() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, threshold: 0.2 })
+  const isInView = useInView(ref, { once: true, amount: 0.2 })
 
   const features = [
     {

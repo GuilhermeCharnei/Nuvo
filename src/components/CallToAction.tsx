@@ -7,7 +7,7 @@ import Image from 'next/image'
 
 export default function CallToAction() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, threshold: 0.1 })
+  const isInView = useInView(ref, { once: true, amount: 0.1 })
   const [formData, setFormData] = useState({
     name: '',
     email: '',

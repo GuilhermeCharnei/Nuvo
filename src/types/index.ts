@@ -86,10 +86,13 @@ export interface ChatMessage {
 /** Estágios da conversa no chatbot */
 export type ConversationStage = 
   | 'greeting'
-  | 'type_selection'
+  | 'room_selection'
+  | 'purpose_discovery'
+  | 'style_inquiry'
+  | 'challenges_discovery'
   | 'budget_inquiry'
   | 'timeline_inquiry'
-  | 'features_inquiry'
+  | 'recommendation'
   | 'contact_collection'
   | 'completed'
 
@@ -105,10 +108,14 @@ export interface ChatbotState {
   isWaitingForResponse: boolean
   /** Dados coletados do usuário */
   userData: {
-    projectType?: string
+    room?: string
+    purpose?: string[]
+    style?: string
+    challenges?: string[]
     budget?: string
     timeline?: string
-    features?: string[]
+    isDecisionMaker?: boolean
+    inspiration?: string
     name?: string
     email?: string
     phone?: string

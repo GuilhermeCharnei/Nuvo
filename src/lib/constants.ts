@@ -104,43 +104,84 @@ export const PROJECT_CATEGORIES = [
 // MENSAGENS DO CHATBOT
 // ==========================================
 
-/** Mensagens pré-definidas para o chatbot Sofia */
+/** Mensagens pré-definidas para o chatbot Sofia - Vendedor Inteligente */
 export const CHATBOT_MESSAGES = {
-  // Mensagem de boas-vindas
-  welcome: "Hi there! I'm Sofia from NUVO! 👋\n\nI'm so excited to help you create something truly spectacular for your space! Our wall units aren't just furniture - they're architectural art that transforms entire rooms.\n\nWhat type of wall unit caught your attention?",
+  // Mensagem de boas-vindas focada em Wall Units
+  welcome: "Hi there! I'm Sofia from NUVO! 👋\n\nI specialize in helping people create stunning Wall Units that completely transform their spaces. Think of them as architectural art that tells your story while solving your storage and display needs.\n\nI'd love to understand what you're envisioning for your space. What room are you looking to transform?",
   
-  // Opções de tipos de wall units
-  typeOptions: [
-    'Wet Bar & Entertainment',
-    'Wine Storage & Display', 
-    'Kitchen & Office Units',
-    'Architectural Features',
+  // Opções de ambientes para Wall Units
+  roomOptions: [
+    'Living Room',
+    'Entertainment Room', 
+    'Home Office',
+    'Kitchen',
+    'Bedroom',
+    'Dining Room',
     'Something Custom'
   ],
   
-  // Mensagens de follow-up
-  followUp: {
-    budget: "What's your approximate budget range? This helps me tailor my suggestions perfectly for you.",
-    timeline: "When would you ideally like to have your beautiful new wall unit completed?",
-    features: "What features are most exciting to you for your wall unit?"
+  // Mensagens de discovery inteligente
+  discovery: {
+    purpose: "Perfect! Now help me understand how you use this space. What activities happen there daily?",
+    style: "I love getting a sense of your style! Do you lean more toward clean modern lines, warm traditional elements, or a sophisticated mix of both?",
+    challenges: "What storage or organization challenges are you hoping to solve? I want to make sure we design something that truly works for your lifestyle.",
+    inspiration: "Have you seen any wall units that caught your eye? Or any specific features that made you think 'I wish I had that!'?"
   },
   
-  // Opções de orçamento
+  // Opções de propósito/atividades
+  purposeOptions: [
+    'Entertainment & TV',
+    'Display & Collections', 
+    'Work & Productivity',
+    'Storage & Organization',
+    'Wine & Bar Setup',
+    'Books & Library',
+    'Multi-purpose'
+  ],
+  
+  // Opções de estilo
+  styleOptions: [
+    'Clean Modern',
+    'Warm Traditional',
+    'Contemporary Mix', 
+    'Industrial Chic',
+    'Classic Elegant',
+    'Not Sure - Show Me!'
+  ],
+  
+  // Mensagens de qualificação
+  qualification: {
+    budget: "To design the perfect solution for you, what investment range feels comfortable? I want to show you options that fit both your vision and budget.",
+    timeline: "When would you love to be enjoying your new wall unit? This helps me understand if we need to plan around any special occasions or deadlines.",
+    decision: "Are you the primary decision-maker for this project, or will others be involved in the final choice?"
+  },
+  
+  // Opções de orçamento ajustadas para Wall Units
   budgetOptions: [
     '$15K - $35K',
     '$35K - $65K', 
     '$65K - $100K',
-    '$100K+',
-    'Not sure yet'
+    '$100K - $150K+',
+    'I need guidance on this'
   ],
   
   // Opções de timeline
   timelineOptions: [
-    'Within 2 months',
+    'ASAP - Within 2 months',
     '3-4 months',
     '5-6 months', 
-    'No rush'
-  ]
+    'After the holidays',
+    'No specific timeline'
+  ],
+  
+  // Respostas personalizadas por categoria
+  productRecommendations: {
+    entertainment: "Entertainment wall units are my absolute favorite! 🎬 We can create a stunning focal point that houses your TV, sound system, and all your media while hiding those messy cables. Plus, we can add features like ambient lighting, game storage, or even a hidden bar area.",
+    office: "A home office wall unit is such a smart investment! 💼 We can design built-in desks, file storage, display shelving for books, and even hidden printer storage. Everything organized and beautiful - perfect for productivity and video calls!",
+    kitchen: "Kitchen wall units are game-changers! 👨‍🍳 We can create stunning upper cabinetry that maximizes storage while maintaining that open, airy feel. Think spice organization, dish display, and integrated lighting that makes cooking a joy.",
+    display: "Display wall units are pure art! 🎨 We can design custom shelving and lighting to showcase your collections, books, or treasured pieces. Each item becomes part of the room's design story.",
+    storage: "Smart storage solutions are what we do best! 📦 We'll maximize every inch while keeping everything accessible and beautiful. No more clutter - just organized elegance."
+  }
 } as const
 
 // ==========================================

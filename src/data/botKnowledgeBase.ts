@@ -55,29 +55,6 @@ export const COMPANY_POLICIES = {
 } as const
 
 // ==========================================
-// FAIXAS DE PREÇOS
-// ==========================================
-
-export const PRICING_RANGES = {
-  // Faixas de investimento por categoria
-  wallUnits: {
-    basic: "$15,000 - $35,000",
-    standard: "$35,000 - $65,000", 
-    premium: "$65,000 - $100,000",
-    luxury: "$100,000 - $150,000+"
-  },
-  
-  // Fatores que influenciam o preço
-  priceFactors: [
-    "Size and complexity of the design",
-    "Materials selected (wood type, stone, metal)",
-    "Integrated technology requirements",
-    "Custom features and storage solutions",
-    "Timeline requirements"
-  ]
-} as const
-
-// ==========================================
 // SERVIÇOS OFERECIDOS
 // ==========================================
 

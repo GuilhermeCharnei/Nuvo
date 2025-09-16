@@ -105,7 +105,7 @@ export default function Hero() {
       />
 
       {/* Container principal do conteúdo */}
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 text-center">
+      <div className="relative z-10 max-w-6xl mx-auto px-2 sm:px-4 md:px-6 text-center">
         
         {/* Seção do título e descrição */}
         <motion.div
@@ -116,7 +116,7 @@ export default function Hero() {
         >
           {/* Título principal com gradiente */}
           <motion.h1 
-            className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold mb-6 md:mb-8 leading-tight px-4 sm:px-0"
+            className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-bold mb-6 md:mb-8 leading-tight px-2 sm:px-0 break-words"
             {...animationVariants.title}
           >
             {/* Primeira linha do título */}
@@ -128,7 +128,7 @@ export default function Hero() {
           
           {/* Descrição da empresa */}
           <motion.p 
-            className="text-base sm:text-lg md:text-xl lg:text-2xl mb-8 md:mb-12 max-w-3xl mx-auto text-gray-200 font-light px-4 sm:px-6"
+            className="text-sm sm:text-base md:text-lg lg:text-xl mb-8 md:mb-12 max-w-3xl mx-auto text-gray-200 font-light px-2 sm:px-4"
             {...animationVariants.description}
           >
             {COMPANY_INFO.description}
@@ -136,7 +136,7 @@ export default function Hero() {
 
           {/* Container dos botões de ação */}
           <motion.div 
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center px-4 sm:px-0"
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center px-2 sm:px-0"
             {...animationVariants.buttons}
           >
             {/* Botão principal - Iniciar projeto */}
@@ -165,9 +165,9 @@ export default function Hero() {
         {...animationVariants.stats}
         className="absolute bottom-20 left-0 right-0 z-10"
       >
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+        <div className="max-w-4xl mx-auto px-2 sm:px-4 md:px-6">
           {/* Grid responsivo das estatísticas */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 text-center text-white">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4 md:gap-6 lg:gap-8 text-center text-white">
             
             {/* Estatística: Anos de experiência */}
             <div className="flex flex-col items-center">

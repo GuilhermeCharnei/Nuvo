@@ -30,14 +30,31 @@ export const sleep = (ms: number): Promise<void> => {
 }
 
 /**
+ * Parse JSON seguro que não falha com valores vazios
+ * @param value - String JSON para fazer parse
+ * @param fallback - Valor padrão em caso de erro
+ * @returns Objeto parsed ou valor padrão
+ */
+export const safeJSONParse = <T>(value: string | null, fallback: T): T => {
+  if (!value) return fallback
+  try {
+    return JSON.parse(value) as T
+  } catch {
+    return fallback
+  }
+}
+
+/**
  * Gera ID único baseado em timestamp e random
  * @param prefix - Prefixo opcional para o ID
  * @returns ID único como string
  */
+// Contador para IDs únicos (evita hydration mismatch)
+let idCounter = 0;
+
 export const generateId = (prefix: string = 'id'): string => {
-  const timestamp = Date.now().toString(36)
-  const random = Math.random().toString(36).substr(2, 9)
-  return `${prefix}_${timestamp}_${random}`
+  idCounter += 1;
+  return `${prefix}_${idCounter}`;
 }
 
 /**

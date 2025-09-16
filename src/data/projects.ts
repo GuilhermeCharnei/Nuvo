@@ -11,7 +11,6 @@ export interface Project {
     materials: string
     features: string[]
     timeline: string
-    priceRange: string
   }
   clientStory?: string
   testimonial?: {
@@ -36,8 +35,7 @@ export const projectsData: Project[] = [
       dimensions: '12\' W x 8\' H x 2\' D',
       materials: 'Walnut wood, Granite countertop, Stainless steel',
       features: ['Temperature-controlled storage', 'LED strip lighting', 'Integrated sink', 'Glass storage'],
-      timeline: '8-10 weeks',
-      priceRange: '$45,000 - $65,000'
+      timeline: '8-10 weeks'
     },
     clientStory: 'Our client wanted to create the perfect entertaining space in their luxury home. The challenge was integrating modern functionality with classic elegance. We designed this custom wet bar that seamlessly blends premium materials with cutting-edge technology.',
     testimonial: {
@@ -60,8 +58,7 @@ export const projectsData: Project[] = [
       dimensions: '16\' W x 9\' H x 3\' D',
       materials: 'Mahogany wood, Quartz surface, Brass accents',
       features: ['Curved design', 'Executive storage', 'Wine refrigeration', 'Display lighting'],
-      timeline: '10-12 weeks',
-      priceRange: '$55,000 - $75,000'
+      timeline: '10-12 weeks'
     },
     clientStory: 'A leading law firm wanted to create an impressive client entertainment area. The curved design solution maximized the space while creating an elegant focal point for their office.',
     testimonial: {
@@ -84,8 +81,7 @@ export const projectsData: Project[] = [
       dimensions: '14\' W x 10\' H x 18" D',
       materials: 'Walnut wood, Gold leaf accents, LED lighting',
       features: ['Adjustable shelving', 'Hidden storage', 'LED accent lighting', 'Glass display areas'],
-      timeline: '6-8 weeks',
-      priceRange: '$25,000 - $40,000'
+      timeline: '6-8 weeks'
     },
     clientStory: 'The homeowners needed a sophisticated way to display their art collection while providing practical storage. Our solution created a gallery-like atmosphere that showcases their pieces beautifully.',
     testimonial: {
@@ -108,8 +104,7 @@ export const projectsData: Project[] = [
       dimensions: '18\' W x 12\' H x 3\' D',
       materials: 'Acoustic panels, Dark walnut, Integrated technology',
       features: ['Acoustic treatment', 'Hidden cable management', 'Integrated TV mount', 'Surround sound ready'],
-      timeline: '10-12 weeks',
-      priceRange: '$65,000 - $85,000'
+      timeline: '10-12 weeks'
     },
     clientStory: 'Our clients wanted a home theater that was both functional and architecturally stunning. The acoustic panels solve sound issues while creating a dramatic visual statement.',
     testimonial: {
@@ -132,8 +127,7 @@ export const projectsData: Project[] = [
       dimensions: '10\' W x 12\' H x 6" D',
       materials: 'Teak wood slats, LED backlighting, Steel frame',
       features: ['Backlit design', 'Vertical wood slats', 'Architectural mounting', 'Dramatic shadows'],
-      timeline: '4-6 weeks',
-      priceRange: '$15,000 - $25,000'
+      timeline: '4-6 weeks'
     },
     clientStory: 'The clients wanted their foyer to make a statement that reflected their modern aesthetic. This architectural feature creates drama and warmth from the moment guests enter.',
     testimonial: {
@@ -156,8 +150,7 @@ export const projectsData: Project[] = [
       dimensions: '20\' W x 10\' H x 2.5\' D',
       materials: 'Natural stone, Dark wood, Stainless steel',
       features: ['Electric fireplace', 'TV integration', 'Hidden storage', 'Ambient lighting'],
-      timeline: '12-14 weeks',
-      priceRange: '$75,000 - $100,000'
+      timeline: '12-14 weeks'
     },
     clientStory: 'The family wanted a central focal point that would bring everyone together. This design creates the perfect balance of entertainment, warmth, and storage.',
     testimonial: {
@@ -180,8 +173,7 @@ export const projectsData: Project[] = [
       dimensions: '8\' W x 10\' H x 2\' D',
       materials: 'Mahogany, Tempered glass, Stainless steel',
       features: ['Climate control', 'LED wine lighting', 'Glass display', 'Individual bottle slots'],
-      timeline: '8-10 weeks',
-      priceRange: '$60,000 - $90,000'
+      timeline: '8-10 weeks'
     },
     clientStory: 'Wine enthusiasts who needed proper storage that also showcased their collection. The climate control system preserves their investment while the design makes it a conversation piece.',
     testimonial: {
@@ -204,8 +196,7 @@ export const projectsData: Project[] = [
       dimensions: '16\' W x 9\' H x 3\' D',
       materials: 'Executive walnut, Leather accents, Brass hardware',
       features: ['Built-in desk', 'File storage', 'Display shelving', 'Cable management'],
-      timeline: '10-12 weeks',
-      priceRange: '$45,000 - $65,000'
+      timeline: '10-12 weeks'
     },
     clientStory: 'A successful entrepreneur needed a home office that reflected their professional image while providing maximum functionality. This design creates the perfect work environment.',
     testimonial: {
@@ -228,8 +219,7 @@ export const projectsData: Project[] = [
       dimensions: '14\' W x 8\' H x 2\' D',
       materials: 'White lacquer, Stainless steel, Quartz accents',
       features: ['Integrated appliances', 'Soft-close doors', 'Hidden storage', 'LED under-cabinet lighting'],
-      timeline: '8-10 weeks',
-      priceRange: '$35,000 - $55,000'
+      timeline: '8-10 weeks'
     },
     clientStory: 'The homeowners wanted a kitchen that felt spacious and modern. This design eliminates visual clutter while providing extensive storage and functionality.',
     testimonial: {
@@ -252,8 +242,7 @@ export const projectsData: Project[] = [
       dimensions: '6\' W x 8\' H x 2\' D',
       materials: 'Tempered glass, Steel frame, Cedar storage',
       features: ['Glass enclosure', 'Precision climate control', 'Cedar shelving', 'Security features'],
-      timeline: '12-14 weeks',
-      priceRange: '$80,000 - $120,000'
+      timeline: '12-14 weeks'
     },
     clientStory: 'Serious wine collectors who needed museum-level storage conditions. The glass design allows them to enjoy their collection visually while ensuring perfect preservation.',
     testimonial: {
@@ -276,8 +265,7 @@ export const projectsData: Project[] = [
       dimensions: '12\' W x 9\' H x 18" D',
       materials: 'Dark walnut, Architectural molding, LED lighting',
       features: ['Architectural framing', 'Ambient lighting', 'China storage', 'Display areas'],
-      timeline: '8-10 weeks',
-      priceRange: '$40,000 - $60,000'
+      timeline: '8-10 weeks'
     },
     clientStory: 'The clients wanted their dining room to feel like a fine restaurant. This design creates intimate lighting and elegant storage for their entertaining needs.',
     testimonial: {
@@ -300,8 +288,7 @@ export const projectsData: Project[] = [
       dimensions: '8\' W x 10\' H x 12" D',
       materials: 'Natural wood, Metal accents, LED systems',
       features: ['Architectural design', 'Statement lighting', 'Hidden storage', 'Coat storage'],
-      timeline: '6-8 weeks',
-      priceRange: '$20,000 - $35,000'
+      timeline: '6-8 weeks'
     },
     clientStory: 'The homeowners wanted their entrance to make a bold statement. This architectural feature greets guests with sophisticated design while keeping daily items organized.',
     testimonial: {

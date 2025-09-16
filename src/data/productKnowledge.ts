@@ -11,7 +11,6 @@ export interface ProductCategory {
   description: string
   keywords: string[]
   solutions: ProductSolution[]
-  priceRange: string
   timeline: string
   idealFor: string[]
 }
@@ -22,7 +21,6 @@ export interface ProductSolution {
   features: string[]
   materials: string[]
   styles: string[]
-  priceRange?: string
 }
 
 export const PRODUCT_KNOWLEDGE: ProductCategory[] = [
@@ -31,7 +29,6 @@ export const PRODUCT_KNOWLEDGE: ProductCategory[] = [
     name: 'Entertainment Rooms',
     description: 'Complete media and entertainment solutions that transform your space into the ultimate entertainment hub.',
     keywords: ['tv', 'media', 'entertainment', 'theater', 'gaming', 'movies', 'music', 'sound system', 'home theater'],
-    priceRange: '$25K - $80K',
     timeline: '6-10 weeks',
     idealFor: ['Movie enthusiasts', 'Gaming families', 'Music lovers', 'Tech enthusiasts'],
     solutions: [
@@ -70,7 +67,6 @@ export const PRODUCT_KNOWLEDGE: ProductCategory[] = [
     name: 'Kitchen Solutions',
     description: 'The heart of your home deserves custom cabinetry that elevates function and beauty.',
     keywords: ['kitchen', 'cabinets', 'cooking', 'dining', 'storage', 'pantry', 'island', 'appliances'],
-    priceRange: '$35K - $150K',
     timeline: '8-12 weeks',
     idealFor: ['Home chefs', 'Entertainers', 'Large families', 'Design enthusiasts'],
     solutions: [
@@ -109,7 +105,6 @@ export const PRODUCT_KNOWLEDGE: ProductCategory[] = [
     name: 'Closet & Mudroom',
     description: 'Organized entryways and storage solutions that handle daily life with style.',
     keywords: ['closet', 'mudroom', 'entryway', 'storage', 'organization', 'coats', 'shoes', 'bags'],
-    priceRange: '$15K - $45K',
     timeline: '4-6 weeks',
     idealFor: ['Busy families', 'Organized homeowners', 'Active lifestyles', 'Pet owners'],
     solutions: [
@@ -141,7 +136,6 @@ export const PRODUCT_KNOWLEDGE: ProductCategory[] = [
     name: 'Laundry Solutions',
     description: 'Efficient laundry rooms that make household tasks easier and more enjoyable.',
     keywords: ['laundry', 'washing', 'drying', 'folding', 'cleaning', 'utility', 'storage'],
-    priceRange: '$12K - $35K',
     timeline: '3-5 weeks',
     idealFor: ['Large families', 'Efficiency seekers', 'Small space maximizers'],
     solutions: [
@@ -173,7 +167,6 @@ export const PRODUCT_KNOWLEDGE: ProductCategory[] = [
     name: 'Home Office',
     description: 'Productive workspace solutions tailored to your professional needs.',
     keywords: ['office', 'desk', 'work', 'study', 'books', 'computer', 'filing', 'productivity'],
-    priceRange: '$18K - $55K',
     timeline: '5-7 weeks',
     idealFor: ['Remote workers', 'Students', 'Entrepreneurs', 'Creative professionals'],
     solutions: [
@@ -205,7 +198,6 @@ export const PRODUCT_KNOWLEDGE: ProductCategory[] = [
     name: 'Foyer & Entryway',
     description: 'Beautiful first impressions with smart storage solutions.',
     keywords: ['foyer', 'entryway', 'entrance', 'welcome', 'guests', 'coats', 'keys', 'mail'],
-    priceRange: '$10K - $30K',
     timeline: '3-4 weeks',
     idealFor: ['Welcoming homes', 'Organized families', 'Style-conscious owners'],
     solutions: [
@@ -230,7 +222,6 @@ export const PRODUCT_KNOWLEDGE: ProductCategory[] = [
     name: 'Architectural Millwork',
     description: 'Handcrafted architectural details that elevate any space.',
     keywords: ['millwork', 'molding', 'trim', 'ceiling', 'beams', 'columns', 'wainscoting', 'architectural'],
-    priceRange: '$20K - $100K+',
     timeline: '6-12 weeks',
     idealFor: ['Luxury homes', 'Historical properties', 'Architecture enthusiasts', 'High-end renovations'],
     solutions: [

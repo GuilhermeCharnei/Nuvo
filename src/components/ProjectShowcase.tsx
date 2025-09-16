@@ -174,12 +174,6 @@ const ProjectCard: React.FC<ProjectCardProps> = React.memo(({
           {project.description}
         </p>
         
-        {/* Indicador de preço se disponível */}
-        {project.specs?.priceRange && (
-          <div className="mt-2 text-sm font-medium text-[var(--color-secondary)]">
-            {project.specs.priceRange}
-          </div>
-        )}
         
         {/* Botão Learn More */}
         <div className="mt-4 flex gap-2">
@@ -335,11 +329,10 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, isOpen
                     </div>
                   </div>
 
-                  {/* Investment Range */}
+                  {/* Dimensions */}
                   <div className="mt-6 p-4 bg-[var(--color-secondary)]/5 rounded-lg">
-                    <h4 className="font-semibold text-[var(--color-primary)] mb-2">Investment Range</h4>
-                    <p className="text-xl font-bold text-[var(--color-secondary)]">{project.specs.priceRange}</p>
-                    <p className="text-sm text-[var(--color-gray)] mt-1">Dimensions: {project.specs.dimensions}</p>
+                    <h4 className="font-semibold text-[var(--color-primary)] mb-2">Project Dimensions</h4>
+                    <p className="text-xl font-bold text-[var(--color-secondary)]">{project.specs.dimensions}</p>
                   </div>
                 </div>
               )}

@@ -6,7 +6,7 @@
  */
 
 import { PRODUCT_KNOWLEDGE, findProductByKeywords, recommendProducts } from '@/data/productKnowledge'
-import { COMPANY_POLICIES, PRICING_RANGES, FAQ, OBJECTION_HANDLING } from '@/data/botKnowledgeBase'
+import { COMPANY_POLICIES, FAQ, OBJECTION_HANDLING } from '@/data/botKnowledgeBase'
 import type { ProductCategory } from '@/data/productKnowledge'
 
 export interface CustomerProfile {
@@ -28,7 +28,7 @@ export interface RecommendationResult {
   alternativeOptions: ProductCategory[]
   reasoning: string
   nextQuestions: string[]
-  estimatedInvestment: string
+  estimatedSolution: string
   proposedTimeline: string
 }
 
@@ -71,7 +71,7 @@ export const analyzeCustomerNeeds = (profile: CustomerProfile): RecommendationRe
     alternativeOptions: alternatives,
     reasoning,
     nextQuestions,
-    estimatedInvestment: primary.priceRange,
+    estimatedSolution: `${primary.name} - Custom Solution`,
     proposedTimeline: primary.timeline
   }
 }
@@ -104,7 +104,7 @@ const generateNextQuestions = (profile: CustomerProfile): string[] => {
   const questions: string[] = []
   
   if (!profile.budget) {
-    questions.push("What investment range feels comfortable for this project?")
+    questions.push("What level of solution are you considering for this project?")
   }
   
   if (!profile.timeline) {
@@ -147,7 +147,7 @@ Here's what I'm envisioning:
 **${recommendation.primaryRecommendation.name}**
 ${recommendation.reasoning}
 
-**Investment Range:** ${recommendation.estimatedInvestment}
+**Solution Type:** ${recommendation.estimatedSolution}
 **Timeline:** ${recommendation.proposedTimeline}
 
 **What's Included:**
@@ -158,7 +158,7 @@ ${recommendation.reasoning}
 
 I'd love to show you some examples of similar projects we've done and discuss the specific features that would work best for your space.
 
-Would you like to schedule your free consultation where we create 3D renderings of your custom design? Our team can visit your space and provide detailed recommendations within your ${profile.budget} budget range.`
+Would you like to schedule your free consultation where we create 3D renderings of your custom design? Our team can visit your space and provide detailed recommendations that match your ${profile.budget} solution level.`
 }
 
 /**

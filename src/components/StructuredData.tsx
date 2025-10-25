@@ -22,15 +22,15 @@ export function OrganizationSchema() {
     "description": "Premium custom wall units and luxury woodwork in South Florida. Specializing in wet bars, wine cellars, entertainment centers, and architectural features.",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "", // Add your street address
-      "addressLocality": "Boca Raton",
+      "streetAddress": "4801 Johnson Rd Suite 4",
+      "addressLocality": "Coconut Creek",
       "addressRegion": "FL",
-      "postalCode": "33431", // Update with actual postal code
+      "postalCode": "33073",
       "addressCountry": "US"
     },
     "contactPoint": {
       "@type": "ContactPoint",
-      "telephone": "+1-561-XXX-XXXX", // Add your phone number
+      "telephone": "+1-561-770-2595",
       "contactType": "Customer Service",
       "areaServed": ["US", "FL"],
       "availableLanguage": ["English", "Portuguese"]
@@ -40,7 +40,7 @@ export function OrganizationSchema() {
       "https://www.instagram.com/nuvodesigngroup",
       "https://www.linkedin.com/company/nuvodesigngroup"
     ],
-    "foundingDate": "2015", // Update with actual founding date
+    "foundingDate": "1995",
     "priceRange": "$$$",
     "areaServed": {
       "@type": "GeoCircle",
@@ -73,20 +73,20 @@ export function LocalBusinessSchema() {
     "image": "https://nuvobars.com/images/480969695_620547907386649_7438075877562462263_n_1757113219623.jpg",
     "@id": "https://nuvobars.com",
     "url": "https://nuvobars.com",
-    "telephone": "+1-561-XXX-XXXX", // Add your phone number
+    "telephone": "+1-561-770-2595",
     "priceRange": "$$$",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "", // Add your street address
-      "addressLocality": "Boca Raton",
+      "streetAddress": "4801 Johnson Rd Suite 4",
+      "addressLocality": "Coconut Creek",
       "addressRegion": "FL",
-      "postalCode": "33431", // Update with actual postal code
+      "postalCode": "33073",
       "addressCountry": "US"
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": 26.3683,
-      "longitude": -80.1289
+      "latitude": 26.2517,
+      "longitude": -80.1778
     },
     "openingHoursSpecification": [
       {

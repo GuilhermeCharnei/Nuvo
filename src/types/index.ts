@@ -17,6 +17,8 @@ export interface ProjectSpecs {
   features: string[]
   /** Tempo estimado para conclusão (ex: "8-10 weeks") */
   timeline: string
+  /** Faixa de preço do projeto (ex: "$45,000 - $65,000") */
+  priceRange: string
 }
 
 /** Testemunho de cliente */

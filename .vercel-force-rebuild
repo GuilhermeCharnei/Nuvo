@@ -1,0 +1,4 @@
+Force rebuild - TypeScript cache issue
+Timestamp: 2025-10-24 22:15
+Issue: priceRange type not recognized
+Solution: Force fresh build

@@ -1,6 +1,7 @@
-# NUVO WOODWORK - Robots.txt
+# NUVO BARS - Robots.txt
 # Updated: 2025-10-24
 # Compliance: Google Search Essentials
+# Domain: nuvobars.com
 
 # Allow all search engines to crawl all content
 User-agent: *

@@ -45,9 +45,6 @@ export async function generateMetadata({
   const description = project.fullDescription || project.description
   const seoDescription = `${description} ${project.specs ? `Featuring ${project.specs.materials}.` : ''} Custom ${categoryName} by NUVO WOODWORK in South Florida. ${project.specs?.timeline || ''} delivery.`
 
-  // Extract price for structured data
-  const priceRange = project.specs?.priceRange || '$25,000 - $100,000'
-
   return {
     title: `${project.title} - Custom ${categoryName} | NUVO WOODWORK`,
     description: seoDescription.substring(0, 160), // Limit to 160 chars

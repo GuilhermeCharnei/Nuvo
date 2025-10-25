@@ -176,7 +176,7 @@ export default function ProjectLayout({
           description={project.fullDescription || project.description}
           image={project.image}
           images={project.images}
-          priceRange={project.specs?.priceRange}
+          priceRange={undefined}
           category={project.category}
           materials={project.specs?.materials}
           dimensions={project.specs?.dimensions}

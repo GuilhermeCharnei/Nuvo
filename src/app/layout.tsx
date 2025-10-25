@@ -105,7 +105,7 @@ export const metadata: Metadata = {
     description: 'Premium custom wall units and luxury woodwork in South Florida. Expert craftsmanship meets bespoke design for wet bars, wine cellars, and architectural features.',
     images: [
       {
-        url: '/images/480969695_620547907386649_7438075877562462263_n_1757113219623.jpg',
+        url: 'https://nuvobars.com/images/480969695_620547907386649_7438075877562462263_n_1757113219623.jpg',
         width: 1200,
         height: 630,
         alt: 'NUVO WOODWORK - Custom Wet Bar Wall Unit',
@@ -118,7 +118,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'NUVO WOODWORK - Custom Wall Units & Luxury Woodwork',
     description: 'Premium custom wall units and luxury woodwork in South Florida. Expert craftsmanship meets bespoke design.',
-    images: ['/images/480969695_620547907386649_7438075877562462263_n_1757113219623.jpg'],
+    images: ['https://nuvobars.com/images/480969695_620547907386649_7438075877562462263_n_1757113219623.jpg'],
     creator: '@nuvobars',
   },
 

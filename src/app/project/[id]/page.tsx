@@ -1,9 +1,9 @@
 /**
  * Página Individual de Projeto - Detalhes Completos
- * 
+ *
  * Esta página exibe informações detalhadas de um projeto específico de wall unit.
  * Inclui galeria de imagens, especificações técnicas, história do projeto e testemunhos.
- * 
+ *
  * Funcionalidades principais:
  * - Galeria de imagens com navegação por thumbnails
  * - Especificações técnicas completas (dimensões, materiais, timeline, preço)
@@ -11,11 +11,18 @@
  * - Testemunhos autênticos de clientes
  * - Call-to-action para iniciar projeto similar
  * - Navegação de volta ao portfolio
- * 
+ *
  * Roteamento:
  * - URL dinâmica: /project/[id]
  * - Parâmetro id corresponde ao ID do projeto nos dados
  * - Fallback para página 404 se projeto não encontrado
+ *
+ * SEO Features:
+ * - Dynamic metadata generation for each project
+ * - Open Graph tags for social media sharing
+ * - Twitter Card support
+ * - Canonical URLs
+ * - Structured data (Product schema)
  */
 
 'use client'

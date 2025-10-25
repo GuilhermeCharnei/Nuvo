@@ -23,10 +23,16 @@ import { analyzeCustomerNeeds, generateIntelligentResponse, generateProposal, is
 import type { ChatMessage, ConversationStage, ChatbotState } from '@/types'
 
 /**
+ * Contador para IDs únicos (evita hydration mismatch)
+ */
+let messageCounter = 0;
+
+/**
  * Utilitário para gerar IDs únicos de mensagens
  */
 const generateMessageId = (): string => {
-  return `msg_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+  messageCounter += 1;
+  return `msg_${messageCounter}`;
 }
 
 /**
@@ -36,7 +42,7 @@ const createBotMessage = (content: string, hasOptions = false, options: string[]
   id: generateMessageId(),
   content,
   sender: 'bot',
-  timestamp: new Date(),
+  timestamp: new Date(Date.now()),
   hasOptions,
   options
 })
@@ -48,7 +54,7 @@ const createUserMessage = (content: string): ChatMessage => ({
   id: generateMessageId(),
   content,
   sender: 'user',
-  timestamp: new Date()
+  timestamp: new Date(Date.now())
 })
 
 /**
@@ -86,14 +92,11 @@ const useIntelligentConversation = () => {
       case 'greeting':
         handleRoomSelection(response)
         break
-      case 'room_selection':
+      case 'purpose_discovery':
         handlePurposeDiscovery(response)
         break
-      case 'purpose_discovery':
-        handleStyleInquiry(response)
-        break
       case 'style_inquiry':
-        handleChallengesDiscovery(response)
+        handleStyleInquiry(response)
         break
       case 'challenges_discovery':
         handleBudgetInquiry(response)
@@ -105,7 +108,10 @@ const useIntelligentConversation = () => {
         handleRecommendation(response)
         break
       case 'recommendation':
-        handleContactCollection()
+        handleRecommendation(response)
+        break
+      case 'contact_collection':
+        handleContactCollection(response)
         break
       default:
         handleFreeTextQuestion(response)
@@ -144,13 +150,10 @@ const useIntelligentConversation = () => {
    * Descobre propósito e atividades
    */
   const handlePurposeDiscovery = (purpose: string) => {
-    const currentPurpose = state.userData.purpose || []
-    const updatedPurpose = [...currentPurpose, purpose]
-
     setState(prev => ({
       ...prev,
       stage: 'style_inquiry',
-      userData: { ...prev.userData, purpose: updatedPurpose }
+      userData: { ...prev.userData, purpose: [purpose] }
     }))
 
     let response = ''
@@ -228,9 +231,9 @@ const useIntelligentConversation = () => {
 
     let response = ''
     if (budget === 'I need guidance on this') {
-      response = "Absolutely! I'm here to help you understand the investment. Based on what you've shared, I can give you realistic ranges that fit your vision.\n\n"
+      response = "Absolutely! I'm here to help you understand the best solution level. Based on what you've shared, I can guide you toward the perfect option for your vision.\n\n"
     } else {
-      response = `Perfect! ${budget} gives us some excellent options to work with. 💰\n\n`
+      response = `Perfect! ${budget} gives us excellent options to work with. ✨\n\n`
     }
 
     response += CHATBOT_MESSAGES.qualification.timeline
@@ -256,7 +259,7 @@ const useIntelligentConversation = () => {
     
     let response = `${timeline} - perfect timing! ⏰\n\n`
     response += recommendation.reasoning + "\n\n"
-    response += `**Investment Range:** ${recommendation.estimatedInvestment}\n`
+    response += `**Solution Type:** ${recommendation.estimatedSolution}\n`
     response += `**Estimated Timeline:** ${recommendation.proposedTimeline}\n\n`
     response += "I'd love to show you some examples of similar projects and discuss your specific features in detail!\n\n"
     response += "Would you like to schedule a FREE consultation where we create 3D renderings of your custom design?"
@@ -270,7 +273,7 @@ const useIntelligentConversation = () => {
    * Gera recomendação final
    */
   const handleRecommendation = (response: string) => {
-    if (response === 'Yes, schedule consultation!') {
+    if (response.toLowerCase().includes('schedule') || response === 'Yes, schedule consultation!') {
       setState(prev => ({ ...prev, stage: 'contact_collection' }))
       
       const message = "Fantastic! 🎉 I'm so excited to help you create your dream wall unit!\n\nTo schedule your free consultation and 3D design session, I'll need your contact information. Our design team will reach out within 24 hours.\n\nWhat's your name?"
@@ -291,13 +294,54 @@ const useIntelligentConversation = () => {
   /**
    * Coleta informações de contato
    */
-  const handleContactCollection = () => {
-    // Implementação da coleta de contato permanece similar
-    const message = "Perfect! Let me get your information so our design team can reach out with some amazing ideas for your space. 📞\n\nWhat's the best email to reach you?"
+  const handleContactCollection = (response: string) => {
+    const currentContact = state.userData
     
-    setTimeout(() => {
-      addMessage(createBotMessage(message, false))
-    }, 800)
+    if (!currentContact.name) {
+      // Collecting name
+      setState(prev => ({
+        ...prev,
+        userData: { ...prev.userData, name: response }
+      }))
+      
+      const botResponse = `Nice to meet you, ${response}! 😊\n\nWhat's the best email address to send your consultation details?`
+      
+      setTimeout(() => {
+        addMessage(createBotMessage(botResponse, false))
+      }, 800)
+    } else if (!currentContact.email) {
+      // Collecting email
+      setState(prev => ({
+        ...prev,
+        userData: { ...prev.userData, email: response }
+      }))
+      
+      const botResponse = `Perfect! And what's your phone number? We'll use this to coordinate your consultation appointment.`
+      
+      setTimeout(() => {
+        addMessage(createBotMessage(botResponse, false))
+      }, 800)
+    } else if (!currentContact.phone) {
+      // Collecting phone - final step
+      setState(prev => ({
+        ...prev,
+        userData: { ...prev.userData, phone: response },
+        stage: 'completed'
+      }))
+      
+      const botResponse = `Excellent! 🎆 I have all your details:\n\n👤 Name: ${currentContact.name}\n📧 Email: ${currentContact.email}\n📱 Phone: ${response}\n\nI'll send you a calendar link within the next hour to schedule your FREE consultation. You'll receive 3D renderings and a detailed proposal!\n\nThank you for choosing NUVO! ✨`
+      
+      setTimeout(() => {
+        addMessage(createBotMessage(botResponse, false))
+      }, 1000)
+    } else {
+      // If all info is collected, show completion message
+      const botResponse = "Thank you! I have all your information. Our design team will contact you within 24 hours to schedule your FREE consultation. 🎉"
+      
+      setTimeout(() => {
+        addMessage(createBotMessage(botResponse, false))
+      }, 800)
+    }
   }
 
   /**
@@ -326,8 +370,14 @@ export default function Chatbot() {
   const { state, setState, addMessage, processUserResponse } = useIntelligentConversation()
   const [currentInput, setCurrentInput] = useState('')
   const [showWelcomePopup, setShowWelcomePopup] = useState(false)
+  const [isClient, setIsClient] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+
+  // Garante que só renderiza após hidratação completa
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
   /**
    * Scroll automático para a última mensagem
@@ -418,14 +468,14 @@ export default function Chatbot() {
     <>
       {/* Popup de boas-vindas */}
       <AnimatePresence>
-        {showWelcomePopup && !state.isOpen && (
+        {isClient && showWelcomePopup && !state.isOpen && (
           <motion.div
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
-            className="fixed bottom-24 right-6 bg-white rounded-2xl shadow-luxury p-4 max-w-sm z-40 border border-[var(--color-secondary)]/20"
+            className="fixed bottom-24 right-4 sm:right-6 bg-white rounded-2xl shadow-luxury p-4 max-w-xs sm:max-w-sm mx-4 sm:mx-0 z-40 border border-[var(--color-secondary)]/20"
           >
-            <div className="flex items-start space-x-3">
+            <div className="flex items-start space-x-2">
               <div className="w-10 h-10 bg-[var(--color-secondary)] rounded-full flex items-center justify-center flex-shrink-0">
                 <FaRobot className="text-white text-sm" />
               </div>
@@ -459,7 +509,7 @@ export default function Chatbot() {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={state.isOpen ? handleCloseChat : handleOpenChat}
-        className="fixed bottom-6 right-6 w-14 h-14 bg-[var(--color-secondary)] hover:bg-[var(--color-accent)] text-white rounded-full shadow-luxury flex items-center justify-center z-50 transition-all duration-300"
+        className="fixed bottom-6 right-4 sm:right-6 w-14 h-14 bg-[var(--color-secondary)] hover:bg-[var(--color-accent)] text-white rounded-full shadow-luxury flex items-center justify-center z-50 transition-all duration-300"
         data-chatbot-trigger
         aria-label={state.isOpen ? "Close chat" : "Open chat with Sofia"}
       >
@@ -473,23 +523,24 @@ export default function Chatbot() {
 
       {/* Janela do chat */}
       <AnimatePresence>
-        {state.isOpen && (
+        {isClient && state.isOpen && (
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="fixed bottom-24 right-6 w-96 max-w-[calc(100vw-2rem)] h-[500px] bg-white rounded-2xl shadow-luxury flex flex-col z-40 border border-[var(--color-secondary)]/20"
+            className="fixed bottom-24 right-4 sm:right-6 w-full max-w-sm sm:max-w-md lg:max-w-lg xl:max-w-96 mx-4 sm:mx-0 h-[500px] max-h-[80vh] bg-white rounded-2xl shadow-luxury flex flex-col z-40 border border-[var(--color-secondary)]/20"
           >
             {/* Header do chat */}
             <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-[var(--color-secondary)] text-white rounded-t-2xl">
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-2">
                 <div className="w-8 h-8 bg-white rounded-full p-1">
                   <Image
                     src="/images/logo.png"
                     alt="NUVO"
                     width={24}
                     height={24}
-                    className="w-full h-full object-contain"
+                    className="w-full h-auto object-contain"
+                    style={{ maxHeight: '100%' }}
                   />
                 </div>
                 <div>
@@ -500,6 +551,8 @@ export default function Chatbot() {
               <button
                 onClick={handleCloseChat}
                 className="text-white hover:bg-white/20 p-1 rounded transition-colors"
+                data-testid="chatbot-close"
+                aria-label="Close chat"
               >
                 <FaTimes className="text-sm" />
               </button>
@@ -512,7 +565,7 @@ export default function Chatbot() {
                   key={message.id}
                   className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
-                  <div className={`flex max-w-[80%] ${message.sender === 'user' ? 'flex-row-reverse' : 'flex-row'} items-start space-x-2`}>
+                  <div className={`flex max-w-[75%] ${message.sender === 'user' ? 'flex-row-reverse' : 'flex-row'} items-start space-x-1`}>
                     {/* Avatar */}
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
                       message.sender === 'user' 
@@ -540,6 +593,7 @@ export default function Chatbot() {
                               key={index}
                               onClick={() => handleOptionSelect(option)}
                               className="block w-full text-left px-3 py-2 text-xs bg-[var(--color-secondary)]/10 hover:bg-[var(--color-secondary)]/20 text-[var(--color-primary)] rounded-lg transition-colors border border-[var(--color-secondary)]/20"
+                              data-testid={`chatbot-option-${option.toLowerCase().replace(/[^a-z0-9]/g, '-')}`}
                             >
                               {option}
                             </button>
@@ -555,7 +609,7 @@ export default function Chatbot() {
 
             {/* Área de input */}
             <div className="p-4 border-t border-gray-200 bg-white rounded-b-2xl">
-              <div className="flex space-x-2">
+              <div className="flex space-x-1">
                 <input
                   ref={inputRef}
                   type="text"
@@ -569,6 +623,8 @@ export default function Chatbot() {
                   onClick={handleSendMessage}
                   disabled={!currentInput.trim()}
                   className="w-10 h-10 bg-[var(--color-secondary)] hover:bg-[var(--color-accent)] disabled:bg-gray-300 text-white rounded-full flex items-center justify-center transition-colors"
+                  data-testid="chatbot-send"
+                  aria-label="Send message"
                 >
                   <FaPaperPlane className="text-sm" />
                 </button>

@@ -200,12 +200,6 @@ const ProjectSpecsComponent: React.FC<ProjectSpecsProps> = ({ specs }) => {
       value: specs.timeline,
       description: 'Estimated completion time'
     },
-    {
-      icon: FaDollarSign,
-      label: 'Investment Range',
-      value: specs.priceRange,
-      description: 'Price range for similar projects'
-    }
   ]
 
   return (
@@ -331,11 +325,11 @@ const ProjectNotFound: React.FC<{ onBackHome: () => void }> = ({ onBackHome }) =
  * Componente principal da página de projeto
  */
 export default function ProjectPage() {
-  const params = useParams<RouteParams>()
+  const params = useParams()
   const { handleBackToPortfolio, handleStartSimilarProject } = useProjectNavigation()
   
   // Busca o projeto pelos dados usando o ID da URL
-  const project = projectsData.find(p => p.id === parseInt(params.id))
+  const project = projectsData.find(p => p.id === parseInt(params.id as string))
   
   // Hook para gerenciar galeria de imagens
   const { projectImages, currentImage, selectedImage, handleImageSelect } = useImageGallery(project || projectsData[0])

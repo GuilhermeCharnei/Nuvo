@@ -310,8 +310,9 @@ export default function CallToAction() {
               src="/images/logo.png"
               alt="NUVO WOODWORK"
               width={150}
-              height={50}
-              className="brightness-0 invert"
+              height={150}
+              className="brightness-0 invert w-auto h-12"
+              style={{ maxWidth: '150px' }}
             />
           </div>
           <p className="text-gray-400 text-sm max-w-2xl mx-auto">

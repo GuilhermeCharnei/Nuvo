@@ -17,8 +17,6 @@ export interface ProjectSpecs {
   features: string[]
   /** Tempo estimado para conclusão (ex: "8-10 weeks") */
   timeline: string
-  /** Faixa de investimento (ex: "$45,000 - $65,000") */
-  priceRange: string
 }
 
 /** Testemunho de cliente */
@@ -250,8 +248,6 @@ export interface FormValidationState {
 /** Tipo para as chaves das categorias de projeto */
 export type ProjectCategoryKey = 'all' | 'bar' | 'display' | 'entertainment' | 'wine' | 'office' | 'kitchen' | 'living' | 'dining' | 'architectural'
 
-/** Tipo para as chaves das faixas de preço */
-export type PriceRangeKey = 'display' | 'kitchen' | 'entertainment' | 'bar' | 'wine' | 'office' | 'living' | 'dining' | 'architectural'
 
 /** Tipo para configurações de animação */
 export type AnimationDuration = 'fast' | 'normal' | 'slow'

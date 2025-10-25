@@ -66,23 +66,6 @@ export const APP_CONFIG = {
 } as const
 
 // ==========================================
-// FAIXAS DE PREÇOS DOS PROJETOS
-// ==========================================
-
-/** Faixas de preços para diferentes tipos de wall units */
-export const PRICE_RANGES = {
-  display: { min: 15000, max: 50000, label: '$15K-$50K' },
-  kitchen: { min: 25000, max: 75000, label: '$25K-$75K' },
-  entertainment: { min: 35000, max: 85000, label: '$35K-$85K' },
-  bar: { min: 45000, max: 100000, label: '$45K-$100K' },
-  wine: { min: 60000, max: 150000, label: '$60K-$150K+' },
-  office: { min: 35000, max: 75000, label: '$35K-$75K' },
-  living: { min: 40000, max: 100000, label: '$40K-$100K' },
-  dining: { min: 30000, max: 70000, label: '$30K-$70K' },
-  architectural: { min: 15000, max: 50000, label: '$15K-$50K' }
-} as const
-
-// ==========================================
 // CATEGORIAS DE PROJETOS
 // ==========================================
 
@@ -151,17 +134,17 @@ export const CHATBOT_MESSAGES = {
   
   // Mensagens de qualificação
   qualification: {
-    budget: "To design the perfect solution for you, what investment range feels comfortable? I want to show you options that fit both your vision and budget.",
+    budget: "To design the perfect solution for you, what level of solution are you considering? This helps me understand your needs and show you the most suitable options.",
     timeline: "When would you love to be enjoying your new wall unit? This helps me understand if we need to plan around any special occasions or deadlines.",
     decision: "Are you the primary decision-maker for this project, or will others be involved in the final choice?"
   },
   
-  // Opções de orçamento ajustadas para Wall Units
+  // Opções de orçamento removidas
   budgetOptions: [
-    '$15K - $35K',
-    '$35K - $65K', 
-    '$65K - $100K',
-    '$100K - $150K+',
+    'Basic solution',
+    'Standard solution', 
+    'Premium solution',
+    'Luxury solution',
     'I need guidance on this'
   ],
   
@@ -226,8 +209,6 @@ export const STYLE_CLASSES = {
 /** Tipo para as chaves das categorias de projeto */
 export type ProjectCategoryKey = typeof PROJECT_CATEGORIES[number]['key']
 
-/** Tipo para as chaves das faixas de preço */
-export type PriceRangeKey = keyof typeof PRICE_RANGES
 
 /** Tipo para configurações de animação */
 export type AnimationDuration = keyof typeof APP_CONFIG.animation.duration

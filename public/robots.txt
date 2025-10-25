@@ -10,7 +10,7 @@ Allow: /
 # Crawl-delay: 1
 
 # Sitemap location - helps search engines discover all pages
-Sitemap: https://www.nuvodesigngroup.com/sitemap.xml
+Sitemap: https://nuvobars.com/sitemap.xml
 
 # Block specific paths if needed (examples below, adjust based on your needs)
 # Disallow: /api/
@@ -34,4 +34,4 @@ User-agent: SemrushBot
 Crawl-delay: 10
 
 # Host (optional - specify preferred domain)
-# Host: https://www.nuvodesigngroup.com
+# Host: https://nuvobars.com

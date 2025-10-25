@@ -23,7 +23,7 @@ export async function generateMetadata({
   }
 
   // Base URL
-  const baseUrl = 'https://www.nuvodesigngroup.com'
+  const baseUrl = 'https://nuvobars.com'
   const projectUrl = `${baseUrl}/project/${project.id}`
 
   // Extract category name for better SEO
@@ -147,7 +147,7 @@ export default function ProjectLayout({
 }) {
   // Find the project for breadcrumb
   const project = projectsData.find(p => p.id === parseInt(params.id))
-  const baseUrl = 'https://www.nuvodesigngroup.com'
+  const baseUrl = 'https://nuvobars.com'
 
   // Build breadcrumb items
   const breadcrumbItems = [

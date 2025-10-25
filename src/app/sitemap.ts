@@ -3,7 +3,7 @@ import { projectsData } from '@/data/projects'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Base URL - Update this to your actual domain
-  const baseUrl = 'https://www.nuvodesigngroup.com'
+  const baseUrl = 'https://nuvobars.com'
 
   // Current date for lastModified
   const currentDate = new Date()

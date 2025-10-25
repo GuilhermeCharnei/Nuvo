@@ -84,7 +84,7 @@ export const metadata: Metadata = {
   publisher: 'NUVO WOODWORK',
 
   // Base URL
-  metadataBase: new URL('https://www.nuvodesigngroup.com'),
+  metadataBase: new URL('https://nuvobars.com'),
 
   // Alternate Languages (add more as needed)
   alternates: {
@@ -99,8 +99,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://www.nuvodesigngroup.com',
-    siteName: 'NUVO WOODWORK',
+    url: 'https://nuvobars.com',
+    siteName: 'NUVO BARS',
     title: 'NUVO WOODWORK - Custom Wall Units & Luxury Woodwork',
     description: 'Premium custom wall units and luxury woodwork in South Florida. Expert craftsmanship meets bespoke design for wet bars, wine cellars, and architectural features.',
     images: [
@@ -119,7 +119,7 @@ export const metadata: Metadata = {
     title: 'NUVO WOODWORK - Custom Wall Units & Luxury Woodwork',
     description: 'Premium custom wall units and luxury woodwork in South Florida. Expert craftsmanship meets bespoke design.',
     images: ['/images/480969695_620547907386649_7438075877562462263_n_1757113219623.jpg'],
-    creator: '@nuvodesigngroup',
+    creator: '@nuvobars',
   },
 
   // Robots

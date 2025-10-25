@@ -17,8 +17,8 @@ export function OrganizationSchema() {
     "@type": "Organization",
     "name": "NUVO WOODWORK",
     "alternateName": "NUVO Design Group",
-    "url": "https://www.nuvodesigngroup.com",
-    "logo": "https://www.nuvodesigngroup.com/images/logo.png",
+    "url": "https://nuvobars.com",
+    "logo": "https://nuvobars.com/images/logo.png",
     "description": "Premium custom wall units and luxury woodwork in South Florida. Specializing in wet bars, wine cellars, entertainment centers, and architectural features.",
     "address": {
       "@type": "PostalAddress",
@@ -70,9 +70,9 @@ export function LocalBusinessSchema() {
     "@context": "https://schema.org",
     "@type": "FurnitureStore",
     "name": "NUVO WOODWORK",
-    "image": "https://www.nuvodesigngroup.com/images/480969695_620547907386649_7438075877562462263_n_1757113219623.jpg",
-    "@id": "https://www.nuvodesigngroup.com",
-    "url": "https://www.nuvodesigngroup.com",
+    "image": "https://nuvobars.com/images/480969695_620547907386649_7438075877562462263_n_1757113219623.jpg",
+    "@id": "https://nuvobars.com",
+    "url": "https://nuvobars.com",
     "telephone": "+1-561-XXX-XXXX", // Add your phone number
     "priceRange": "$$$",
     "address": {
@@ -234,7 +234,7 @@ export function WebsiteSchema() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "NUVO WOODWORK",
-    "url": "https://www.nuvodesigngroup.com",
+    "url": "https://nuvobars.com",
     "description": "Premium custom wall units and luxury woodwork in South Florida",
     "publisher": {
       "@type": "Organization",
@@ -244,7 +244,7 @@ export function WebsiteSchema() {
       "@type": "SearchAction",
       "target": {
         "@type": "EntryPoint",
-        "urlTemplate": "https://www.nuvodesigngroup.com/?s={search_term_string}"
+        "urlTemplate": "https://nuvobars.com/?s={search_term_string}"
       },
       "query-input": "required name=search_term_string"
     }
@@ -312,7 +312,7 @@ interface ProductSchemaProps {
 }
 
 export function ProductSchema(props: ProductSchemaProps) {
-  const baseUrl = 'https://www.nuvodesigngroup.com'
+  const baseUrl = 'https://nuvobars.com'
 
   // Parse price range
   const priceString = props.priceRange || '$25,000 - $100,000'

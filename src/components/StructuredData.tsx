@@ -41,7 +41,6 @@ export function OrganizationSchema() {
       "https://www.linkedin.com/company/nuvodesigngroup"
     ],
     "foundingDate": "1995",
-    "priceRange": "$$$",
     "areaServed": {
       "@type": "GeoCircle",
       "geoMidpoint": {

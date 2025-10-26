@@ -2,7 +2,7 @@
 
 import Script from 'next/script'
 import { usePathname, useSearchParams } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, Suspense } from 'react'
 
 const GA_MEASUREMENT_ID = 'G-53SZYF5NGW'
 
@@ -14,7 +14,7 @@ declare global {
   }
 }
 
-export function GoogleAnalytics() {
+function AnalyticsTracker() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
@@ -25,8 +25,15 @@ export function GoogleAnalytics() {
     }
   }, [pathname, searchParams])
 
+  return null
+}
+
+export function GoogleAnalytics() {
   return (
     <>
+      <Suspense fallback={null}>
+        <AnalyticsTracker />
+      </Suspense>
       <Script
         strategy="afterInteractive"
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}

@@ -16,6 +16,7 @@ export default function CallToAction() {
     project: '',
     message: ''
   })
+  const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -24,12 +25,50 @@ export default function CallToAction() {
     })
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setFormStatus('submitting')
     trackFormSubmit('Contact Form - CTA Section')
-    // Handle form submission here
-    console.log('Form submitted:', formData)
-    // TODO: Add actual form submission logic (email, database, etc.)
+
+    try {
+      // Formspree endpoint - Configure NEXT_PUBLIC_FORMSPREE_ID no arquivo .env.local
+      const formspreeId = process.env.NEXT_PUBLIC_FORMSPREE_ID || 'YOUR_FORM_ID'
+      const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          project: formData.project,
+          message: formData.message,
+          _subject: `New Contact from NUVO BARS: ${formData.name}`,
+        }),
+      })
+
+      if (response.ok) {
+        setFormStatus('success')
+        // Limpa o formulário
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          project: '',
+          message: ''
+        })
+        // Reset status após 5 segundos
+        setTimeout(() => setFormStatus('idle'), 5000)
+      } else {
+        setFormStatus('error')
+        setTimeout(() => setFormStatus('idle'), 5000)
+      }
+    } catch (error) {
+      console.error('Form submission error:', error)
+      setFormStatus('error')
+      setTimeout(() => setFormStatus('idle'), 5000)
+    }
   }
 
   const contactInfo = [
@@ -47,10 +86,10 @@ export default function CallToAction() {
     {
       icon: FaEnvelope,
       title: 'Email Us',
-      info: 'info@nuvowoodwork.com',
+      info: 'guilherme.charnei@gmail.com',
       subinfo: 'We respond within 24 hours',
       isClickable: true,
-      action: () => window.open('mailto:info@nuvowoodwork.com', '_self')
+      action: () => window.open('mailto:guilherme.charnei@gmail.com', '_self')
     },
     {
       icon: FaMapMarkerAlt,
@@ -289,17 +328,32 @@ export default function CallToAction() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.6, delay: 0.9 }}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: formStatus === 'submitting' ? 1 : 1.02 }}
+                whileTap={{ scale: formStatus === 'submitting' ? 1 : 0.98 }}
                 type="submit"
-                className="w-full bg-[var(--color-secondary)] hover:bg-[var(--color-accent)] text-white py-4 rounded-lg text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
+                disabled={formStatus === 'submitting'}
+                className={`w-full py-4 rounded-lg text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl ${
+                  formStatus === 'success'
+                    ? 'bg-green-600 hover:bg-green-700'
+                    : formStatus === 'error'
+                    ? 'bg-red-600 hover:bg-red-700'
+                    : formStatus === 'submitting'
+                    ? 'bg-gray-400 cursor-not-allowed'
+                    : 'bg-[var(--color-secondary)] hover:bg-[var(--color-accent)]'
+                } text-white`}
               >
-                Get My Wall Unit Quote
+                {formStatus === 'submitting' && 'Sending...'}
+                {formStatus === 'success' && '✓ Message Sent!'}
+                {formStatus === 'error' && '✗ Error - Try Again'}
+                {formStatus === 'idle' && 'Get My Wall Unit Quote'}
               </motion.button>
             </form>
 
             <p className="text-center text-sm text-[var(--color-gray)] mt-4">
-              100% Free • No Obligation • Respond within 24 hours
+              {formStatus === 'success'
+                ? "Thank you! We'll contact you within 24 hours."
+                : '100% Free • No Obligation • Respond within 24 hours'
+              }
             </p>
           </motion.div>
         </div>

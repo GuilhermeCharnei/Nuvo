@@ -9,6 +9,7 @@ import Process from '@/components/Process'
 import SocialProof from '@/components/SocialProof'
 import CallToAction from '@/components/CallToAction'
 import Chatbot from '@/components/Chatbot'
+import FloatingCallButton from '@/components/FloatingCallButton'
 
 export default function Home() {
   return (
@@ -21,6 +22,7 @@ export default function Home() {
       <SocialProof />
       <CallToAction />
       <Chatbot />
+      <FloatingCallButton />
     </main>
   )
 }

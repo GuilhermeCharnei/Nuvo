@@ -4,6 +4,7 @@ import React, { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock } from 'react-icons/fa'
 import Image from 'next/image'
+import { trackPhoneClick, trackCTAClick, trackFormSubmit } from './GoogleAnalytics'
 
 export default function CallToAction() {
   const ref = useRef(null)
@@ -25,18 +26,23 @@ export default function CallToAction() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    trackFormSubmit('Contact Form - CTA Section')
     // Handle form submission here
     console.log('Form submitted:', formData)
+    // TODO: Add actual form submission logic (email, database, etc.)
   }
 
   const contactInfo = [
     {
       icon: FaPhone,
       title: 'Call Us',
-      info: '+1 (305) 555-NUVO',
-      subinfo: 'Available 8AM - 6PM EST',
+      info: '+1 (561) 770-2595',
+      subinfo: 'Available Mon-Fri 9AM - 5PM EST',
       isClickable: true,
-      action: () => window.open('tel:+13055556886', '_self')
+      action: () => {
+        trackPhoneClick()
+        window.open('tel:+15617702595', '_self')
+      }
     },
     {
       icon: FaEnvelope,

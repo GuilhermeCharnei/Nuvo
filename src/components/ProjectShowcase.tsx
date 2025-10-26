@@ -28,6 +28,7 @@ import { FaTimes, FaClock, FaTools, FaQuoteLeft } from 'react-icons/fa'
 import { projectsData } from '@/data/projects'
 import { PROJECT_CATEGORIES, APP_CONFIG, STYLE_CLASSES } from '@/lib/constants'
 import type { Project, ProjectCategoryKey } from '@/types'
+import { trackProjectClick } from './GoogleAnalytics'
 
 /**
  * Hook personalizado para gerenciar estado dos filtros
@@ -83,7 +84,8 @@ const useProjectNavigation = () => {
   /**
    * Navega para a página de detalhes de um projeto específico
    */
-  const handleProjectClick = useCallback((projectId: number) => {
+  const handleProjectClick = useCallback((projectId: number, projectTitle: string) => {
+    trackProjectClick(projectId, projectTitle)
     router.push(`/project/${projectId}`)
   }, [router])
 
@@ -118,13 +120,13 @@ const ProjectCard: React.FC<ProjectCardProps> = React.memo(({
     }
   }), [isInView, index])
 
-  const handleClick = useCallback(() => onClick(project.id), [onClick, project.id])
+  const handleClick = useCallback(() => onClick(project.id, project.title), [onClick, project.id, project.title])
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault()
-      onClick(project.id)
+      onClick(project.id, project.title)
     }
-  }, [onClick, project.id])
+  }, [onClick, project.id, project.title])
 
   return (
     <motion.div

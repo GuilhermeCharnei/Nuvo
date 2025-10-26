@@ -21,6 +21,7 @@ import Image from 'next/image'
 import { CHATBOT_MESSAGES, APP_CONFIG, COMPANY_INFO } from '@/lib/constants'
 import { analyzeCustomerNeeds, generateIntelligentResponse, generateProposal, isReadyForProposal, type CustomerProfile } from '@/lib/chatbotLogic'
 import type { ChatMessage, ConversationStage, ChatbotState } from '@/types'
+import { trackChatbotOpen, trackChatbotMessage } from './GoogleAnalytics'
 
 /**
  * Contador para IDs únicos (evita hydration mismatch)
@@ -416,9 +417,10 @@ export default function Chatbot() {
    * Abre o chatbot e inicia conversa
    */
   const handleOpenChat = () => {
+    trackChatbotOpen()
     setState(prev => ({ ...prev, isOpen: true }))
     setShowWelcomePopup(false)
-    
+
     if (state.messages.length === 0) {
       setTimeout(() => {
         addMessage(createBotMessage(
@@ -442,6 +444,7 @@ export default function Chatbot() {
    */
   const handleSendMessage = () => {
     if (currentInput.trim()) {
+      trackChatbotMessage('user')
       processUserResponse(currentInput.trim())
       setCurrentInput('')
     }

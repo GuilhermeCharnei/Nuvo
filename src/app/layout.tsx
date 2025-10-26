@@ -3,6 +3,7 @@ import { Inter, Poppins } from 'next/font/google'
 import React from 'react'
 import './globals.css'
 import { OrganizationSchema, LocalBusinessSchema, WebsiteSchema, FAQSchema } from '@/components/StructuredData'
+import { GoogleAnalytics } from '@/components/GoogleAnalytics'
 
 // FAQ data for SEO
 const faqs = [
@@ -176,6 +177,7 @@ export default function RootLayout({
         <FAQSchema faqs={faqs} />
       </head>
       <body className={inter.className}>
+        <GoogleAnalytics />
         {children}
       </body>
     </html>

@@ -33,6 +33,11 @@ export default function CallToAction() {
     try {
       // Formspree endpoint - Configure NEXT_PUBLIC_FORMSPREE_ID no arquivo .env.local
       const formspreeId = process.env.NEXT_PUBLIC_FORMSPREE_ID || 'YOUR_FORM_ID'
+
+      // Debug: log para verificar se a variável está sendo carregada
+      console.log('Formspree ID:', formspreeId)
+      console.log('Sending to:', `https://formspree.io/f/${formspreeId}`)
+
       const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
         method: 'POST',
         headers: {
@@ -48,7 +53,11 @@ export default function CallToAction() {
         }),
       })
 
+      console.log('Response status:', response.status)
+      console.log('Response ok:', response.ok)
+
       if (response.ok) {
+        console.log('✅ Form submitted successfully!')
         setFormStatus('success')
         // Limpa o formulário
         setFormData({
@@ -61,11 +70,13 @@ export default function CallToAction() {
         // Reset status após 5 segundos
         setTimeout(() => setFormStatus('idle'), 5000)
       } else {
+        const errorText = await response.text()
+        console.error('❌ Form submission failed:', response.status, errorText)
         setFormStatus('error')
         setTimeout(() => setFormStatus('idle'), 5000)
       }
     } catch (error) {
-      console.error('Form submission error:', error)
+      console.error('❌ Form submission error (catch):', error)
       setFormStatus('error')
       setTimeout(() => setFormStatus('idle'), 5000)
     }

@@ -10,6 +10,7 @@ import SocialProof from '@/components/SocialProof'
 import CallToAction from '@/components/CallToAction'
 import Chatbot from '@/components/Chatbot'
 import FloatingCallButton from '@/components/FloatingCallButton'
+import FloatingEmailButton from '@/components/FloatingEmailButton'
 
 export default function Home() {
   return (
@@ -23,6 +24,7 @@ export default function Home() {
       <CallToAction />
       <Chatbot />
       <FloatingCallButton />
+      <FloatingEmailButton />
     </main>
   )
 }

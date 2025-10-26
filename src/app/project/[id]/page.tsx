@@ -89,16 +89,16 @@ const useProjectNavigation = () => {
   }
   
   /**
-   * Inicia novo projeto similar através do chatbot
+   * Inicia novo projeto similar - rola para o formulário de contato
    */
   const handleStartSimilarProject = () => {
-    router.push('/')
+    router.push('/#contact-form')
     setTimeout(() => {
-      const chatbotButton = document.querySelector('[data-chatbot-trigger]') as HTMLButtonElement
-      if (chatbotButton) {
-        chatbotButton.click()
+      const contactForm = document.querySelector('[data-section="call-to-action"]')
+      if (contactForm) {
+        contactForm.scrollIntoView({ behavior: 'smooth', block: 'start' })
       }
-    }, 1000)
+    }, 500)
   }
   
   return {

@@ -178,25 +178,17 @@ const ProjectCard: React.FC<ProjectCardProps> = React.memo(({
         
         
         {/* Botão Learn More */}
-        <div className="mt-4 flex gap-2">
+        <div className="mt-4">
           <motion.button
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={(e) => {
               e.stopPropagation()
               onLearnMore(project)
             }}
-            className="flex-1 bg-[var(--color-secondary)] hover:bg-[var(--color-accent)] text-white py-2 px-4 rounded-lg text-sm font-semibold transition-all duration-300"
+            className="w-full bg-[var(--color-secondary)] hover:bg-[var(--color-accent)] text-white py-3 px-4 rounded-lg text-sm font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
           >
             Learn More
-          </motion.button>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={handleClick}
-            className="flex-1 bg-transparent border border-[var(--color-secondary)] text-[var(--color-secondary)] hover:bg-[var(--color-secondary)] hover:text-white py-2 px-4 rounded-lg text-sm font-semibold transition-all duration-300"
-          >
-            View Project
           </motion.button>
         </div>
       </div>

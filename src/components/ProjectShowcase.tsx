@@ -99,7 +99,7 @@ interface ProjectCardProps {
   project: Project
   index: number
   isInView: boolean
-  onClick: (projectId: number) => void
+  onClick: (projectId: number, projectTitle: string) => void
   onLearnMore: (project: Project) => void
 }
 

@@ -4,6 +4,7 @@ import React from 'react'
 import './globals.css'
 import { OrganizationSchema, LocalBusinessSchema, WebsiteSchema, FAQSchema } from '@/components/StructuredData'
 import { GoogleAnalytics } from '@/components/GoogleAnalytics'
+import { Analytics } from '@vercel/analytics/next'
 
 // FAQ data for SEO
 const faqs = [
@@ -179,6 +180,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <GoogleAnalytics />
         {children}
+        <Analytics />
       </body>
     </html>
   )
